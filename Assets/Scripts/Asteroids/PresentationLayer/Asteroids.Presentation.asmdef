@@ -1,0 +1,16 @@
+{
+    "name": "Asteroids.Presentation",
+    "rootNamespace": "",
+    "references": [
+        "GUID:adcf53bb11ae3d14cabbd6faefd92d01"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,16 @@
+{
+    "name": "Asteroids.Game",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4038ebbf69325554ba3508545980c2ef"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
