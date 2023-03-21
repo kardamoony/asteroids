@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Asteroids.PresentationLayer
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class WorldBoundaries : MonoBehaviour
+    public class ScreenBoundariesEnforcer : MonoBehaviour
     {
         private Rigidbody _rb;
 

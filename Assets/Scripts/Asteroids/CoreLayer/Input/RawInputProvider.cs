@@ -1,4 +1,3 @@
-using Asteroids.CoreLayer.Interfaces;
 using UnityEngine;
 
 namespace Asteroids.CoreLayer.Input

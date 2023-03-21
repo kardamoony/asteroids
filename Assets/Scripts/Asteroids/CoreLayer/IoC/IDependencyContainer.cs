@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Asteroids.CoreLayer.Interfaces
+namespace Asteroids.CoreLayer.IoC
 {
     public interface IDependencyContainer
     {

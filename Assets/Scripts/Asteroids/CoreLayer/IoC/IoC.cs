@@ -1,6 +1,4 @@
-﻿using Asteroids.CoreLayer.Interfaces;
-
-namespace Asteroids.CoreLayer.IoC
+﻿namespace Asteroids.CoreLayer.IoC
 {
     public class IoC
     {

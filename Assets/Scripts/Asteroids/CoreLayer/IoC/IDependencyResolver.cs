@@ -1,4 +1,4 @@
-﻿namespace Asteroids.CoreLayer.Interfaces
+﻿namespace Asteroids.CoreLayer.IoC
 {
     public interface IDependencyResolver
     {

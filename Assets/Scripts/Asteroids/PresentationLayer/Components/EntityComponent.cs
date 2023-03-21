@@ -12,5 +12,11 @@ namespace Asteroids.PresentationLayer.Components
             Context = context;
             Initialized = context != null;
         }
+
+        public void ClearContext()
+        {
+            Context = default;
+            Initialized = false;
+        }
     }
 }

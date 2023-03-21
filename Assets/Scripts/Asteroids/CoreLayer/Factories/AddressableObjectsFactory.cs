@@ -1,4 +1,5 @@
-﻿using Asteroids.CoreLayer.Interfaces;
+﻿using Asteroids.CoreLayer.AssetsManagement;
+using Asteroids.CoreLayer.Interfaces;
 
 namespace Asteroids.CoreLayer.Factories
 {

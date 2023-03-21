@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 
-namespace Asteroids.CoreLayer.Interfaces
+namespace Asteroids.CoreLayer.AssetsManagement
 {
     public interface IAssetsMap
     {

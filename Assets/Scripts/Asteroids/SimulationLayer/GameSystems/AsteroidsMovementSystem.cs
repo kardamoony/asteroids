@@ -1,33 +1,12 @@
-﻿using System.Collections.Generic;
-using Asteroids.SimulationLayer.Entities;
+﻿using Asteroids.SimulationLayer.Models;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
-    public class AsteroidsMovementSystem : IFixedUpdateSystem
+    public class AsteroidsMovementSystem : MovementSystem
     {
-        private HashSet<IMovable> _movables = new HashSet<IMovable>();
-
-        public void RegisterObject(IMovable movable)
+        public AsteroidsMovementSystem() : base(new ConstantMovement())
         {
-            _movables.Add(movable);
-        }
-
-        public void UnregisterObject(IMovable movable)
-        {
-            _movables.Remove(movable);
-        }
-        
-        public void FixedUpdate(float deltaTime)
-        {
-            Move(deltaTime);
-        }
-
-        private void Move(float deltaTime)
-        {
-            foreach (var movable in _movables)
-            {
-                movable.Velocity = movable.Speed;
-            }
+            
         }
     }
 }

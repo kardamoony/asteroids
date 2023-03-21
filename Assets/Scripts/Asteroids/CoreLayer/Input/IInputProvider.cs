@@ -1,4 +1,4 @@
-namespace Asteroids.CoreLayer.Interfaces
+namespace Asteroids.CoreLayer.Input
 {
     public interface IInputProvider
     {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Asteroids.CoreLayer.Interfaces
+namespace Asteroids.CoreLayer.AssetsManagement
 {
     public interface IAddressableService
     {

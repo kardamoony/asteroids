@@ -13,9 +13,21 @@ MonoBehaviour:
   m_Name: AssetsMap
   m_EditorClassIdentifier: 
   _assets:
+  - Id: PlayerSettings
+    AssetReference:
+      m_AssetGUID: ad134b19511abb54199ddaa9cc936062
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   - Id: Player
     AssetReference:
       m_AssetGUID: 7fa4419f91a0d0941b9c153ca8ffbfa4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Id: Asteroid
+    AssetReference:
+      m_AssetGUID: f552c889dfb308d459c375075f8e4d6d
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

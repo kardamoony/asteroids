@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Asteroids.CoreLayer.AssetsManagement;
-using Asteroids.CoreLayer.Interfaces;
+using Asteroids.CoreLayer.Input;
 using Asteroids.CoreLayer.IoC;
 using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
+using Asteroids.SimulationLayer.Models;
 using Asteroids.SimulationLayer.Settings;
 
 using UnityEngine;
@@ -23,17 +24,24 @@ namespace Asteroids.SimulationLayer.Scene
         {
             var container = new MinimalisticIoCContainer();
             IoC.Instance.SetContainer(container).SetResolver(container);
+            
+            var rotation = new Rotation();
+            var playerInputProvider = GetComponentInChildren<IInputProvider>();
 
             container.Register<IPlayer>((args) => new Player((IPlayerSettings)args[0]));
             container.Register<Asteroid>((args) => new Asteroid((float)args[0]));
+            container.Register<ThrustMovement>((args) 
+                => new ThrustMovement((float)args[0], (float)args[1], (float)args[2]));
 
-            var inputProvider = GetComponentInChildren<IInputProvider>();
-            
-            container.RegisterInstance(inputProvider);
+            container.RegisterInstance(playerInputProvider);
+            container.RegisterInstance(new ConstantInputProvider{VerticalAxis = 1f});
             container.RegisterInstance<IPlayerSettings>(_playerSettings);
             container.RegisterInstance(new AsteroidsMovementSystem());
-            container.RegisterInstance(new PlayerMovementSystem(inputProvider));
-            container.RegisterInstance(new PlayerRotationSystem(inputProvider));
+            container.RegisterInstance(new PlayerMovementSystem(_playerSettings));
+            
+            container.RegisterInstance(rotation);
+
+            container.RegisterInstance(new RotationSystem(rotation));
         }
 
         private void CreatePlayer()
@@ -48,9 +56,11 @@ namespace Asteroids.SimulationLayer.Scene
             playerMovement.SetContext(player.Movable);
             playerRotation.SetContext(player.Rotatable);
             playerCollision.SetContext(player.Collidable);
+
+            var inputProvider = IoC.Instance.Resolver.Resolve<IInputProvider>();
             
-            IoC.Instance.Resolver.Resolve<PlayerMovementSystem>().Register(player);
-            IoC.Instance.Resolver.Resolve<PlayerRotationSystem>().Register(player);
+            IoC.Instance.Resolver.Resolve<PlayerMovementSystem>().Register(player.Movable, inputProvider);
+            IoC.Instance.Resolver.Resolve<RotationSystem>().Register(player.Rotatable, inputProvider);
         }
 
         [ContextMenu("CreateAsteroid")]
@@ -67,7 +77,9 @@ namespace Asteroids.SimulationLayer.Scene
             
             movement.SetContext(movable);
             
-            IoC.Instance.Resolver.Resolve<AsteroidsMovementSystem>().RegisterObject(movable);
+            var inputProvider = IoC.Instance.Resolver.Resolve<ConstantInputProvider>();
+            
+            IoC.Instance.Resolver.Resolve<AsteroidsMovementSystem>().Register(movable, inputProvider);
         }
 
         private void CreateSceneDirector()
@@ -76,7 +88,7 @@ namespace Asteroids.SimulationLayer.Scene
 
             var updateSystems = new List<IUpdateSystem>()
             {
-                IoC.Instance.Resolver.Resolve<PlayerRotationSystem>()
+                IoC.Instance.Resolver.Resolve<RotationSystem>()
             };
 
             var fixedUpdateSystems = new List<IFixedUpdateSystem>
