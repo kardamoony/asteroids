@@ -1,6 +1,6 @@
 using Asteroids.CoreLayer.Input;
 using Asteroids.SimulationLayer.Entities;
-using Asteroids.SimulationLayer.Models;
+using Asteroids.SimulationLayer.Strategies;
 using Moq;
 using NUnit.Framework;
 using UnityEngine;
@@ -24,7 +24,7 @@ public class RotationTests
             ? input * angularSpeed * deltaTime
             : 0f;
         
-        rotation.Rotate(rotatableMock.Object, inputMock.Object, deltaTime);
+        rotation.Execute(rotatableMock.Object, inputMock.Object, deltaTime);
         
         Assert.AreEqual(expectedAngle, rotatableMock.Object.RotationAngle);
     }

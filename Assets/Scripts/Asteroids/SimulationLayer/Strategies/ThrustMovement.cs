@@ -1,11 +1,10 @@
-﻿
-using System;
+﻿using System;
 using Asteroids.CoreLayer.Input;
 using Asteroids.SimulationLayer.Entities;
 
-namespace Asteroids.SimulationLayer.Models
+namespace Asteroids.SimulationLayer.Strategies
 {
-    public class ThrustMovement : IMovementModel
+    public class ThrustMovement : IEntityStrategy<IMovable>
     {
         private readonly float _acceleration;
         private readonly float _deceleration;
@@ -18,21 +17,21 @@ namespace Asteroids.SimulationLayer.Models
             _brake = brake;
         }
         
-        public void Move(IMovable movable, IInputProvider input, float deltaTime)
+        public void Execute(IMovable entity, IInputProvider inputProvider, float deltaTime)
         {
-            var currentVelocity = movable.Velocity;
-            var verticalInput = input.VerticalAxis;
+            var currentVelocity = entity.Velocity;
+            var verticalInput = inputProvider.VerticalAxis;
             
-            if (verticalInput > 0 && currentVelocity < movable.Speed)
+            if (verticalInput > 0 && currentVelocity < entity.Speed)
             {
-                movable.Velocity = Math.Min(currentVelocity + _acceleration * deltaTime, movable.Speed);
+                entity.Velocity = Math.Min(currentVelocity + _acceleration * deltaTime, entity.Speed);
                 return;
             }
             
             if (currentVelocity > 0)
             {
                 var decelerationRate = verticalInput < 0 ? _brake : _deceleration;
-                movable.Velocity = Math.Max(0f, currentVelocity - decelerationRate * deltaTime);
+                entity.Velocity = Math.Max(0f, currentVelocity - decelerationRate * deltaTime);
             }
         }
     }

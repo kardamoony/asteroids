@@ -1,4 +1,4 @@
-using Asteroids.SimulationLayer.Models;
+using Asteroids.SimulationLayer.Strategies;
 using Asteroids.SimulationLayer.Settings;
 
 namespace Asteroids.SimulationLayer.GameSystems

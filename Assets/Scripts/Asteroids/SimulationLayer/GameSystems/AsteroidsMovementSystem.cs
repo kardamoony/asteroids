@@ -1,4 +1,4 @@
-﻿using Asteroids.SimulationLayer.Models;
+﻿using Asteroids.SimulationLayer.Strategies;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {

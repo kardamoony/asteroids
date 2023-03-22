@@ -1,7 +1,7 @@
 ﻿using Asteroids.CoreLayer.Input;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
-using Asteroids.SimulationLayer.Models;
+using Asteroids.SimulationLayer.Strategies;
 using Moq;
 using NUnit.Framework;
 
@@ -10,9 +10,9 @@ public class MovementSystemTests
     [Test]
     public void MovementSystem_UpdatesMovables_IfAnyRegistered()
     {
-        var modelMock = new Mock<IMovementModel>();
+        var modelMock = new Mock<IEntityStrategy<IMovable>>();
         modelMock.Setup(m 
-            => m.Move(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
+            => m.Execute(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
         var movementSystem = new MovementSystem(modelMock.Object);
         
@@ -26,23 +26,23 @@ public class MovementSystemTests
     [Test]
     public void MovementSystem_DoesNotUpdateMovables_IfNoneRegistered()
     {
-        var modelMock = new Mock<IMovementModel>();
+        var modelMock = new Mock<IEntityStrategy<IMovable>>();
         modelMock.Setup(m
-            => m.Move(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
+            => m.Execute(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
         var movementSystem = new MovementSystem(modelMock.Object);
 
         movementSystem.FixedUpdate(1f);
         
-        modelMock.Verify(m => m.Move(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>()), Times.Never);
+        modelMock.Verify(m => m.Execute(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>()), Times.Never);
     }
     
     [Test]
     public void MovementSystem_DoesNotUpdateMovables_IfAllUnregistered()
     {
-        var modelMock = new Mock<IMovementModel>();
+        var modelMock = new Mock<IEntityStrategy<IMovable>>();
         modelMock.Setup(m
-            => m.Move(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
+            => m.Execute(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
         var movementSystem = new MovementSystem(modelMock.Object);
 
@@ -53,13 +53,13 @@ public class MovementSystemTests
 
         movementSystem.FixedUpdate(1f);
         
-        modelMock.Verify(m => m.Move(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>()), Times.Never);
+        modelMock.Verify(m => m.Execute(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>()), Times.Never);
     }
     
     [Test]
     public void MovementSystem_DoesNotThrow_IfDuplicateIsRegistered()
     {
-        var movementSystem = new MovementSystem(Mock.Of<IMovementModel>());
+        var movementSystem = new MovementSystem(Mock.Of<IEntityStrategy<IMovable>>());
 
         var movable = Mock.Of<IMovable>();
         
@@ -71,7 +71,7 @@ public class MovementSystemTests
     [Test]
     public void MovementSystem_DoesNotThrow_IfNotRegisteredIsUnregistered()
     {
-        var movementSystem = new MovementSystem(Mock.Of<IMovementModel>());
+        var movementSystem = new MovementSystem(Mock.Of<IEntityStrategy<IMovable>>());
 
         Assert.DoesNotThrow(() => movementSystem.Unregister(Mock.Of<IMovable>()));
     }

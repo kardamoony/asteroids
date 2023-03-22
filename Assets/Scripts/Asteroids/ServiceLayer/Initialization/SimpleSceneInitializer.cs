@@ -5,7 +5,7 @@ using Asteroids.CoreLayer.IoC;
 using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
-using Asteroids.SimulationLayer.Models;
+using Asteroids.SimulationLayer.Strategies;
 using Asteroids.SimulationLayer.Settings;
 
 using UnityEngine;

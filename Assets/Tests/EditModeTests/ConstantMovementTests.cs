@@ -1,6 +1,6 @@
 ﻿using Asteroids.CoreLayer.Input;
 using Asteroids.SimulationLayer.Entities;
-using Asteroids.SimulationLayer.Models;
+using Asteroids.SimulationLayer.Strategies;
 using Moq;
 using NUnit.Framework;
 
@@ -21,7 +21,7 @@ public class ConstantMovementTests
 
         var expectedVelocity = speed * input;
         
-        movement.Move(movableMock.Object, inputMock.Object, deltaTime);
+        movement.Execute(movableMock.Object, inputMock.Object, deltaTime);
         
         Assert.AreEqual(expectedVelocity, movableMock.Object.Velocity);
     }

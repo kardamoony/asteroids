@@ -1,6 +1,6 @@
 using Asteroids.CoreLayer.Input;
 using Asteroids.SimulationLayer.Entities;
-using Asteroids.SimulationLayer.Models;
+using Asteroids.SimulationLayer.Strategies;
 using NUnit.Framework;
 using Moq;
 using UnityEngine;
@@ -28,7 +28,7 @@ public class ThrustMovementTests
         
         var expectedVelocity = Mathf.Min(acceleration * deltaTime, speed);
         
-        movement.Move(movableMock.Object, inputMock.Object, deltaTime);
+        movement.Execute(movableMock.Object, inputMock.Object, deltaTime);
         
         Assert.AreEqual(expectedVelocity, movableMock.Object.Velocity);
     }
@@ -49,7 +49,7 @@ public class ThrustMovementTests
         
         var expectedVelocity = Mathf.Max(0f, velocity - deceleration * deltaTime);
         
-        movement.Move(movableMock.Object, inputMock.Object, deltaTime);
+        movement.Execute(movableMock.Object, inputMock.Object, deltaTime);
         
         Assert.AreEqual(expectedVelocity, movableMock.Object.Velocity);
     }
@@ -70,7 +70,7 @@ public class ThrustMovementTests
         
         var expectedVelocity = Mathf.Max(0f, velocity - brake * deltaTime);
         
-        movement.Move(movableMock.Object, inputMock.Object, deltaTime);
+        movement.Execute(movableMock.Object, inputMock.Object, deltaTime);
         
         Assert.AreEqual(expectedVelocity, movableMock.Object.Velocity);
     }

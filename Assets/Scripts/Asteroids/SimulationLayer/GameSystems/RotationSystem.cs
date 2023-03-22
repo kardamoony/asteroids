@@ -1,25 +1,25 @@
 using System.Collections.Generic;
 using Asteroids.CoreLayer.Input;
 using Asteroids.SimulationLayer.Entities;
-using Asteroids.SimulationLayer.Models;
+using Asteroids.SimulationLayer.Strategies;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
     public class RotationSystem : IUpdateSystem
     {
-        private readonly IRotationModel _rotationModel;
+        private readonly IEntityStrategy<IRotatable> _rotationStrategy;
         private readonly Dictionary<IRotatable, IInputProvider> _rotatingEntities = new Dictionary<IRotatable, IInputProvider>();
 
-        public RotationSystem(IRotationModel rotationModel)
+        public RotationSystem(IEntityStrategy<IRotatable> rotationStrategy)
         {
-            _rotationModel = rotationModel;
+            _rotationStrategy = rotationStrategy;
         }
 
         public void Update(float deltaTime)
         {
             foreach (var pair in _rotatingEntities)
             {
-                _rotationModel.Rotate(pair.Key, pair.Value, deltaTime);
+                _rotationStrategy.Execute(pair.Key, pair.Value, deltaTime);
             }
         }
 

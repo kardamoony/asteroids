@@ -1,25 +1,25 @@
 ﻿using System.Collections.Generic;
 using Asteroids.CoreLayer.Input;
 using Asteroids.SimulationLayer.Entities;
-using Asteroids.SimulationLayer.Models;
+using Asteroids.SimulationLayer.Strategies;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
     public class MovementSystem : IFixedUpdateSystem
     {
-        private readonly IMovementModel _model;
+        private readonly IEntityStrategy<IMovable> _strategy;
         private readonly Dictionary<IMovable, IInputProvider> _movingEntities = new Dictionary<IMovable, IInputProvider>();
 
-        public MovementSystem(IMovementModel model)
+        public MovementSystem(IEntityStrategy<IMovable> strategy)
         {
-            _model = model;
+            _strategy = strategy;
         }
 
         public void FixedUpdate(float fixedDeltaTime)
         {
             foreach (var pair in _movingEntities)
             {
-                _model.Move(pair.Key, pair.Value, fixedDeltaTime);
+                _strategy.Execute(pair.Key, pair.Value, fixedDeltaTime);
             }
         }
 

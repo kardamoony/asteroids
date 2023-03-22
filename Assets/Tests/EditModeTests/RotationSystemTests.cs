@@ -1,7 +1,7 @@
 ﻿using Asteroids.CoreLayer.Input;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
-using Asteroids.SimulationLayer.Models;
+using Asteroids.SimulationLayer.Strategies;
 using Moq;
 using NUnit.Framework;
 
@@ -10,9 +10,9 @@ public class RotationSystemTests
     [Test]
     public void RotationSystem_UpdatesRotation_IfAnyRegistered()
     {
-        var modelMock = new Mock<IRotationModel>();
+        var modelMock = new Mock<IEntityStrategy<IRotatable>>();
         modelMock.Setup(m 
-            => m.Rotate(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
+            => m.Execute(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
         var rotationSystem = new RotationSystem(modelMock.Object);
         
@@ -26,23 +26,23 @@ public class RotationSystemTests
     [Test]
     public void RotationSystem_DoesNotUpdateRotation_IfNoneRegistered()
     {
-        var modelMock = new Mock<IRotationModel>();
+        var modelMock = new Mock<IEntityStrategy<IRotatable>>();
         modelMock.Setup(m
-            => m.Rotate(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
+            => m.Execute(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
         var movementSystem = new RotationSystem(modelMock.Object);
 
         movementSystem.Update(1f);
         
-        modelMock.Verify(m => m.Rotate(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>()), Times.Never);
+        modelMock.Verify(m => m.Execute(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>()), Times.Never);
     }
     
     [Test]
     public void RotationSystem_DoesNotUpdateRotation_IfAllUnregistered()
     {
-        var modelMock = new Mock<IRotationModel>();
+        var modelMock = new Mock<IEntityStrategy<IRotatable>>();
         modelMock.Setup(m
-            => m.Rotate(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
+            => m.Execute(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
         var movementSystem = new RotationSystem(modelMock.Object);
 
@@ -53,13 +53,13 @@ public class RotationSystemTests
 
         movementSystem.Update(1f);
         
-        modelMock.Verify(m => m.Rotate(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>()), Times.Never);
+        modelMock.Verify(m => m.Execute(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>()), Times.Never);
     }
     
     [Test]
     public void RotationSystem_DoesNotThrow_IfDuplicateIsRegistered()
     {
-        var rotationSystem = new RotationSystem(Mock.Of<IRotationModel>());
+        var rotationSystem = new RotationSystem(Mock.Of<IEntityStrategy<IRotatable>>());
 
         var rotatable = Mock.Of<IRotatable>();
         
@@ -71,7 +71,7 @@ public class RotationSystemTests
     [Test]
     public void RotationSystem_MovementSystem_DoesNotThrow_IfNotRegisteredIsUnregistered()
     {
-        var rotationSystem = new RotationSystem(Mock.Of<IRotationModel>());
+        var rotationSystem = new RotationSystem(Mock.Of<IEntityStrategy<IRotatable>>());
 
         Assert.DoesNotThrow(() => rotationSystem.Unregister(Mock.Of<IRotatable>()));
     }
