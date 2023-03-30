@@ -9,19 +9,22 @@ namespace Asteroids.PresentationLayer.Components
         private void OnCollisionEnter(Collision collision)
         {
             if (!Initialized) return;
-            Context.HandleCollisionEnter(collision);
+            var other = collision.gameObject.GetComponent<CollisionComponent>();
+            Context.HandleCollisionEnter(other.Context);
         }
 
-        private void OnCollisionExit(Collision other)
+        private void OnCollisionExit(Collision collision)
         {
             if (!Initialized) return;
-            Context.HandleCollisionExit(other);
+            var other = collision.gameObject.GetComponent<CollisionComponent>();
+            Context.HandleCollisionExit(other.Context);
         }
 
-        private void OnCollisionStay(Collision collisionInfo)
+        private void OnCollisionStay(Collision collision)
         {
             if (!Initialized) return;
-            Context.HandleCollisionStay(collisionInfo);
+            var other = collision.gameObject.GetComponent<CollisionComponent>();
+            Context.HandleCollisionStay(other.Context);
         }
     }
 }

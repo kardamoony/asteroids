@@ -1,4 +1,6 @@
-﻿namespace Asteroids.SimulationLayer.Settings
+﻿using Generated;
+
+namespace Asteroids.SimulationLayer.Settings
 {
     public interface IPlayerSettings
     {
@@ -7,5 +9,10 @@
         float Acceleration { get; }
         float Deceleration { get; }
         float Brake { get; }
+        
+        int InitialHealth { get; }
+        int Damage { get; }
+        
+        AssetId ProjectileId { get; }
     }
 }

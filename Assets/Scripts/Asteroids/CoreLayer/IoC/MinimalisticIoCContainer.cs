@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Asteroids.CoreLayer.Interfaces;
 
 namespace Asteroids.CoreLayer.IoC
 {
@@ -33,7 +32,7 @@ namespace Asteroids.CoreLayer.IoC
             _instances.Add(type, instance);
         }
 
-        public T Resolve<T>(object[] args = null)
+        public T Resolve<T>(params object[] args)
         {
             var type = typeof(T);
             

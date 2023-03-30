@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace Asteroids.PresentationLayer.Components
 {
-    public abstract class EntityComponent<T> : MonoBehaviour
+    [RequireComponent(typeof(EntityView))]
+    public abstract class EntityComponent<T> : EntityComponentBase
     {
         protected T Context { get; private set; }
         protected bool Initialized { get; private set; }
@@ -11,12 +12,22 @@ namespace Asteroids.PresentationLayer.Components
         {
             Context = context;
             Initialized = context != null;
+            OnContextSet();
         }
 
-        public void ClearContext()
+        public override void ClearContext()
         {
+            if (!Initialized)
+            {
+                return;
+            }
+            
             Context = default;
             Initialized = false;
+            OnContextCleared();
         }
+
+        protected virtual void OnContextSet(){}
+        protected virtual void OnContextCleared(){}
     }
 }

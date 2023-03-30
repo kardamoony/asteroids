@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-
-namespace Asteroids.SimulationLayer.Entities
+﻿namespace Asteroids.SimulationLayer.Entities
 {
     public interface ICollidable
     {
-        void HandleCollisionEnter(Collision collision);
-        void HandleCollisionExit(Collision collision);
-        void HandleCollisionStay(Collision collision);
+        int Damage { get; }
+        
+        void HandleCollisionEnter(ICollidable collision);
+        void HandleCollisionExit(ICollidable collision);
+        void HandleCollisionStay(ICollidable collision);
     }
 }

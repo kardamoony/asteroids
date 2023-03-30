@@ -1,6 +1,6 @@
 namespace Asteroids.SimulationLayer.Entities
 {
-    public class Asteroid : IMovable
+    public class Asteroid : Entity, IMovable
     {
         public float Speed { get; }
         public float Velocity { get; set; }

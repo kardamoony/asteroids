@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Asteroids.PresentationLayer.Components
 {
     [RequireComponent(typeof(Rigidbody))]
+    [DisallowMultipleComponent]
     public class MovementComponent : EntityComponent<IMovable>
     {
         private Transform _transform;

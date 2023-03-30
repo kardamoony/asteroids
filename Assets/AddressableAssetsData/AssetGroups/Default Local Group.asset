@@ -17,17 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 04d1271cdd337e24b9c5a7c920200f16
   m_SerializeEntries:
-  - m_GUID: 7fa4419f91a0d0941b9c153ca8ffbfa4
-    m_Address: Player
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
-  - m_GUID: ad134b19511abb54199ddaa9cc936062
-    m_Address: PlayerSettings
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: f552c889dfb308d459c375075f8e4d6d
-    m_Address: Assets/Content/AssetsMap/Prefabs/Sphere.prefab
+  - m_GUID: 4849b02a23b48b94b9e0c5c54a0fb48a
+    m_Address: Assets/Content/AssetsMap/AddressableAssets
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

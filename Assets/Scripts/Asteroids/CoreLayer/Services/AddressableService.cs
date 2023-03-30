@@ -1,29 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Asteroids.CoreLayer.AssetsManagement;
-using Asteroids.CoreLayer.Interfaces;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Asteroids.CoreLayer.Services
 {
     public sealed class AddressableService : IAddressableService
     {
         private readonly Dictionary<string, AssetReference> _assetsMap;
+        //private readonly Dictionary<string, AsyncOperationHandle> _handles;
 
         public AddressableService(IAssetsMap assetsMap)
         {
             _assetsMap = assetsMap.GetAssetsMap();
         }
+
+        public async void Initialize()
+        {
+            var handle = Addressables.InitializeAsync();
+            await handle.Task;
+        }
         
-        public async Task<T> LoadAsync<T>(string id)
+        public void LoadAsync<TObject>(string id, Action<AsyncOperationHandle<TObject>> callback)
         {
             var reference = GetAssetReference(id);
-            var handle = Addressables.LoadAssetAsync<T>(reference);
-            
-            await handle.Task;
-            return handle.Result;
+            var handle = Addressables.LoadAssetAsync<TObject>(reference);
+
+            handle.Completed += callback;
         }
         
         public void Release<TObject>(TObject asset)

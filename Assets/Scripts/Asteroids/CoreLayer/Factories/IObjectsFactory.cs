@@ -1,7 +1,10 @@
-﻿namespace Asteroids.CoreLayer.Factories
+﻿using System;
+
+namespace Asteroids.CoreLayer.Factories
 {
-    public interface IObjectsFactory
+    public interface IObjectsFactory<TObject>
     {
-        T Get<T>(string id);
+        void Get<T>(string id, Action<T> callback);
+        void Release(TObject obj);
     }
 }

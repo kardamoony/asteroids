@@ -2,6 +2,6 @@
 {
     public interface IDependencyResolver
     {
-        T Resolve<T>(object[] args = null);
+        T Resolve<T>(params object[] args);
     }
 }

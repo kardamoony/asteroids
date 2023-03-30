@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb84f4cd26f436bbead53a6eb317023, type: 3}
   m_Name: AssetsMap
   m_EditorClassIdentifier: 
+  _assetsFolder: Assets/Content/AssetsMap/AddressableAssets
+  _assetsDescriptionFolder: Assets/Scripts/Asteroids/CoreLayer/AssetsManagement/Generated
   _assets:
-  - Id: PlayerSettings
+  - Id: Asteroid
     AssetReference:
-      m_AssetGUID: ad134b19511abb54199ddaa9cc936062
+      m_AssetGUID: f552c889dfb308d459c375075f8e4d6d
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -25,9 +27,9 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Id: Asteroid
+  - Id: PlayerSettings
     AssetReference:
-      m_AssetGUID: f552c889dfb308d459c375075f8e4d6d
+      m_AssetGUID: ad134b19511abb54199ddaa9cc936062
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
