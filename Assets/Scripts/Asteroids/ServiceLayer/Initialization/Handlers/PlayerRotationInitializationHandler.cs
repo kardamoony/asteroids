@@ -4,19 +4,19 @@ using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
 
-namespace Asteroids.ServiceLayer.Initialization
+namespace Asteroids.ServiceLayer.Initialization.Handlers
 {
-    public class ProjectileSpawnerInitializationHandler : IInitializationHandler
+    public class PlayerRotationInitializationHandler : IInitializationHandler
     {
         public IInitializationHandler Next { get; set; }
         
         public void HandleInitialization(IEntity entity, IEntityComponent component)
         {
-            if (entity is IPlayer player && component is SpawnerComponent spawnerComponent)
+            if (entity is IRotatable rotatable && component is RotationComponent movementComponent)
             {
-                spawnerComponent.SetContext(player.Spawner);
+                movementComponent.SetContext(rotatable);
                 var inputProvider = IoC.Instance.Resolver.Resolve<IInputProvider>();
-                IoC.Instance.Resolver.Resolve<ProjectileSpawnSystem>().Register(player.Spawner, inputProvider);
+                IoC.Instance.Resolver.Resolve<RotationSystem>().Register(rotatable, inputProvider);
                 return;
             }
             
@@ -25,13 +25,13 @@ namespace Asteroids.ServiceLayer.Initialization
 
         public void HandleDeinitialization(IEntity entity)
         {
-            if (entity is IPlayer player)
+            if (entity is IRotatable rotatable)
             {
-                IoC.Instance.Resolver.Resolve<ProjectileSpawnSystem>().Unregister(player.Spawner);
+                IoC.Instance.Resolver.Resolve<RotationSystem>().Unregister(rotatable);
                 return;
             }
             
-            Next?.HandleDeinitialization(entity);
+            Next.HandleDeinitialization(entity);
         }
     }
 }

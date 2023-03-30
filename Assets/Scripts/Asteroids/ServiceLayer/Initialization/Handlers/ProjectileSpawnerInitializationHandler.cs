@@ -4,21 +4,19 @@ using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
 
-namespace Asteroids.ServiceLayer.Initialization
+namespace Asteroids.ServiceLayer.Initialization.Handlers
 {
-    public class AsteroidMovementInitializationHandler : IInitializationHandler
+    public class ProjectileSpawnerInitializationHandler : IInitializationHandler
     {
         public IInitializationHandler Next { get; set; }
         
         public void HandleInitialization(IEntity entity, IEntityComponent component)
         {
-            if (entity is Asteroid asteroid && component is MovementComponent movementComponent)
+            if (entity is IPlayer player && component is SpawnerComponent spawnerComponent)
             {
-                movementComponent.SetContext(asteroid);
-                var input = IoC.Instance.Resolver.Resolve<ConstantInputProvider>();
-                input.VerticalAxis = 1f;
-                
-                IoC.Instance.Resolver.Resolve<ConstantMovementSystem>().Register(asteroid, input);
+                spawnerComponent.SetContext(player.Spawner);
+                var inputProvider = IoC.Instance.Resolver.Resolve<IInputProvider>();
+                IoC.Instance.Resolver.Resolve<ProjectileSpawnSystem>().Register(player.Spawner, inputProvider);
                 return;
             }
             
@@ -27,9 +25,9 @@ namespace Asteroids.ServiceLayer.Initialization
 
         public void HandleDeinitialization(IEntity entity)
         {
-            if (entity is Asteroid movable)
+            if (entity is IPlayer player)
             {
-                IoC.Instance.Resolver.Resolve<ConstantMovementSystem>().Unregister(movable);
+                IoC.Instance.Resolver.Resolve<ProjectileSpawnSystem>().Unregister(player.Spawner);
                 return;
             }
             

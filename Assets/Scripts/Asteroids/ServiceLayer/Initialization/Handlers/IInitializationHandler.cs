@@ -1,6 +1,6 @@
 ﻿using Asteroids.SimulationLayer.Entities;
 
-namespace Asteroids.ServiceLayer.Initialization
+namespace Asteroids.ServiceLayer.Initialization.Handlers
 {
     public interface IInitializationHandler
     {

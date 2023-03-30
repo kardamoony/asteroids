@@ -1,7 +1,7 @@
 ﻿using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 
-namespace Asteroids.ServiceLayer.Initialization
+namespace Asteroids.ServiceLayer.Initialization.Handlers
 {
     public class CollisionInitializationHandler : IInitializationHandler
     {

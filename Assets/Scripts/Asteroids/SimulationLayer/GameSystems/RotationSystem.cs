@@ -15,9 +15,9 @@ namespace Asteroids.SimulationLayer.GameSystems
 
         public void Update(float deltaTime)
         {
-            EntitiesInputMap.RemovePending();
             EntitiesInputMap.AddPending();
-            
+            EntitiesInputMap.RemovePending();
+
             EntitiesInputMap.Foreach((rotatable, input) => _strategy.Execute(rotatable, input, deltaTime));
         }
     }

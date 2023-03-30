@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using UnityEngine;
 
-namespace Asteroids.PresentationLayer.Components
+namespace Asteroids.PresentationLayer.Views
 {
     [DisallowMultipleComponent]
     public class EntityView : MonoBehaviour, IEntityView

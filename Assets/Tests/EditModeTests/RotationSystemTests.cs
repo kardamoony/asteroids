@@ -64,7 +64,7 @@ public class RotationSystemTests
         var rotatable = Mock.Of<IRotatable>();
         
         rotationSystem.Register(rotatable, Mock.Of<IInputProvider>());
-        
+
         Assert.DoesNotThrow(() => rotationSystem.Register(rotatable, Mock.Of<IInputProvider>()));
     }
     

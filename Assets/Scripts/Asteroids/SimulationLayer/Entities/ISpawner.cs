@@ -6,7 +6,7 @@ namespace Asteroids.SimulationLayer.Entities
 {
     public interface ISpawner
     {
-        event Action<GameObject> OnSpawned;
+        event Action<string, GameObject> OnSpawned;
         
         AssetId SpawnedAssetId { get; }
         float SpawnDelay { get; }

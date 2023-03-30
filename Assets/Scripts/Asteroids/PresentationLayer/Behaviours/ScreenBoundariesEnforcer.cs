@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Asteroids.PresentationLayer
+namespace Asteroids.PresentationLayer.Behaviours
 {
     [RequireComponent(typeof(Rigidbody))]
     public class ScreenBoundariesEnforcer : MonoBehaviour

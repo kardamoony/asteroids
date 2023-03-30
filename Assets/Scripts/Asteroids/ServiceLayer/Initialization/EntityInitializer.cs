@@ -1,6 +1,7 @@
 ﻿using System;
 using Asteroids.CoreLayer.Factories;
 using Asteroids.CoreLayer.IoC;
+using Asteroids.ServiceLayer.Initialization.Handlers;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
 using Asteroids.SimulationLayer.Initialization;

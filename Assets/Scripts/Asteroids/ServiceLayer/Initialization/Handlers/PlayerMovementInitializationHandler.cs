@@ -4,19 +4,19 @@ using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
 
-namespace Asteroids.ServiceLayer.Initialization
+namespace Asteroids.ServiceLayer.Initialization.Handlers
 {
-    public class PlayerRotationInitializationHandler : IInitializationHandler
+    public class PlayerMovementInitializationHandler : IInitializationHandler
     {
         public IInitializationHandler Next { get; set; }
         
         public void HandleInitialization(IEntity entity, IEntityComponent component)
         {
-            if (entity is IRotatable rotatable && component is RotationComponent movementComponent)
+            if (entity is IPlayer player && component is MovementComponent movementComponent)
             {
-                movementComponent.SetContext(rotatable);
+                movementComponent.SetContext(player.Movable);
                 var inputProvider = IoC.Instance.Resolver.Resolve<IInputProvider>();
-                IoC.Instance.Resolver.Resolve<RotationSystem>().Register(rotatable, inputProvider);
+                IoC.Instance.Resolver.Resolve<ThrustMovementSystem>().Register(player.Movable, inputProvider);
                 return;
             }
             
@@ -25,9 +25,9 @@ namespace Asteroids.ServiceLayer.Initialization
 
         public void HandleDeinitialization(IEntity entity)
         {
-            if (entity is IRotatable rotatable)
+            if (entity is IPlayer player)
             {
-                IoC.Instance.Resolver.Resolve<RotationSystem>().Unregister(rotatable);
+                IoC.Instance.Resolver.Resolve<ThrustMovementSystem>().Unregister(player.Movable);
                 return;
             }
             

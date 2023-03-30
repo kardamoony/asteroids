@@ -18,7 +18,7 @@ namespace Asteroids.PresentationLayer.Components
             Context.OnSpawned -= HandleObjectSpawned;
         }
 
-        protected virtual void HandleObjectSpawned(GameObject o)
+        protected virtual void HandleObjectSpawned(string id, GameObject o)
         {
             var t = o.transform;
             

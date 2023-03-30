@@ -7,7 +7,7 @@ namespace Asteroids.SimulationLayer.Entities
 {
     public class Player : Entity, IPlayer, IMovable, IRotatable, ICollidable, ISpawner
     {
-        public event Action <GameObject> OnSpawned;
+        public event Action <string, GameObject> OnSpawned;
         
         public IMovable Movable => this;
         public IRotatable Rotatable => this;
@@ -25,9 +25,10 @@ namespace Asteroids.SimulationLayer.Entities
         public int Damage { get; }
 
         public float SpawnDelay { get; } = 0.5f;
+        
         public void InvokeSpawnedEvent(GameObject gameObject)
         {
-            OnSpawned?.Invoke(gameObject);
+            OnSpawned?.Invoke(SpawnedAssetId.ToString(), gameObject);
         }
 
         public Player(IPlayerSettings settingsProvider)
