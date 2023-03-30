@@ -36,6 +36,7 @@ namespace Asteroids.CoreLayer.Factories
             _addressableService.LoadAsync<GameObject>(id, handle =>
             {
                 var gameObject = Object.Instantiate(handle.Result);
+                _inUse.Add(gameObject, id);
                 var obj = gameObject.GetComponent<T>();
                 callback.Invoke(obj);
             });

@@ -6,7 +6,7 @@ namespace Asteroids.SimulationLayer.GameSystems
     public abstract class InputReadingSystem<TEntity>
     {
         protected IEntitiesInputMap<TEntity> EntitiesInputMap;
-
+ 
         public void Register(TEntity entity, IInputProvider inputProvider)
         {
             EntitiesInputMap.Register(entity, inputProvider);

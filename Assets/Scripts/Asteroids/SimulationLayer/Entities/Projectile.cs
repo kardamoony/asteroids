@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using System;
 
 namespace Asteroids.SimulationLayer.Entities
 {
@@ -13,16 +13,11 @@ namespace Asteroids.SimulationLayer.Entities
 
         public int Damage { get; } = 1;
 
-        public Projectile(float speed)
+        public Projectile(float speed) : base(new TimeSpan(0, 0, 3))
         {
             Speed = speed;
         }
 
-        public void InvokeDestructionEvent(GameObject gameObject, float destructionDelay)
-        {
-            //TODO: return object to pool
-        }
-        
         public void HandleCollisionEnter(ICollidable other)
         {
             Health = 0;

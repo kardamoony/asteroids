@@ -44,8 +44,8 @@ namespace Asteroids.SimulationLayer.Scene
                 new CollisionInitializationHandler(),
                 new AsteroidMovementInitializationHandler(),
                 new ProjectileMovementInitializationHandler(),
-                new ProjectileSpawnerInitializationHandler()
-            });
+                new ProjectileSpawnerInitializationHandler(),
+            }, gameObjectsFactory);
             
             container.RegisterInstance<IEntityInitializer>(initializer);
             
@@ -61,6 +61,7 @@ namespace Asteroids.SimulationLayer.Scene
             container.RegisterInstance(new ThrustMovementSystem(_playerSettings));
             container.RegisterInstance(new RotationSystem(rotation));
             container.RegisterInstance(new ProjectileSpawnSystem(gameObjectsFactory, initializer));
+            container.RegisterInstance(new EntityLifespanSystem(initializer));
 
             //entities
             container.Register<IPlayer>(args => new Player((IPlayerSettings)args[0]));
@@ -100,7 +101,8 @@ namespace Asteroids.SimulationLayer.Scene
             var updateSystems = new List<IUpdateSystem>()
             {
                 IoC.Instance.Resolver.Resolve<RotationSystem>(),
-                IoC.Instance.Resolver.Resolve<ProjectileSpawnSystem>()
+                IoC.Instance.Resolver.Resolve<ProjectileSpawnSystem>(),
+                IoC.Instance.Resolver.Resolve<EntityLifespanSystem>()
             };
 
             var fixedUpdateSystems = new List<IFixedUpdateSystem>

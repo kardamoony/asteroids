@@ -1,14 +1,21 @@
-﻿using Asteroids.SimulationLayer.Entities;
+﻿using System;
+using Asteroids.CoreLayer.Factories;
+using Asteroids.CoreLayer.IoC;
+using Asteroids.SimulationLayer.Entities;
+using Asteroids.SimulationLayer.GameSystems;
 using Asteroids.SimulationLayer.Initialization;
+using UnityEngine;
 
 namespace Asteroids.ServiceLayer.Initialization
 {
     public class EntityInitializer : IEntityInitializer
     {
         private readonly IInitializationHandler _handler;
+        private readonly IObjectsFactory<GameObject> _factory;
 
-        public EntityInitializer(IInitializationHandler[] handlers)
+        public EntityInitializer(IInitializationHandler[] handlers, IObjectsFactory<GameObject> factory)
         {
+            _factory = factory;
             _handler = handlers[0];
             
             for (var i = 0; i < handlers.Length - 1; i++)
@@ -19,17 +26,34 @@ namespace Asteroids.ServiceLayer.Initialization
         
         public void InitializeEntity(IEntity entity, IEntityView entityView)
         {
-            entity.EntityView = entityView;
+            if (entity.Initialized)
+            {
+                return;
+            }
+            
+            entity.Initialize(entityView);
+            
             var viewComponents = entityView.GetComponents();
   
             foreach (var component in viewComponents)
             {
                 _handler.HandleInitialization(entity, component);
             }
+            
+            entity.InitializationTime = DateTime.Now;
+
+            IoC.Instance.Resolver.Resolve<EntityLifespanSystem>().Register(entity);
         }
 
         public void DeinitializeEntity(IEntity entity)
         {
+            IoC.Instance.Resolver.Resolve<EntityLifespanSystem>().Unregister(entity);
+
+            if (!entity.Initialized)
+            {
+                return;
+            }
+            
             var viewComponents = entity.EntityView.GetComponents();
 
             foreach (var component in viewComponents)
@@ -38,7 +62,9 @@ namespace Asteroids.ServiceLayer.Initialization
             }
             
             _handler.HandleDeinitialization(entity);
-            entity.EntityView = null;
+            _factory.Release(entity.EntityView.GameObject);
+            
+            entity.Denitialize();
         }
     }
 }
