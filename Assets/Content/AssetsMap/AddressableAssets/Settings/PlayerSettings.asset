@@ -19,4 +19,4 @@ MonoBehaviour:
   _brake: 15
   _initialHealth: 4
   _damage: 1
-  _projectileId: 3
+  _projectileId: 4

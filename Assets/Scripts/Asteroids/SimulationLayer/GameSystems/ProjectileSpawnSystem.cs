@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
-    public class ProjectileSpawnSystem : SpawnSystem
+    public class ProjectileSpawnSystem : InputSpawnSystem
     {
         public ProjectileSpawnSystem(IObjectsFactory<GameObject> factory, IEntityInitializer initializer) 
             : base(new ProjectileSpawnStrategy(factory, initializer))

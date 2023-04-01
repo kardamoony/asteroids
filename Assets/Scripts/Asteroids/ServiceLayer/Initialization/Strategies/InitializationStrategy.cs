@@ -36,6 +36,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             CreateRoot();
             RegisterDependencies();
             CreatePlayer();
+            CreateSpawners();
             CreateSceneDirector();
             
             IoC.Instance.Resolver.Resolve<IAddressableService>().Initialize();
@@ -47,14 +48,15 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             _rootTransform = _root.transform;
             _playerInput = _root.AddComponent<RawInputProvider>();
         }
-        
+
         private void RegisterDependencies()
         {
             var container = new MinimalisticIoCContainer();
             
             var addressableService = new AddressableService(_assetsMap);
-            var rotation = new Rotation();
             var gameObjectsFactory = new GameObjectsFactory(addressableService, _rootTransform);
+
+            var initializer = CreateEntityInitializer(gameObjectsFactory);
             
             IoC.Instance.SetContainer(container).SetResolver(container);
             
@@ -64,39 +66,28 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             container.RegisterInstance<IObjectsFactory<GameObject>>(gameObjectsFactory);
             
             //initialization
-            var initializer = new EntityInitializer(new IInitializationHandler[]
-            {
-                new PlayerMovementInitializationHandler(),
-                new PlayerRotationInitializationHandler(),
-                new CollisionInitializationHandler(),
-                new AsteroidMovementInitializationHandler(),
-                new ProjectileMovementInitializationHandler(),
-                new ProjectileSpawnerInitializationHandler(),
-            }, gameObjectsFactory);
-            
-            container.RegisterInstance<IEntityInitializer>(initializer);
+            container.RegisterInstance(initializer);
             
             //input
             container.RegisterInstance(_playerInput);
             container.RegisterInstance(new ConstantInputProvider{VerticalAxis = 1f});
             
             //settings
-            container.RegisterInstance<IPlayerSettings>(_playerSettings);
+            container.RegisterInstance(_playerSettings);
             
             //systems
             container.RegisterInstance(new ConstantMovementSystem());
             container.RegisterInstance(new ThrustMovementSystem(_playerSettings));
-            container.RegisterInstance(new RotationSystem(rotation));
+            container.RegisterInstance(new RotationSystem(new Rotation()));
             container.RegisterInstance(new ProjectileSpawnSystem(gameObjectsFactory, initializer));
+            container.RegisterInstance(new AsteroidSpawnSystem(gameObjectsFactory, initializer));
             container.RegisterInstance(new EntityLifespanSystem(initializer));
 
             //entities
             container.Register<IPlayer>(args => new Player((IPlayerSettings)args[0]));
             container.Register<IProjectile>(args => new Projectile(20f));
             container.Register<Asteroid>(args => new Asteroid((float)args[0]));
-            
-            //entity strategies
-            container.Register<ThrustMovement>(args => new ThrustMovement((float)args[0], (float)args[1], (float)args[2]));
+            container.Register<AsteroidSpawner>(args => new AsteroidSpawner());
         }
         
         private void CreatePlayer()
@@ -109,6 +100,17 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
                 IoC.Instance.Resolver.Resolve<IEntityInitializer>().InitializeEntity((IEntity)player, o);
             });
         }
+
+        private void CreateSpawners()
+        {
+            IoC.Instance.Resolver.Resolve<IObjectsFactory<GameObject>>().Get<IEntityView>(
+                AssetId.AsteroidSpawner.ToString(),
+                o =>
+                {
+                    var spawner = IoC.Instance.Resolver.Resolve<AsteroidSpawner>();
+                    IoC.Instance.Resolver.Resolve<IEntityInitializer>().InitializeEntity(spawner, o);
+                });
+        }
         
         private void CreateSceneDirector()
         {
@@ -118,6 +120,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             {
                 IoC.Instance.Resolver.Resolve<RotationSystem>(),
                 IoC.Instance.Resolver.Resolve<ProjectileSpawnSystem>(),
+                IoC.Instance.Resolver.Resolve<AsteroidSpawnSystem>(),
                 IoC.Instance.Resolver.Resolve<EntityLifespanSystem>()
             };
 
@@ -128,6 +131,20 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             };
 
             director.Initialize(updateSystems, fixedUpdateSystems);
+        }
+        
+        private IEntityInitializer CreateEntityInitializer(IObjectsFactory<GameObject> factory)
+        {
+            return new EntityInitializer(new IInitializationHandler[]
+            {
+                new PlayerMovementInitializationHandler(),
+                new PlayerRotationInitializationHandler(),
+                new CollisionInitializationHandler(),
+                new AsteroidMovementInitializationHandler(),
+                new ProjectileMovementInitializationHandler(),
+                new ProjectileSpawnerInitializationHandler(),
+                new AsteroidSpawnerInitializationHandler(),
+            }, factory);
         }
     }
 }

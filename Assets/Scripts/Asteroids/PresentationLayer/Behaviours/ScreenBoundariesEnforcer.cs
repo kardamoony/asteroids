@@ -1,3 +1,4 @@
+using Asteroids.PresentationLayer.Extensions;
 using UnityEngine;
 
 namespace Asteroids.PresentationLayer.Behaviours
@@ -39,14 +40,13 @@ namespace Asteroids.PresentationLayer.Behaviours
             
             var mainCamera = Camera.main;
 
-            var topRightCorner = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, mainCamera.farClipPlane));
-            var bottomLeftCorner = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.farClipPlane));
-            
-            _minX = bottomLeftCorner.x;
-            _maxX = topRightCorner.x;
+            var limits = mainCamera.GetTopDownViewLimits();
 
-            _minZ = bottomLeftCorner.z;
-            _maxZ = topRightCorner.z;
+            _minX = limits.xMin;
+            _maxX = limits.xMax;
+
+            _minZ = limits.zMin;
+            _maxZ = limits.zMax;
         }
 
         private void Awake()

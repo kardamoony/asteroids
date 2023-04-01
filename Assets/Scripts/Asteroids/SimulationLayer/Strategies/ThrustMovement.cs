@@ -4,7 +4,7 @@ using Asteroids.SimulationLayer.Entities;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
-    public class ThrustMovement : IEntityStrategy<IMovable>
+    public class ThrustMovement : IInputBasedEntityStrategy<IMovable>
     {
         private readonly float _acceleration;
         private readonly float _deceleration;

@@ -10,6 +10,8 @@ namespace Asteroids.SimulationLayer.Entities
         
         AssetId SpawnedAssetId { get; }
         float SpawnDelay { get; }
+        
+        int EntitesMaxCount { get; }
 
         void InvokeSpawnedEvent(GameObject gameObject);
 

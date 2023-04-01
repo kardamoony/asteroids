@@ -7,29 +7,24 @@ using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
-    public class ProjectileSpawnStrategy : IEntityStrategy<ISpawner>
+    public class ProjectileSpawnStrategy : InputSpawnStrategy
     {
-        private readonly IObjectsFactory<GameObject> _factory;
-        private readonly IEntityInitializer _initializer;
-
         private float _timeUntilSpawn;
-
-        public ProjectileSpawnStrategy(IObjectsFactory<GameObject> factory, IEntityInitializer initializer)
+        
+        public ProjectileSpawnStrategy(IObjectsFactory<GameObject> factory, IEntityInitializer initializer) : base(factory, initializer)
         {
-            _factory = factory;
-            _initializer = initializer;
         }
-
-        public void Execute(ISpawner entity, IInputProvider inputProvider, float deltaTime)
+        
+        public override void Execute(ISpawner entity, IInputProvider inputProvider, float deltaTime)
         {
             _timeUntilSpawn -= deltaTime;
             
             if (!inputProvider.Fire || _timeUntilSpawn > 0) return;
 
-            _factory.Get<IEntityView>(entity.SpawnedAssetId.ToString(), o =>
+            Factory.Get<IEntityView>(entity.SpawnedAssetId.ToString(), o =>
             {
                 var projectile = IoC.Instance.Resolver.Resolve<IProjectile>();
-                _initializer.InitializeEntity((IEntity)projectile, o);
+                Initializer.InitializeEntity((IEntity)projectile, o);
                 entity.InvokeSpawnedEvent(o.GameObject);
             });
             

@@ -1,11 +1,18 @@
 ﻿using Asteroids.CoreLayer.Input;
 using Asteroids.SimulationLayer.Entities;
+using Asteroids.SimulationLayer.Entities.Containers;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
     public abstract class InputReadingSystem<TEntity>
     {
-        protected IEntitiesInputMap<TEntity> EntitiesInputMap;
+        protected readonly IEntitiesInputMap<TEntity> EntitiesInputMap;
+
+        protected InputReadingSystem()
+        {
+            //TODO: pass in the constructor
+            EntitiesInputMap = new EntitiesInputMap<TEntity>();
+        }
  
         public void Register(TEntity entity, IInputProvider inputProvider)
         {

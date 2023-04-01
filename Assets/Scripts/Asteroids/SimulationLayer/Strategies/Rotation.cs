@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
-    public class Rotation : IEntityStrategy<IRotatable>
+    public class Rotation : IInputBasedEntityStrategy<IRotatable>
     {
         public void Execute(IRotatable entity, IInputProvider inputProvider, float deltaTime)
         {

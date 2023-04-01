@@ -5,19 +5,16 @@ namespace Asteroids.SimulationLayer.GameSystems
 {
     public class RotationSystem : InputReadingSystem<IRotatable>, IUpdateSystem
     {
-        private readonly IEntityStrategy<IRotatable> _strategy;
+        private readonly IInputBasedEntityStrategy<IRotatable> _strategy;
 
-        public RotationSystem(IEntityStrategy<IRotatable> strategy)
+        public RotationSystem(IInputBasedEntityStrategy<IRotatable> strategy)
         {
             _strategy = strategy;
-            EntitiesInputMap = new EntitiesInputMap<IRotatable>();
         }
 
         public void Update(float deltaTime)
         {
-            EntitiesInputMap.AddPending();
-            EntitiesInputMap.RemovePending();
-
+            EntitiesInputMap.Update();
             EntitiesInputMap.Foreach((rotatable, input) => _strategy.Execute(rotatable, input, deltaTime));
         }
     }

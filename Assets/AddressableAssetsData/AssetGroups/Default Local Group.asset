@@ -17,8 +17,16 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 04d1271cdd337e24b9c5a7c920200f16
   m_SerializeEntries:
-  - m_GUID: 4849b02a23b48b94b9e0c5c54a0fb48a
-    m_Address: Assets/Content/AssetsMap/AddressableAssets
+  - m_GUID: fd5832b158507e3499b3f1090b6ce982
+    m_Address: Assets/Content/AssetsMap/AddressableAssets/Prefabs
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2dc469b98e7d84a4d998f335fa299889
+    m_Address: Assets/Content/AssetsMap/AddressableAssets/Prefabs/Projectile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 16d6d34f560b87947b1c482bc21db03a
+    m_Address: Assets/Content/AssetsMap/AddressableAssets/Settings
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

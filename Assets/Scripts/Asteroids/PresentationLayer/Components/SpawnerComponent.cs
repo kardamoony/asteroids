@@ -1,15 +1,15 @@
-﻿using Asteroids.SimulationLayer.Entities;
+﻿using Asteroids.PresentationLayer.Behaviours;
+using Asteroids.SimulationLayer.Entities;
 using UnityEngine;
 
 namespace Asteroids.PresentationLayer.Components
 {
     public class SpawnerComponent : EntityComponent<ISpawner>
     {
-        private Transform _cachedTransform;
-        
+        [SerializeField] private ObjectPlacer _objectPlacer;
+
         protected override void OnContextSet()
         {
-            _cachedTransform = transform;
             Context.OnSpawned += HandleObjectSpawned;
         }
 
@@ -18,13 +18,14 @@ namespace Asteroids.PresentationLayer.Components
             Context.OnSpawned -= HandleObjectSpawned;
         }
 
-        protected virtual void HandleObjectSpawned(string id, GameObject o)
+        private void HandleObjectSpawned(string id, GameObject o)
         {
-            var t = o.transform;
+            if (!_objectPlacer)
+            {
+                _objectPlacer = gameObject.AddComponent<ObjectPlacer>();
+            }
             
-            t.parent = null;
-            t.position = _cachedTransform.position;
-            t.rotation = _cachedTransform.rotation;
+            _objectPlacer.Place(o.transform);
         }
     }
 }

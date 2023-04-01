@@ -15,7 +15,7 @@ namespace Asteroids.SimulationLayer.Settings
         [SerializeField] private int _damage;
 
         [Space] 
-        [SerializeField] private AssetId _projectileId;
+        [SerializeField] private AssetId _projectileId; //TODO: rework (issues on asset map changes)
 
         public float Speed => _speed;
         public float AngularSpeed => _angularSpeed;

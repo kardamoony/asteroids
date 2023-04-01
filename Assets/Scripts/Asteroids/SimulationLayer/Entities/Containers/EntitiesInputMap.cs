@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Asteroids.CoreLayer.Input;
 
-namespace Asteroids.SimulationLayer.Entities
+namespace Asteroids.SimulationLayer.Entities.Containers
 {
     public sealed class EntitiesInputMap<TEntity> : IEntitiesInputMap<TEntity>
     {
@@ -19,8 +19,22 @@ namespace Asteroids.SimulationLayer.Entities
         {
             _pendingToRemove.Add(entity);
         }
+        
+        public void Foreach(Action<TEntity, IInputProvider> action)
+        {
+            foreach (var pair in _entities)
+            {
+                action.Invoke(pair.Key, pair.Value);
+            }
+        }
 
-        public void AddPending()
+        public void Update()
+        {
+            AddPending();
+            RemovePending();
+        }
+
+        private void AddPending()
         {
             foreach (var pair in _pendingToAdd)
             {
@@ -35,7 +49,7 @@ namespace Asteroids.SimulationLayer.Entities
             _pendingToAdd.Clear();
         }
         
-        public void RemovePending()
+        private void RemovePending()
         {
             foreach (var entity in _pendingToRemove)
             {
@@ -49,14 +63,6 @@ namespace Asteroids.SimulationLayer.Entities
             
             _pendingToRemove.Clear();
             
-        }
-
-        public void Foreach(Action<TEntity, IInputProvider> action)
-        {
-            foreach (var pair in _entities)
-            {
-                action.Invoke(pair.Key, pair.Value);
-            }
         }
     }
 }

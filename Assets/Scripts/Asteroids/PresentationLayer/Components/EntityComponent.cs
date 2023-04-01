@@ -1,9 +1,5 @@
-using Asteroids.PresentationLayer.Views;
-using UnityEngine;
-
 namespace Asteroids.PresentationLayer.Components
 {
-    [RequireComponent(typeof(EntityView))]
     public abstract class EntityComponent<T> : EntityComponentBase
     {
         protected T Context { get; private set; }

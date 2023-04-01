@@ -6,6 +6,7 @@ namespace Generated
     {
         None,
         Asteroid,
+        AsteroidSpawner,
         Player,
         Projectile,
         PlayerSettings,

@@ -3,7 +3,7 @@ using Asteroids.SimulationLayer.Entities;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
-    public class ConstantMovement : IEntityStrategy<IMovable>
+    public class ConstantMovement : IInputBasedEntityStrategy<IMovable>
     {
         public void Execute(IMovable entity, IInputProvider inputProvider, float deltaTime)
         {

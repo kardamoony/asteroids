@@ -15,14 +15,13 @@ namespace Asteroids.SimulationLayer.GameSystems
         
         public void Update(float deltaTime)
         {
-            RemovePending();
-            AddPending();
+            Entities.Update();
             
-            foreach (var entity in Entities)
+            Entities.Foreach(entity =>
             {
                 if (entity.LifeTimeSpan.Equals(default))
                 {
-                    continue;
+                    return;
                 }
                 
                 var lifespan = DateTime.Now - entity.InitializationTime;
@@ -31,7 +30,7 @@ namespace Asteroids.SimulationLayer.GameSystems
                 {
                     _initializer.DeinitializeEntity(entity);
                 }
-            }
+            });
         }
     }
 }

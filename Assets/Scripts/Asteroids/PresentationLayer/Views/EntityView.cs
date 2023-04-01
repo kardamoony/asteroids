@@ -16,5 +16,12 @@ namespace Asteroids.PresentationLayer.Views
         {
             return _components;
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            _components = GetComponents<EntityComponentBase>();
+        }
+#endif
     }
 }
