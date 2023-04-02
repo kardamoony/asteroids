@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
   _speed: 20
-  _angularSpeed: 300
+  _angularSpeed: 200
   _acceleration: 10
   _deceleration: 7
   _brake: 15
-  _initialHealth: 3
+  _initialHealth: 10000
   _damage: 1
   _projectileId: Projectile
