@@ -1,5 +1,4 @@
 ﻿using Asteroids.CoreLayer.Input;
-using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.Entities.Containers;
 
 namespace Asteroids.SimulationLayer.GameSystems

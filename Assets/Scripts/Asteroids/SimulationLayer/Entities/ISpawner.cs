@@ -1,5 +1,4 @@
 using System;
-using Generated;
 using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Entities
@@ -8,10 +7,10 @@ namespace Asteroids.SimulationLayer.Entities
     {
         event Action<string, GameObject> OnSpawned;
         
-        AssetId SpawnedAssetId { get; }
+        string SpawnedAssetId { get; }
         float SpawnDelay { get; }
         
-        int EntitesMaxCount { get; }
+        int MaxCount { get; }
 
         void InvokeSpawnedEvent(GameObject gameObject);
 

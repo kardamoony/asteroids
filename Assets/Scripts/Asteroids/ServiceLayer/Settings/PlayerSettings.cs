@@ -1,21 +1,26 @@
-﻿using Generated;
+﻿using Asteroids.SimulationLayer.Settings;
 using UnityEngine;
 
-namespace Asteroids.SimulationLayer.Settings
+namespace Asteroids.ServiceLayer.Settings
 {
     [CreateAssetMenu(fileName = "PlayerSettings", menuName = "Asteroids/Settings/Player")]
     public class PlayerSettings : ScriptableObject, IPlayerSettings
     {
         [SerializeField] private float _speed;
         [SerializeField] private float _angularSpeed;
+        
+        [Space]
         [SerializeField] private float _acceleration;
         [SerializeField] private float _deceleration;
         [SerializeField] private float _brake;
+        
+        [Space]
         [SerializeField] private int _initialHealth;
         [SerializeField] private int _damage;
+        
+        [SerializeField, HideInInspector] private string _projectileId;
 
-        [Space] 
-        [SerializeField] private AssetId _projectileId; //TODO: rework (issues on asset map changes)
+        public string ProjectileIdProperty => nameof(_projectileId);
 
         public float Speed => _speed;
         public float AngularSpeed => _angularSpeed;
@@ -24,6 +29,6 @@ namespace Asteroids.SimulationLayer.Settings
         public float Brake => _brake;
         public int InitialHealth => _initialHealth;
         public int Damage => _damage;
-        public AssetId ProjectileId => _projectileId;
+        public string ProjectileId => _projectileId;
     }
 }

@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 922717cd56174afaa7cbd64cd1f60835, type: 3}
-  m_Name: PlayerSettings
+  m_Script: {fileID: 11500000, guid: b6cd8760d62d414bbc0ecdaa696d34ad, type: 3}
+  m_Name: AsteroidSettings
   m_EditorClassIdentifier: 
-  _speed: 20
-  _angularSpeed: 300
-  _acceleration: 10
-  _deceleration: 7
-  _brake: 15
-  _initialHealth: 4
+  _spawnDelay: 5
+  _maxCount: 5
   _damage: 1
-  _projectileId: Projectile
+  _health: 1
+  _speedRange: {x: 3, y: 10}
+  _asteroidAssetId: Asteroid

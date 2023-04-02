@@ -20,15 +20,17 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
     {
         private readonly IAssetsMap _assetsMap;
         private readonly IPlayerSettings _playerSettings;
+        private readonly IAsteroidSettings _asteroidSettings;
 
         private GameObject _root;
         private Transform _rootTransform;
         private IInputProvider _playerInput;
         
-        public InitializationStrategy(IAssetsMap assetsMap, IPlayerSettings playerSettings)
+        public InitializationStrategy(IAssetsMap assetsMap, IPlayerSettings playerSettings, IAsteroidSettings asteroidSettings)
         {
             _assetsMap = assetsMap;
             _playerSettings = playerSettings;
+            _asteroidSettings = asteroidSettings;
         }
         
         public void InitializeGameplay()
@@ -74,6 +76,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             
             //settings
             container.RegisterInstance(_playerSettings);
+            container.RegisterInstance(_asteroidSettings);
             
             //systems
             container.RegisterInstance(new ConstantMovementSystem());
@@ -87,7 +90,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             container.Register<IPlayer>(args => new Player((IPlayerSettings)args[0]));
             container.Register<IProjectile>(args => new Projectile(20f));
             container.Register<Asteroid>(args => new Asteroid((float)args[0]));
-            container.Register<AsteroidSpawner>(args => new AsteroidSpawner());
+            container.Register<AsteroidSpawner>(args => new AsteroidSpawner(_asteroidSettings));
         }
         
         private void CreatePlayer()

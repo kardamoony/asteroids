@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSettings: {fileID: 11400000, guid: ad134b19511abb54199ddaa9cc936062, type: 2}
+  _asteroidSettings: {fileID: 11400000, guid: 7ddd7b49091a4644ca6ecc0aec2239ff, type: 2}
   _assetsMap: {fileID: 11400000, guid: 0d4ef2800e735b0479431ed059d7abe2, type: 2}
 --- !u!1 &963194225
 GameObject:

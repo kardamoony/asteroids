@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 159989074990930630}
   - component: {fileID: 4860665881271588017}
   - component: {fileID: 3521795808587777706}
+  - component: {fileID: 2650973794954372598}
   - component: {fileID: 24081480331319485}
   - component: {fileID: 159989074990930631}
   - component: {fileID: 159989074990930632}
@@ -52,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: 3521795808587777706}
+  - {fileID: 2650973794954372598}
 --- !u!114 &3521795808587777706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +64,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4fb02445aeaf044b9f57142aaa74927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2650973794954372598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159989074990930635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3fd88f117b6a414c8db495e7c6551b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &24081480331319485
@@ -149,9 +163,9 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1000
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 100000
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0

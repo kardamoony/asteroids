@@ -3,6 +3,7 @@ using Asteroids.CoreLayer.Factories;
 using Asteroids.CoreLayer.IoC;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.Initialization;
+using Asteroids.SimulationLayer.Settings;
 using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Strategies
@@ -24,9 +25,10 @@ namespace Asteroids.SimulationLayer.Strategies
             
             if (!CanSpawn(entity)) return;
             
-            Factory.Get<IEntityView>(entity.SpawnedAssetId.ToString(), view =>
+            Factory.Get<IEntityView>(entity.SpawnedAssetId, view =>
             {
-                var asteroid = IoC.Instance.Resolver.Resolve<Asteroid>(10f); //TODO: to settings
+                var asteroidSettings = IoC.Instance.Resolver.Resolve<IAsteroidSettings>();
+                var asteroid = IoC.Instance.Resolver.Resolve<Asteroid>(asteroidSettings.Speed);
                 Initializer.InitializeEntity(asteroid, view);
                 entity.InvokeSpawnedEvent(view.GameObject);
                 _spawnedEntities.Add(asteroid);
@@ -42,7 +44,7 @@ namespace Asteroids.SimulationLayer.Strategies
                 return false;
             }
 
-            return _spawnedEntities.Count < entity.EntitesMaxCount;
+            return _spawnedEntities.Count < entity.MaxCount;
         }
 
         private void HandleEntityDeinitialized(IEntity entity)

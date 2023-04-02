@@ -1,6 +1,5 @@
 using System;
 using Asteroids.SimulationLayer.Settings;
-using Generated;
 using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Entities
@@ -11,9 +10,9 @@ namespace Asteroids.SimulationLayer.Entities
         
         //spawner
         public ISpawner Spawner => this;
-        public AssetId SpawnedAssetId { get; }
+        public string SpawnedAssetId { get; }
         public float SpawnDelay { get; } = 0.5f; //TODO: move in settings 
-        public int EntitesMaxCount { get; } = 20; //TODO: move in settings
+        public int MaxCount { get; } = 20; //TODO: move in settings
         
         //movable
         public IMovable Movable => this;

@@ -1,6 +1,4 @@
-﻿using Generated;
-
-namespace Asteroids.SimulationLayer.Settings
+﻿namespace Asteroids.SimulationLayer.Settings
 {
     public interface IPlayerSettings
     {
@@ -13,6 +11,6 @@ namespace Asteroids.SimulationLayer.Settings
         int InitialHealth { get; }
         int Damage { get; }
         
-        AssetId ProjectileId { get; }
+        string ProjectileId { get; }
     }
 }
