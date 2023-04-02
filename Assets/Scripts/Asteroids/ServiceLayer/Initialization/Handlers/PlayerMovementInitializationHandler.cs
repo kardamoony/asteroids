@@ -28,10 +28,9 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
             if (entity is IPlayer player)
             {
                 IoC.Instance.Resolver.Resolve<ThrustMovementSystem>().Unregister(player.Movable);
-                return;
             }
             
-            Next.HandleDeinitialization(entity);
+            Next?.HandleDeinitialization(entity);
         }
     }
 }

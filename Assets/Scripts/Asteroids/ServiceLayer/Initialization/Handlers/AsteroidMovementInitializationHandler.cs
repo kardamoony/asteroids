@@ -30,7 +30,6 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
             if (entity is Asteroid movable)
             {
                 IoC.Instance.Resolver.Resolve<ConstantMovementSystem>().Unregister(movable);
-                return;
             }
             
             Next?.HandleDeinitialization(entity);

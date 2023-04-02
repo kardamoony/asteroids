@@ -3,7 +3,5 @@
     public interface IProjectile
     {
         IMovable Movable { get; }
-        ICollidable Collidable { get; }
-        IDestructable Destructable { get; }
     }
 }

@@ -19,12 +19,13 @@ namespace Asteroids.PresentationLayer.Components
                 return;
             }
             
+            OnContextWillBeCleared();
+            
             Context = default;
             Initialized = false;
-            OnContextCleared();
         }
 
         protected virtual void OnContextSet(){}
-        protected virtual void OnContextCleared(){}
+        protected virtual void OnContextWillBeCleared(){}
     }
 }

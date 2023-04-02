@@ -34,9 +34,7 @@ namespace Asteroids.ServiceLayer.Initialization
             {
                 return;
             }
-            
-            entity.Initialize(entityView);
-            
+
             var viewComponents = entityView.GetComponents();
   
             foreach (var component in viewComponents)
@@ -45,6 +43,7 @@ namespace Asteroids.ServiceLayer.Initialization
             }
             
             entity.InitializationTime = DateTime.Now;
+            entity.Initialize(entityView);
 
             IoC.Instance.Resolver.Resolve<EntityLifespanSystem>().Register(entity);
             OnEntityInitialized?.Invoke(entity);
@@ -52,23 +51,23 @@ namespace Asteroids.ServiceLayer.Initialization
 
         public void DeinitializeEntity(IEntity entity)
         {
-            IoC.Instance.Resolver.Resolve<EntityLifespanSystem>().Unregister(entity);
-
             if (!entity.Initialized)
             {
                 return;
             }
             
+            IoC.Instance.Resolver.Resolve<EntityLifespanSystem>().Unregister(entity);
+            
+            _handler.HandleDeinitialization(entity);
+
             var viewComponents = entity.EntityView.GetComponents();
 
             foreach (var component in viewComponents)
             {
                 component.ClearContext();
             }
-            
-            _handler.HandleDeinitialization(entity);
+
             _factory.Release(entity.EntityView.GameObject);
-            
             entity.Denitialize();
             OnEntityDenitialized?.Invoke(entity);
         }

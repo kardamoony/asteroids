@@ -8,13 +8,21 @@ namespace Asteroids.PresentationLayer.Components
     {
         [SerializeField] private UnityEvent _onDestruction;
 
+        private bool _onDestructionInvoked;
+
+        protected override void OnContextSet()
+        {
+            _onDestructionInvoked = false;
+        }
+
         private void Update()
         {
-            if (Context.Health > 0)
+            if (_onDestructionInvoked || Context.Health > 0)
             {
                 return;
             }
-            
+
+            _onDestructionInvoked = true;
             _onDestruction?.Invoke();
         }
     }

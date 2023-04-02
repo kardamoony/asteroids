@@ -26,7 +26,6 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
             if (entity is AsteroidSpawner spawner)
             {
                 IoC.Instance.Resolver.Resolve<AsteroidSpawnSystem>().Unregister(spawner);
-                return;
             }
             
             Next?.HandleDeinitialization(entity);

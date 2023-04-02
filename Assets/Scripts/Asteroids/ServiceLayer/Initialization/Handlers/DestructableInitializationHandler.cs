@@ -1,22 +1,20 @@
-﻿using Asteroids.CoreLayer.Input;
-using Asteroids.CoreLayer.IoC;
+﻿using Asteroids.CoreLayer.IoC;
 using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
 
 namespace Asteroids.ServiceLayer.Initialization.Handlers
 {
-    public class PlayerRotationInitializationHandler : IInitializationHandler
+    public class DestructableInitializationHandler : IInitializationHandler
     {
         public IInitializationHandler Next { get; set; }
         
         public void HandleInitialization(IEntity entity, IEntityComponent component)
         {
-            if (entity is IRotatable rotatable && component is RotationComponent movementComponent)
+            if (entity is IDestructable destructable && component is DestructableComponent destructableComponent)
             {
-                movementComponent.SetContext(rotatable);
-                var inputProvider = IoC.Instance.Resolver.Resolve<IInputProvider>();
-                IoC.Instance.Resolver.Resolve<RotationSystem>().Register(rotatable, inputProvider);
+                destructableComponent.SetContext(destructable);
+                IoC.Instance.Resolver.Resolve<HealthSystem>().Register(destructable);
                 return;
             }
             
@@ -25,9 +23,9 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
 
         public void HandleDeinitialization(IEntity entity)
         {
-            if (entity is IRotatable rotatable)
+            if (entity is IDestructable destructable)
             {
-                IoC.Instance.Resolver.Resolve<RotationSystem>().Unregister(rotatable);
+                IoC.Instance.Resolver.Resolve<HealthSystem>().Unregister(destructable);
             }
             
             Next?.HandleDeinitialization(entity);

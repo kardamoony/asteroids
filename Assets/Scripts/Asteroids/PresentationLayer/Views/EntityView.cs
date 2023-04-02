@@ -22,6 +22,12 @@ namespace Asteroids.PresentationLayer.Views
         {
             _components = GetComponents<EntityComponentBase>();
         }
+
+        [ContextMenu("Collect Components")]
+        private void CollectComponents()
+        {
+            _components = GetComponents<EntityComponentBase>();
+        }
 #endif
     }
 }

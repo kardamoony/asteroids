@@ -30,10 +30,9 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
             if (entity is IProjectile projectile)
             {
                 IoC.Instance.Resolver.Resolve<ConstantMovementSystem>().Unregister(projectile.Movable);
-                return;
             }
 
-            Next?.HandleDeinitialization(entity);
+            Next.HandleDeinitialization(entity);
         }
     }
 }

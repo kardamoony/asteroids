@@ -5,13 +5,10 @@ namespace Asteroids.SimulationLayer.Entities
     public class Projectile : Entity, IProjectile, IMovable, ICollidable, IDestructable
     {
         public IMovable Movable => this;
-        public ICollidable Collidable => this;
-        public IDestructable Destructable => this;
         public float Speed { get; }
         public float Velocity { get; set; }
-        public int Health { get; set; } = 1;
-
-        public int Damage { get; } = 1;
+        public int Health { get; set; } = 1; //TODO: from settings
+        public int Damage { get; } = 1; //TODO: from settings
 
         public Projectile(float speed) : base(new TimeSpan(0, 0, 3))
         {

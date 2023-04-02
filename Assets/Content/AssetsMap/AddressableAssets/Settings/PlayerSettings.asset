@@ -17,6 +17,6 @@ MonoBehaviour:
   _acceleration: 10
   _deceleration: 7
   _brake: 15
-  _initialHealth: 4
+  _initialHealth: 3
   _damage: 1
   _projectileId: Projectile

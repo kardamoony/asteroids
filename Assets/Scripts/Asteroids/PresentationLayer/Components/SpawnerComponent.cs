@@ -13,7 +13,7 @@ namespace Asteroids.PresentationLayer.Components
             Context.OnSpawned += HandleObjectSpawned;
         }
 
-        protected override void OnContextCleared()
+        protected override void OnContextWillBeCleared()
         {
             Context.OnSpawned -= HandleObjectSpawned;
         }

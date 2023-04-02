@@ -19,7 +19,7 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
 
         public void HandleDeinitialization(IEntity entity)
         {
-            
+            Next?.HandleDeinitialization(entity);
         }
     }
 }

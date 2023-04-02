@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Entities
 {
-    public class Player : Entity, IPlayer, IMovable, IRotatable, ICollidable, ISpawner
+    public class Player : Entity, IPlayer, IMovable, IRotatable, ICollidable, ISpawner, IDestructable
     {
         public event Action <string, GameObject> OnSpawned;
         
@@ -41,7 +41,7 @@ namespace Asteroids.SimulationLayer.Entities
         
         public void InvokeSpawnedEvent(GameObject gameObject)
         {
-            OnSpawned?.Invoke(SpawnedAssetId.ToString(), gameObject);
+            OnSpawned?.Invoke(SpawnedAssetId, gameObject);
         }
 
         public void HandleCollisionEnter(ICollidable other)

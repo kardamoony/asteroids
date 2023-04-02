@@ -28,7 +28,6 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
             if (entity is IPlayer player)
             {
                 IoC.Instance.Resolver.Resolve<ProjectileSpawnSystem>().Unregister(player.Spawner);
-                return;
             }
             
             Next?.HandleDeinitialization(entity);

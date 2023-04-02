@@ -85,6 +85,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             container.RegisterInstance(new ProjectileSpawnSystem(gameObjectsFactory, initializer));
             container.RegisterInstance(new AsteroidSpawnSystem(gameObjectsFactory, initializer));
             container.RegisterInstance(new EntityLifespanSystem(initializer));
+            container.RegisterInstance(new HealthSystem(initializer));
 
             //entities
             container.Register<IPlayer>(args => new Player((IPlayerSettings)args[0]));
@@ -121,10 +122,11 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
 
             var updateSystems = new List<IUpdateSystem>()
             {
+                IoC.Instance.Resolver.Resolve<EntityLifespanSystem>(),
+                IoC.Instance.Resolver.Resolve<HealthSystem>(),
                 IoC.Instance.Resolver.Resolve<RotationSystem>(),
                 IoC.Instance.Resolver.Resolve<ProjectileSpawnSystem>(),
                 IoC.Instance.Resolver.Resolve<AsteroidSpawnSystem>(),
-                IoC.Instance.Resolver.Resolve<EntityLifespanSystem>()
             };
 
             var fixedUpdateSystems = new List<IFixedUpdateSystem>
@@ -142,11 +144,16 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             {
                 new PlayerMovementInitializationHandler(),
                 new PlayerRotationInitializationHandler(),
+                
                 new CollisionInitializationHandler(),
-                new AsteroidMovementInitializationHandler(),
+                
                 new ProjectileMovementInitializationHandler(),
                 new ProjectileSpawnerInitializationHandler(),
+                
+                new AsteroidMovementInitializationHandler(),
                 new AsteroidSpawnerInitializationHandler(),
+                
+                new DestructableInitializationHandler()
             }, factory);
         }
     }
