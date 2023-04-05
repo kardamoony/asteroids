@@ -11,18 +11,20 @@ namespace Asteroids.SimulationLayer.Strategies
     {
         private float _timeUntilSpawn;
         
-        public ProjectileSpawnStrategy(IObjectsFactory<GameObject> factory, IEntityInitializer initializer) : base(factory, initializer)
+        public ProjectileSpawnStrategy(string assetId, IObjectsFactory<GameObject> factory, IEntityInitializer initializer) 
+            : base(assetId, factory, initializer)
         {
         }
         
-        public override void Execute(ISpawner entity, IInputProvider inputProvider, float deltaTime)
+        public override void Execute(ISpawner entity, IInputProvider context, float deltaTime)
         {
             _timeUntilSpawn -= deltaTime;
             
-            if (!inputProvider.Fire || _timeUntilSpawn > 0) return;
+            if (!context.Fire || _timeUntilSpawn > 0) return;
 
-            Factory.Get<IEntityView>(entity.SpawnedAssetId.ToString(), o =>
+            Factory.Get<IEntityView>(AssetId, o =>
             {
+                //TODO: to factory
                 var projectile = IoC.Instance.Resolver.Resolve<IProjectile>();
                 Initializer.InitializeEntity((IEntity)projectile, o);
                 entity.InvokeSpawnedEvent(o.GameObject);

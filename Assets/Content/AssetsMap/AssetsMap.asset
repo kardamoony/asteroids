@@ -21,9 +21,27 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  - Id: AsteroidSpawner
+    AssetReference:
+      m_AssetGUID: f2c23566aef36a54fbc9c58f7b1153ee
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   - Id: Player
     AssetReference:
       m_AssetGUID: 7fa4419f91a0d0941b9c153ca8ffbfa4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Id: Projectile
+    AssetReference:
+      m_AssetGUID: 2dc469b98e7d84a4d998f335fa299889
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Id: AsteroidSettings
+    AssetReference:
+      m_AssetGUID: 7ddd7b49091a4644ca6ecc0aec2239ff
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

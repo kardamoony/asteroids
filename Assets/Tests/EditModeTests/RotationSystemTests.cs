@@ -10,7 +10,7 @@ public class RotationSystemTests
     [Test]
     public void RotationSystem_UpdatesRotation_IfAnyRegistered()
     {
-        var modelMock = new Mock<IInputBasedEntityStrategy<IRotatable>>();
+        var modelMock = new Mock<IContextEntityStrategy<IRotatable, IInputProvider>>();
         modelMock.Setup(m 
             => m.Execute(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
@@ -26,7 +26,7 @@ public class RotationSystemTests
     [Test]
     public void RotationSystem_DoesNotUpdateRotation_IfNoneRegistered()
     {
-        var modelMock = new Mock<IInputBasedEntityStrategy<IRotatable>>();
+        var modelMock = new Mock<IContextEntityStrategy<IRotatable, IInputProvider>>();
         modelMock.Setup(m
             => m.Execute(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
@@ -40,7 +40,7 @@ public class RotationSystemTests
     [Test]
     public void RotationSystem_DoesNotUpdateRotation_IfAllUnregistered()
     {
-        var modelMock = new Mock<IInputBasedEntityStrategy<IRotatable>>();
+        var modelMock = new Mock<IContextEntityStrategy<IRotatable, IInputProvider>>();
         modelMock.Setup(m
             => m.Execute(It.IsAny<IRotatable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
@@ -59,7 +59,7 @@ public class RotationSystemTests
     [Test]
     public void RotationSystem_DoesNotThrow_IfDuplicateIsRegistered()
     {
-        var rotationSystem = new RotationSystem(Mock.Of<IInputBasedEntityStrategy<IRotatable>>());
+        var rotationSystem = new RotationSystem(Mock.Of<IContextEntityStrategy<IRotatable, IInputProvider>>());
 
         var rotatable = Mock.Of<IRotatable>();
         
@@ -71,7 +71,7 @@ public class RotationSystemTests
     [Test]
     public void RotationSystem_MovementSystem_DoesNotThrow_IfNotRegisteredIsUnregistered()
     {
-        var rotationSystem = new RotationSystem(Mock.Of<IInputBasedEntityStrategy<IRotatable>>());
+        var rotationSystem = new RotationSystem(Mock.Of<IContextEntityStrategy<IRotatable, IInputProvider>>());
 
         Assert.DoesNotThrow(() => rotationSystem.Unregister(Mock.Of<IRotatable>()));
     }

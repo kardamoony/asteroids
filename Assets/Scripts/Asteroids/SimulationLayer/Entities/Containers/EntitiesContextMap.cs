@@ -4,15 +4,15 @@ using Asteroids.CoreLayer.Input;
 
 namespace Asteroids.SimulationLayer.Entities.Containers
 {
-    public sealed class EntitiesInputMap<TEntity> : IEntitiesInputMap<TEntity>
+    public sealed class EntitiesContextMap<TEntity, TContext> : IEntitiesContextMap<TEntity, TContext>
     {
-        private readonly Dictionary<TEntity, IInputProvider> _entities = new Dictionary<TEntity, IInputProvider>();
-        private readonly List<KeyValuePair<TEntity, IInputProvider>> _pendingToAdd = new List<KeyValuePair<TEntity, IInputProvider>>();
+        private readonly Dictionary<TEntity, TContext> _entities = new Dictionary<TEntity, TContext>();
+        private readonly List<KeyValuePair<TEntity, TContext>> _pendingToAdd = new List<KeyValuePair<TEntity, TContext>>();
         private readonly List<TEntity> _pendingToRemove = new List<TEntity>();
 
-        public void Register(TEntity entity, IInputProvider inputProvider)
+        public void Register(TEntity entity, TContext context)
         {
-            _pendingToAdd.Add(new KeyValuePair<TEntity, IInputProvider>(entity, inputProvider));
+            _pendingToAdd.Add(new KeyValuePair<TEntity, TContext>(entity, context));
         }
 
         public void Unregister(TEntity entity)
@@ -20,7 +20,7 @@ namespace Asteroids.SimulationLayer.Entities.Containers
             _pendingToRemove.Add(entity);
         }
         
-        public void Foreach(Action<TEntity, IInputProvider> action)
+        public void Foreach(Action<TEntity, TContext> action)
         {
             foreach (var pair in _entities)
             {

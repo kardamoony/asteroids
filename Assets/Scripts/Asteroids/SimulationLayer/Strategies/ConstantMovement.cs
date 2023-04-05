@@ -3,11 +3,11 @@ using Asteroids.SimulationLayer.Entities;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
-    public class ConstantMovement : IInputBasedEntityStrategy<IMovable>
+    public class ConstantMovement : IContextEntityStrategy<IMovable, IInputProvider>
     {
-        public void Execute(IMovable entity, IInputProvider inputProvider, float deltaTime)
+        public void Execute(IMovable entity, IInputProvider context, float deltaTime)
         {
-            entity.Velocity = entity.Speed * inputProvider.VerticalAxis;
+            entity.Velocity = entity.Speed * context.VerticalAxis;
         }
     }
 }

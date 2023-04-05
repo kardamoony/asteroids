@@ -62,6 +62,7 @@ namespace Asteroids.CoreLayer.AssetsManagement
 
             File.WriteAllText(generatedDescriptionPath, generator.ToString());
             AssetDatabase.ImportAsset(generatedDescriptionPath);
+            EditorUtility.SetDirty(this);
         }
 
     }

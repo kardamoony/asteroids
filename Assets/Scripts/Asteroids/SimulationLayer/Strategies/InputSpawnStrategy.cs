@@ -6,17 +6,19 @@ using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
-    public abstract class InputSpawnStrategy : IInputBasedEntityStrategy<ISpawner>
+    public abstract class InputSpawnStrategy : IContextEntityStrategy<ISpawner, IInputProvider>
     {
+        protected readonly string AssetId;
         protected readonly IObjectsFactory<GameObject> Factory;
         protected readonly IEntityInitializer Initializer;
 
-        protected InputSpawnStrategy(IObjectsFactory<GameObject> factory, IEntityInitializer initializer)
+        protected InputSpawnStrategy(string assetId, IObjectsFactory<GameObject> factory, IEntityInitializer initializer)
         {
+            AssetId = assetId;
             Factory = factory;
             Initializer = initializer;
         }
         
-        public abstract void Execute(ISpawner entity, IInputProvider inputProvider, float deltaTime);
+        public abstract void Execute(ISpawner entity, IInputProvider context, float deltaTime);
     }
 }

@@ -1,21 +1,22 @@
+using Asteroids.CoreLayer.Input;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.Strategies;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
-    public class RotationSystem : InputReadingSystem<IRotatable>, IUpdateSystem
+    public class RotationSystem : ContextSystem<IRotatable, IInputProvider>, IUpdateSystem
     {
-        private readonly IInputBasedEntityStrategy<IRotatable> _strategy;
+        private readonly IContextEntityStrategy<IRotatable, IInputProvider> _strategy;
 
-        public RotationSystem(IInputBasedEntityStrategy<IRotatable> strategy)
+        public RotationSystem(IContextEntityStrategy<IRotatable, IInputProvider> strategy)
         {
             _strategy = strategy;
         }
 
         public void Update(float deltaTime)
         {
-            EntitiesInputMap.Update();
-            EntitiesInputMap.Foreach((rotatable, input) => _strategy.Execute(rotatable, input, deltaTime));
+            EntitiesContextMap.Update();
+            EntitiesContextMap.Foreach((rotatable, input) => _strategy.Execute(rotatable, input, deltaTime));
         }
     }
 }

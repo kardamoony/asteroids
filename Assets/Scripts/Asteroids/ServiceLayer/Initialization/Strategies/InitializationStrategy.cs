@@ -122,11 +122,11 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
 
             var updateSystems = new List<IUpdateSystem>()
             {
-                IoC.Instance.Resolver.Resolve<EntityLifespanSystem>(),
-                IoC.Instance.Resolver.Resolve<HealthSystem>(),
                 IoC.Instance.Resolver.Resolve<RotationSystem>(),
                 IoC.Instance.Resolver.Resolve<ProjectileSpawnSystem>(),
                 IoC.Instance.Resolver.Resolve<AsteroidSpawnSystem>(),
+                IoC.Instance.Resolver.Resolve<EntityLifespanSystem>(),
+                IoC.Instance.Resolver.Resolve<HealthSystem>(),
             };
 
             var fixedUpdateSystems = new List<IFixedUpdateSystem>

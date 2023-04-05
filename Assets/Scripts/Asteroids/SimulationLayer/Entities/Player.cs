@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Entities
 {
-    public class Player : Entity, IPlayer, IMovable, IRotatable, ICollidable, ISpawner, IDestructable
+    public class Player : Entity, IPlayer, IMovable, IRotatable, ICollidable, IDestructable, ISpawner
     {
         public event Action <string, GameObject> OnSpawned;
         
@@ -26,8 +26,11 @@ namespace Asteroids.SimulationLayer.Entities
         
         //collidable
         public ICollidable Collidable => this;
-        public int Health { get; set; }
         public int Damage { get; }
+        
+        //destructable
+        public IDestructable Destructable => this;
+        public int Health { get; set; }
         
         public Player(IPlayerSettings settingsProvider)
         {

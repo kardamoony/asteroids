@@ -10,10 +10,11 @@ namespace Asteroids.SimulationLayer.Strategies
 {
     public class AsteroidSpawnStrategy : SpawnStrategy
     {
-        private float _timeUntilSpawn;
         private readonly HashSet<IEntity> _spawnedEntities = new HashSet<IEntity>();
+        
+        private float _timeUntilSpawn;
 
-        public AsteroidSpawnStrategy(IObjectsFactory<GameObject> factory, IEntityInitializer initializer) : base(factory, initializer)
+        public AsteroidSpawnStrategy(string assetId, IObjectsFactory<GameObject> factory, IEntityInitializer initializer) : base(assetId, factory, initializer)
         {
             //TODO: unsubscribe
             initializer.OnEntityDenitialized += HandleEntityDeinitialized;
@@ -25,7 +26,7 @@ namespace Asteroids.SimulationLayer.Strategies
             
             if (!CanSpawn(entity)) return;
             
-            Factory.Get<IEntityView>(entity.SpawnedAssetId, view =>
+            Factory.Get<IEntityView>(AssetId, view =>
             {
                 var asteroidSettings = IoC.Instance.Resolver.Resolve<IAsteroidSettings>();
                 var asteroid = IoC.Instance.Resolver.Resolve<Asteroid>(asteroidSettings.Speed);

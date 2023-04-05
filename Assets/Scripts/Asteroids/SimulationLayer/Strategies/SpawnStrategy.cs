@@ -10,8 +10,11 @@ namespace Asteroids.SimulationLayer.Strategies
         protected readonly IObjectsFactory<GameObject> Factory;
         protected readonly IEntityInitializer Initializer;
 
-        protected SpawnStrategy(IObjectsFactory<GameObject> factory, IEntityInitializer initializer)
+        protected readonly string AssetId;
+
+        protected SpawnStrategy(string assetId, IObjectsFactory<GameObject> factory, IEntityInitializer initializer)
         {
+            AssetId = assetId;
             Factory = factory;
             Initializer = initializer;
         }

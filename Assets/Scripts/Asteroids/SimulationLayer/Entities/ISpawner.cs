@@ -7,7 +7,6 @@ namespace Asteroids.SimulationLayer.Entities
     {
         event Action<string, GameObject> OnSpawned;
         
-        string SpawnedAssetId { get; }
         float SpawnDelay { get; }
         
         int MaxCount { get; }

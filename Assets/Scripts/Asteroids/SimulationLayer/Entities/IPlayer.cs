@@ -6,5 +6,6 @@
         IRotatable Rotatable { get; }
         ICollidable Collidable { get; }
         ISpawner Spawner { get; }
+        IDestructable Destructable { get; }
     }
 }

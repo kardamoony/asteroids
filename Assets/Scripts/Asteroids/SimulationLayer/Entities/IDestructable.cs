@@ -2,6 +2,6 @@
 {
     public interface IDestructable
     {
-        int Health { get; set; }
+        int Health { get; }
     }
 }

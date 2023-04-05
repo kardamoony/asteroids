@@ -10,7 +10,7 @@ public class MovementSystemTests
     [Test]
     public void MovementSystem_UpdatesMovables_IfAnyRegistered()
     {
-        var modelMock = new Mock<IInputBasedEntityStrategy<IMovable>>();
+        var modelMock = new Mock<IContextEntityStrategy<IMovable, IInputProvider>>();
         modelMock.Setup(m 
             => m.Execute(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
@@ -26,7 +26,7 @@ public class MovementSystemTests
     [Test]
     public void MovementSystem_DoesNotUpdateMovables_IfNoneRegistered()
     {
-        var modelMock = new Mock<IInputBasedEntityStrategy<IMovable>>();
+        var modelMock = new Mock<IContextEntityStrategy<IMovable, IInputProvider>>();
         modelMock.Setup(m
             => m.Execute(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
@@ -40,7 +40,7 @@ public class MovementSystemTests
     [Test]
     public void MovementSystem_DoesNotUpdateMovables_IfAllUnregistered()
     {
-        var modelMock = new Mock<IInputBasedEntityStrategy<IMovable>>();
+        var modelMock = new Mock<IContextEntityStrategy<IMovable, IInputProvider>>();
         modelMock.Setup(m
             => m.Execute(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>())).Verifiable();
 
@@ -59,7 +59,7 @@ public class MovementSystemTests
     [Test]
     public void MovementSystem_DoesNotThrow_IfDuplicateIsRegistered()
     {
-        var movementSystem = new MovementSystem(Mock.Of<IInputBasedEntityStrategy<IMovable>>());
+        var movementSystem = new MovementSystem(Mock.Of<IContextEntityStrategy<IMovable, IInputProvider>>());
 
         var movable = Mock.Of<IMovable>();
         
@@ -71,7 +71,7 @@ public class MovementSystemTests
     [Test]
     public void MovementSystem_DoesNotThrow_IfNotRegisteredIsUnregistered()
     {
-        var movementSystem = new MovementSystem(Mock.Of<IInputBasedEntityStrategy<IMovable>>());
+        var movementSystem = new MovementSystem(Mock.Of<IContextEntityStrategy<IMovable, IInputProvider>>());
 
         Assert.DoesNotThrow(() => movementSystem.Unregister(Mock.Of<IMovable>()));
     }

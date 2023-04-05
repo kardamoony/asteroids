@@ -1,21 +1,22 @@
-﻿using Asteroids.SimulationLayer.Entities;
+﻿using Asteroids.CoreLayer.Input;
+using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.Strategies;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
-    public class MovementSystem : InputReadingSystem<IMovable>, IFixedUpdateSystem
+    public class MovementSystem : ContextSystem<IMovable, IInputProvider>, IFixedUpdateSystem
     {
-        private readonly IInputBasedEntityStrategy<IMovable> _strategy;
+        private readonly IContextEntityStrategy<IMovable, IInputProvider> _strategy;
 
-        public MovementSystem(IInputBasedEntityStrategy<IMovable> strategy)
+        public MovementSystem( IContextEntityStrategy<IMovable, IInputProvider> strategy)
         {
             _strategy = strategy;
         }
 
         public void FixedUpdate(float fixedDeltaTime)
         {
-            EntitiesInputMap.Update();
-            EntitiesInputMap.Foreach((entity, input) => _strategy.Execute(entity, input, fixedDeltaTime));
+            EntitiesContextMap.Update();
+            EntitiesContextMap.Foreach((entity, input) => _strategy.Execute(entity, input, fixedDeltaTime));
         }
     }
 }

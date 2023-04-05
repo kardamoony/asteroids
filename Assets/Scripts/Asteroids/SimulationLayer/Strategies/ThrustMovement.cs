@@ -4,7 +4,7 @@ using Asteroids.SimulationLayer.Entities;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
-    public class ThrustMovement : IInputBasedEntityStrategy<IMovable>
+    public class ThrustMovement : IContextEntityStrategy<IMovable, IInputProvider>
     {
         private readonly float _acceleration;
         private readonly float _deceleration;
@@ -17,10 +17,10 @@ namespace Asteroids.SimulationLayer.Strategies
             _brake = brake;
         }
         
-        public void Execute(IMovable entity, IInputProvider inputProvider, float deltaTime)
+        public void Execute(IMovable entity, IInputProvider context, float deltaTime)
         {
             var currentVelocity = entity.Velocity;
-            var verticalInput = inputProvider.VerticalAxis;
+            var verticalInput = context.VerticalAxis;
             
             if (verticalInput > 0 && currentVelocity < entity.Speed)
             {
