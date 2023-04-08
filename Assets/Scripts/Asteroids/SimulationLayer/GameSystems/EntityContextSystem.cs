@@ -2,22 +2,22 @@
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
-    public abstract class ContextSystem<TEntity, TContext>
+    public abstract class EntityContextSystem<TEntity, TContext>
     {
         protected readonly IEntitiesContextMap<TEntity, TContext> EntitiesContextMap;
 
-        protected ContextSystem()
+        protected EntityContextSystem()
         {
             //TODO: pass in the constructor
             EntitiesContextMap = new EntitiesContextMap<TEntity, TContext>();
         }
  
-        public void Register(TEntity entity, TContext context)
+        public virtual void Register(TEntity entity, TContext context)
         {
             EntitiesContextMap.Register(entity, context);
         }
 
-        public void Unregister(TEntity entity)
+        public virtual void Unregister(TEntity entity)
         {
             EntitiesContextMap.Unregister(entity);
         }

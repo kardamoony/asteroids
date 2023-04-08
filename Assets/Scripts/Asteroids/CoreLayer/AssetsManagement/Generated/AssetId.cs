@@ -8,6 +8,7 @@ namespace Generated
         Asteroid,
         AsteroidSpawner,
         Player,
+        PlayerSpawner,
         Projectile,
         GameplaySettings,
     }

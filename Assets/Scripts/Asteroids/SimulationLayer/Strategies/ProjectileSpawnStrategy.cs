@@ -18,9 +18,10 @@ namespace Asteroids.SimulationLayer.Strategies
             
             if (!context.Fire || _timeUntilSpawn > 0) return;
             
-            Factory.Get<ProjectileEntity>(AssetId, spawnedEntity =>
+            Factory.Get<IProjectile>(AssetId, spawnedEntity =>
             {
-                entity.InvokeSpawnedEvent(spawnedEntity.EntityView.GameObject, AssetId);
+                var e = (IEntity)spawnedEntity;
+                entity.InvokeSpawnedEvent(e.EntityView.GameObject, AssetId);
             });
 
             _timeUntilSpawn = entity.SpawnDelay;

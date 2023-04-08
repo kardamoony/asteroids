@@ -55,6 +55,6 @@ MonoBehaviour:
     - Id: Damage
       Value: 1
     - Id: Speed
-      Value: 50
+      Value: 20
     - Id: LifeTime
       Value: 00:00:10

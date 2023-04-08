@@ -12,5 +12,6 @@ namespace Generated
         Health,
         Damage,
         ProjectileAssetId,
+        Tries,
     }
 }

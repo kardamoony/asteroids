@@ -47,7 +47,6 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
         {
             CreateRoot();
             RegisterDependencies();
-            CreatePlayer();
             CreateSpawners();
             CreateSceneDirector();
             
@@ -94,6 +93,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             var acceleration = _settings.GetValue<float>(Player.Acceleration);
             var deceleration = _settings.GetValue<float>(Player.Deceleration);
             var brake = _settings.GetValue<float>(Player.Brake);
+            var triesCount = _settings.GetValue<int>(Player.Tries);
 
             container.RegisterInstance(new ThrustMovementSystem(acceleration, deceleration, brake));
             
@@ -102,25 +102,28 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             container.RegisterInstance(new AsteroidSpawnSystem(entityFactory));
             container.RegisterInstance(new EntityLifespanSystem(entityFactory));
             container.RegisterInstance(new HealthSystem(entityFactory));
+            container.RegisterInstance(new PlayerSpawnSystem(triesCount, AssetId.Player.ToString(), entityFactory));
 
             //entities
-            container.Register<IPlayer>(_ => new PlayerEntity(_settings, TimeSpan.Zero));
-
             var projectileLifeTime = _settings.GetValue<TimeSpan>(Projectile.LifeTime);
+            
+            container.Register<IPlayer>(_ => new PlayerEntity(_settings, TimeSpan.Zero));
             container.Register<IProjectile>(_ => new ProjectileEntity(_settings, projectileLifeTime));
+            
+            //TODO: IAsteroid
             container.Register<AsteroidEntity>(_ => new AsteroidEntity(_settings, TimeSpan.Zero));
-            container.Register<AsteroidSpawner>(_ => new AsteroidSpawner(_settings, projectileLifeTime));
-        }
-        
-        private void CreatePlayer()
-        {
-            Locator.Instance.Resolver.Resolve<IObjectsFactory<IEntity>>().Get<IPlayer>(AssetId.Player.ToString(), null);
+            
+            container.Register<AsteroidSpawner>(_ => new AsteroidSpawner(_settings, TimeSpan.Zero));
+            container.Register<PlayerSpawner>(_ => new PlayerSpawner(_settings, TimeSpan.Zero));
         }
 
         private void CreateSpawners()
         {
             Locator.Instance.Resolver.Resolve<IObjectsFactory<IEntity>>()
                 .Get<AsteroidSpawner>(AssetId.AsteroidSpawner.ToString(), null);
+            
+            Locator.Instance.Resolver.Resolve<IObjectsFactory<IEntity>>()
+                .Get<PlayerSpawner>(AssetId.PlayerSpawner.ToString(), null);
         }
         
         private void CreateSceneDirector()
@@ -134,6 +137,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
                 Locator.Instance.Resolver.Resolve<AsteroidSpawnSystem>(),
                 Locator.Instance.Resolver.Resolve<EntityLifespanSystem>(),
                 Locator.Instance.Resolver.Resolve<HealthSystem>(),
+                Locator.Instance.Resolver.Resolve<PlayerSpawnSystem>()
             };
 
             var fixedUpdateSystems = new List<IFixedUpdateSystem>
@@ -151,6 +155,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             {
                 new PlayerMovementInitializationHandler(),
                 new PlayerRotationInitializationHandler(),
+                new PlayerSpawnerInitializationHandler(),
                 
                 new CollisionInitializationHandler(),
                 

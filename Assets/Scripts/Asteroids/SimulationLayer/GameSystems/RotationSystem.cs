@@ -4,7 +4,7 @@ using Asteroids.SimulationLayer.Strategies;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
-    public class RotationSystem : ContextSystem<IRotatable, IInputProvider>, IUpdateSystem
+    public class RotationSystem : EntityContextSystem<IRotatable, IInputProvider>, IUpdateSystem
     {
         private readonly IContextEntityStrategy<IRotatable, IInputProvider> _strategy;
 

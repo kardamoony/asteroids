@@ -4,7 +4,7 @@ using Asteroids.SimulationLayer.Strategies;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
-    public class MovementSystem : ContextSystem<IMovable, IInputProvider>, IFixedUpdateSystem
+    public class MovementSystem : EntityContextSystem<IMovable, IInputProvider>, IFixedUpdateSystem
     {
         private readonly IContextEntityStrategy<IMovable, IInputProvider> _strategy;
 

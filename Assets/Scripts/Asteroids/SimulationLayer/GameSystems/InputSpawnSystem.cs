@@ -4,7 +4,7 @@ using Asteroids.SimulationLayer.Strategies;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
-    public class InputSpawnSystem : ContextSystem<ISpawner, IInputProvider>, IUpdateSystem
+    public class InputSpawnSystem : EntityContextSystem<ISpawner, IInputProvider>, IUpdateSystem
     {
         private readonly IContextEntityStrategy<ISpawner, IInputProvider> _strategy;
 
