@@ -1,5 +1,4 @@
 ﻿using Asteroids.CoreLayer.Input;
-using Asteroids.CoreLayer.IoC;
 using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
@@ -15,8 +14,8 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
             if (entity is IRotatable rotatable && component is RotationComponent movementComponent)
             {
                 movementComponent.SetContext(rotatable);
-                var inputProvider = IoC.Instance.Resolver.Resolve<IInputProvider>();
-                IoC.Instance.Resolver.Resolve<RotationSystem>().Register(rotatable, inputProvider);
+                var inputProvider = IoC.Locator.Instance.Resolver.Resolve<IInputProvider>();
+                IoC.Locator.Instance.Resolver.Resolve<RotationSystem>().Register(rotatable, inputProvider);
                 return;
             }
             
@@ -27,7 +26,7 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
         {
             if (entity is IRotatable rotatable)
             {
-                IoC.Instance.Resolver.Resolve<RotationSystem>().Unregister(rotatable);
+                IoC.Locator.Instance.Resolver.Resolve<RotationSystem>().Unregister(rotatable);
             }
             
             Next?.HandleDeinitialization(entity);

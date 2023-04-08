@@ -1,5 +1,4 @@
-﻿using Asteroids.CoreLayer.IoC;
-using Asteroids.PresentationLayer.Components;
+﻿using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
 
@@ -14,7 +13,7 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
             if (entity is IDestructable destructable && component is DestructableComponent destructableComponent)
             {
                 destructableComponent.SetContext(destructable);
-                IoC.Instance.Resolver.Resolve<HealthSystem>().Register(destructable);
+                IoC.Locator.Instance.Resolver.Resolve<HealthSystem>().Register(destructable);
                 return;
             }
             
@@ -25,7 +24,7 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
         {
             if (entity is IDestructable destructable)
             {
-                IoC.Instance.Resolver.Resolve<HealthSystem>().Unregister(destructable);
+                IoC.Locator.Instance.Resolver.Resolve<HealthSystem>().Unregister(destructable);
             }
             
             Next?.HandleDeinitialization(entity);

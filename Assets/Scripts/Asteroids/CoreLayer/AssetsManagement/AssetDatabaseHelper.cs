@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
@@ -44,6 +45,19 @@ namespace Asteroids.CoreLayer.AssetsManagement
             {
                 throw new ArgumentException($"{folderPath} is not a valid folder!");
             }
+        }
+
+        public static void SaveToFile(this string text, string path, string name, string extension)
+        {
+            var fullPath = path + "/" + name + "." + extension;
+            
+            if (File.Exists(fullPath))
+            {
+                AssetDatabase.DeleteAsset(fullPath);
+            }
+            
+            File.WriteAllText(fullPath, text);
+            AssetDatabase.ImportAsset(fullPath);
         }
     }
 }

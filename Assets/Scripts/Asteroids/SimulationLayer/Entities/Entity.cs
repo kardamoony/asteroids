@@ -1,9 +1,12 @@
 ﻿using System;
+using Asteroids.SimulationLayer.Settings;
 
 namespace Asteroids.SimulationLayer.Entities
 {
     public abstract class Entity : IEntity
     {
+        protected readonly ISettingsProvider SettingsProvider;
+        
         public IEntityView EntityView { get; private set; }
 
         public bool Initialized => EntityView != null;
@@ -11,8 +14,15 @@ namespace Asteroids.SimulationLayer.Entities
         
         public TimeSpan LifeTimeSpan { get; }
         
+        protected Entity(ISettingsProvider settingsProvider, TimeSpan lifeTimeSpan)
+        {
+            SettingsProvider = settingsProvider;
+            LifeTimeSpan = lifeTimeSpan;
+        }
+
         public void Initialize(IEntityView entityView)
         {
+            InitializeInternal();
             EntityView = entityView;
         }
 
@@ -21,14 +31,6 @@ namespace Asteroids.SimulationLayer.Entities
             EntityView = null;
         }
 
-        protected Entity()
-        {
-            LifeTimeSpan = default;
-        }
-
-        protected Entity(TimeSpan lifeTimeSpan)
-        {
-            LifeTimeSpan = lifeTimeSpan;
-        }
+        protected abstract void InitializeInternal();
     }
 }

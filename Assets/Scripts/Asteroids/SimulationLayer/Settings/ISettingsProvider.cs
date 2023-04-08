@@ -1,7 +1,9 @@
-﻿namespace Asteroids.SimulationLayer.Settings
+﻿using System;
+
+namespace Asteroids.SimulationLayer.Settings
 {
     public interface ISettingsProvider
     {
-        T GetValue<T>(string id);
+        T GetValue<T>(Enum settingId);
     }
 }

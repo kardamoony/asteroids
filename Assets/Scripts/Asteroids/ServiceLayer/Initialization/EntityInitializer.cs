@@ -1,6 +1,5 @@
 ﻿using System;
 using Asteroids.CoreLayer.Factories;
-using Asteroids.CoreLayer.IoC;
 using Asteroids.ServiceLayer.Initialization.Handlers;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
@@ -45,7 +44,7 @@ namespace Asteroids.ServiceLayer.Initialization
             entity.InitializationTime = DateTime.Now;
             entity.Initialize(entityView);
 
-            IoC.Instance.Resolver.Resolve<EntityLifespanSystem>().Register(entity);
+            IoC.Locator.Instance.Resolver.Resolve<EntityLifespanSystem>().Register(entity);
             OnEntityInitialized?.Invoke(entity);
         }
 
@@ -56,7 +55,7 @@ namespace Asteroids.ServiceLayer.Initialization
                 return;
             }
             
-            IoC.Instance.Resolver.Resolve<EntityLifespanSystem>().Unregister(entity);
+            IoC.Locator.Instance.Resolver.Resolve<EntityLifespanSystem>().Unregister(entity);
             
             _handler.HandleDeinitialization(entity);
 

@@ -12,4 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5831a8b69c4f38a34d648741300374, type: 3}
   m_Name: GameplaySettings
   m_EditorClassIdentifier: 
-  _settings: []
+  _settingsDescriptionFolder: Assets/Scripts/Asteroids/CoreLayer/AssetsManagement/Generated
+  Settings:
+  - Id: Player
+    Settings:
+    - Id: Speed
+      Value: 20
+    - Id: AngularSpeed
+      Value: 200
+    - Id: Acceleration
+      Value: 10
+    - Id: Deceleration
+      Value: 7
+    - Id: Brake
+      Value: 15
+    - Id: Health
+      Value: 1
+    - Id: Damage
+      Value: 1
+    - Id: ProjectileAssetId
+      Value: Projectile
+  - Id: Asteroid
+    Settings:
+    - Id: SpawnDelay
+      Value: 5
+    - Id: MaxCount
+      Value: 5
+    - Id: Health
+      Value: 1
+    - Id: Damage
+      Value: 1
+    - Id: SpeedRange
+      Value: 3 7
+    - Id: AsteroidAssetId
+      Value: Asteroid
+  - Id: Projectile
+    Settings:
+    - Id: SpawnDelay
+      Value: 5
+    - Id: Health
+      Value: 1
+    - Id: Damage
+      Value: 1
+    - Id: Speed
+      Value: 50
+    - Id: LifeTime
+      Value: 00:00:10

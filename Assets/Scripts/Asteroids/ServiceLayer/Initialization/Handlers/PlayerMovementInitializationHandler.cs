@@ -1,5 +1,4 @@
 ﻿using Asteroids.CoreLayer.Input;
-using Asteroids.CoreLayer.IoC;
 using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
@@ -15,8 +14,8 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
             if (entity is IPlayer player && component is MovementComponent movementComponent)
             {
                 movementComponent.SetContext(player.Movable);
-                var inputProvider = IoC.Instance.Resolver.Resolve<IInputProvider>();
-                IoC.Instance.Resolver.Resolve<ThrustMovementSystem>().Register(player.Movable, inputProvider);
+                var inputProvider = IoC.Locator.Instance.Resolver.Resolve<IInputProvider>();
+                IoC.Locator.Instance.Resolver.Resolve<ThrustMovementSystem>().Register(player.Movable, inputProvider);
                 return;
             }
             
@@ -27,7 +26,7 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
         {
             if (entity is IPlayer player)
             {
-                IoC.Instance.Resolver.Resolve<ThrustMovementSystem>().Unregister(player.Movable);
+                IoC.Locator.Instance.Resolver.Resolve<ThrustMovementSystem>().Unregister(player.Movable);
             }
             
             Next?.HandleDeinitialization(entity);

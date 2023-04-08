@@ -1,6 +1,5 @@
 ﻿using Asteroids.CoreLayer.Factories;
 using Asteroids.CoreLayer.Input;
-using Asteroids.CoreLayer.IoC;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.Initialization;
 using UnityEngine;
@@ -24,8 +23,8 @@ namespace Asteroids.SimulationLayer.Strategies
 
             Factory.Get<IEntityView>(AssetId, o =>
             {
-                //TODO: to factory
-                var projectile = IoC.Instance.Resolver.Resolve<IProjectile>();
+                //TODO: remove ioc call
+                var projectile = IoC.Locator.Instance.Resolver.Resolve<IProjectile>();
                 Initializer.InitializeEntity((IEntity)projectile, o);
                 entity.InvokeSpawnedEvent(o.GameObject);
             });

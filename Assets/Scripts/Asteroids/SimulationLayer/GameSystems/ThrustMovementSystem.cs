@@ -5,7 +5,7 @@ namespace Asteroids.SimulationLayer.GameSystems
 {
     public class ThrustMovementSystem : MovementSystem
     {
-        public ThrustMovementSystem(IPlayerSettings settings) : base(new ThrustMovement(settings.Acceleration, settings.Deceleration, settings.Brake))
+        public ThrustMovementSystem(float acceleration, float deceleration, float brake) : base(new ThrustMovement(acceleration, deceleration, brake))
         {
             
         }

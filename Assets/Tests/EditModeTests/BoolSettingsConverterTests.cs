@@ -1,5 +1,5 @@
 ﻿using System;
-using Asteroids.ServiceLayer.Settings.Parsers;
+using Asteroids.ServiceLayer.Settings.Converters;
 using NUnit.Framework;
 
 public class BoolSettingsConverterTests

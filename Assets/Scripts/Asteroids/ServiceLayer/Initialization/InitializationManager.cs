@@ -7,13 +7,12 @@ namespace Asteroids.SimulationLayer.Scene
 {
     public class InitializationManager : MonoBehaviour
     {
-        [SerializeField] private PlayerSettings _playerSettings;
-        [SerializeField] private AsteroidSettings _asteroidSettings;
         [SerializeField] private AssetsMap _assetsMap;
+        [SerializeField] private GameplaySettings _gameplaySettings;
         
         private void Start()
         {
-            new InitializationStrategy(_assetsMap, _playerSettings, _asteroidSettings).InitializeGameplay();
+            new InitializationStrategy(_assetsMap, _gameplaySettings).InitializeGameplay();
         }
     }
 }

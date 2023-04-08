@@ -1,5 +1,4 @@
 ﻿using Asteroids.CoreLayer.Input;
-using Asteroids.CoreLayer.IoC;
 using Asteroids.PresentationLayer.Components;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
@@ -12,13 +11,13 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
         
         public void HandleInitialization(IEntity entity, IEntityComponent component)
         {
-            if (entity is Asteroid asteroid && component is MovementComponent movementComponent)
+            if (entity is AsteroidEntity asteroid && component is MovementComponent movementComponent)
             {
                 movementComponent.SetContext(asteroid);
-                var input = IoC.Instance.Resolver.Resolve<ConstantInputProvider>();
+                var input = IoC.Locator.Instance.Resolver.Resolve<ConstantInputProvider>();
                 input.VerticalAxis = 1f;
                 
-                IoC.Instance.Resolver.Resolve<ConstantMovementSystem>().Register(asteroid, input);
+                IoC.Locator.Instance.Resolver.Resolve<ConstantMovementSystem>().Register(asteroid, input);
                 return;
             }
             
@@ -27,9 +26,9 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers
 
         public void HandleDeinitialization(IEntity entity)
         {
-            if (entity is Asteroid movable)
+            if (entity is AsteroidEntity movable)
             {
-                IoC.Instance.Resolver.Resolve<ConstantMovementSystem>().Unregister(movable);
+                IoC.Locator.Instance.Resolver.Resolve<ConstantMovementSystem>().Unregister(movable);
             }
             
             Next?.HandleDeinitialization(entity);

@@ -39,15 +39,9 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Id: AsteroidSettings
+  - Id: GameplaySettings
     AssetReference:
-      m_AssetGUID: 7ddd7b49091a4644ca6ecc0aec2239ff
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Id: PlayerSettings
-    AssetReference:
-      m_AssetGUID: ad134b19511abb54199ddaa9cc936062
+      m_AssetGUID: 6155cbf7257c872478b36405f584740c
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

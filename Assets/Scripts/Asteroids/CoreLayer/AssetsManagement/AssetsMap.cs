@@ -42,13 +42,6 @@ namespace Asteroids.CoreLayer.AssetsManagement
             var references = AssetDatabaseHelper.GetAssetReferencesInFolder(_assetsFolder);
             
             _assets.Clear();
-            
-            var generatedDescriptionPath = _assetsDescriptionFolder + "/" + AssetsEnumName + ".cs";
-
-            if (File.Exists(generatedDescriptionPath))
-            {
-                AssetDatabase.DeleteAsset(generatedDescriptionPath);
-            }
 
             var generator = new EnumGenerator(AssetsEnumName, true);
 
@@ -59,9 +52,8 @@ namespace Asteroids.CoreLayer.AssetsManagement
             }
             
             generator.CloseEnum();
+            generator.ToString().SaveToFile(_assetsDescriptionFolder, AssetsEnumName, "cs");
 
-            File.WriteAllText(generatedDescriptionPath, generator.ToString());
-            AssetDatabase.ImportAsset(generatedDescriptionPath);
             EditorUtility.SetDirty(this);
         }
 

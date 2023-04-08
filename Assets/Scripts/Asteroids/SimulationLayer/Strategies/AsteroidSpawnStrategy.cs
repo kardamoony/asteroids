@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Asteroids.CoreLayer.Factories;
-using Asteroids.CoreLayer.IoC;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.Initialization;
 using Asteroids.SimulationLayer.Settings;
@@ -28,8 +27,8 @@ namespace Asteroids.SimulationLayer.Strategies
             
             Factory.Get<IEntityView>(AssetId, view =>
             {
-                var asteroidSettings = IoC.Instance.Resolver.Resolve<IAsteroidSettings>();
-                var asteroid = IoC.Instance.Resolver.Resolve<Asteroid>(asteroidSettings.Speed);
+                //TODO: remove ioc
+                var asteroid = IoC.Locator.Instance.Resolver.Resolve<AsteroidEntity>();
                 Initializer.InitializeEntity(asteroid, view);
                 entity.InvokeSpawnedEvent(view.GameObject);
                 _spawnedEntities.Add(asteroid);
