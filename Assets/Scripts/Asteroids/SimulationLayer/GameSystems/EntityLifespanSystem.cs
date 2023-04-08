@@ -1,16 +1,16 @@
 ﻿using System;
+using Asteroids.CoreLayer.Factories;
 using Asteroids.SimulationLayer.Entities;
-using Asteroids.SimulationLayer.Initialization;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
     public class EntityLifespanSystem : SimpleEntitySystem<IEntity>, IUpdateSystem
     {
-        private readonly IEntityInitializer _initializer;
-        
-        public EntityLifespanSystem(IEntityInitializer initializer)
+        private readonly IObjectsFactory<IEntity> _factory;
+
+        public EntityLifespanSystem(IObjectsFactory<IEntity> factory)
         {
-            _initializer = initializer;
+            _factory = factory;
         }
         
         public void Update(float deltaTime)
@@ -28,7 +28,7 @@ namespace Asteroids.SimulationLayer.GameSystems
                 
                 if (lifespan > entity.LifeTimeSpan)
                 {
-                    _initializer.DeinitializeEntity(entity);
+                    _factory.Release(entity);
                 }
             });
         }

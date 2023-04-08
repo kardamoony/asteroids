@@ -1,8 +1,7 @@
 ﻿using Asteroids.CoreLayer.Factories;
-using Asteroids.SimulationLayer.Initialization;
+using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.Strategies;
 using Generated;
-using UnityEngine;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
@@ -10,8 +9,7 @@ namespace Asteroids.SimulationLayer.GameSystems
     {
         private static readonly string _assetId = AssetId.Projectile.ToString();
         
-        public ProjectileSpawnSystem(IObjectsFactory<GameObject> factory, IEntityInitializer initializer) 
-            : base(new ProjectileSpawnStrategy(_assetId, factory, initializer))
+        public ProjectileSpawnSystem(IObjectsFactory<IEntity> factory) : base(new ProjectileSpawnStrategy(_assetId, factory))
         {
         }
     }

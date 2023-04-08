@@ -11,7 +11,7 @@ namespace Asteroids.SimulationLayer.Entities
         
         int MaxCount { get; }
 
-        void InvokeSpawnedEvent(GameObject gameObject);
+        void InvokeSpawnedEvent(GameObject gameObject, string assetId);
 
     }
 }

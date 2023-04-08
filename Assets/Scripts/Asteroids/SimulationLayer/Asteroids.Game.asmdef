@@ -2,8 +2,7 @@
     "name": "Asteroids.Game",
     "rootNamespace": "",
     "references": [
-        "GUID:4038ebbf69325554ba3508545980c2ef",
-        "GUID:03250ff4ee69b9645bd4e2a8d7487ddb"
+        "GUID:4038ebbf69325554ba3508545980c2ef"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

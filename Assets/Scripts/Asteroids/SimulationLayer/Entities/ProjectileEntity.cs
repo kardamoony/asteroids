@@ -4,7 +4,7 @@ using Generated;
 
 namespace Asteroids.SimulationLayer.Entities
 {
-    public class ProjectileEntity : Entity, IProjectile, IMovable, ICollidable, IDestructable
+    public sealed class ProjectileEntity : Entity, IProjectile, IMovable, ICollidable, IDestructable
     {
         public IMovable Movable => this;
         public float Speed { get; private set; }

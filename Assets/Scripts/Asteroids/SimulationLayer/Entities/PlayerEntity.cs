@@ -5,13 +5,12 @@ using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Entities
 {
-    public class PlayerEntity : Entity, IPlayer, IMovable, IRotatable, ICollidable, IDestructable, ISpawner
+    public sealed class PlayerEntity : Entity, IPlayer, IMovable, IRotatable, ICollidable, IDestructable, ISpawner
     {
         public event Action <string, GameObject> OnSpawned;
         
         //spawner
         public ISpawner Spawner => this;
-        public string SpawnedAssetId { get; private set; }
         public float SpawnDelay { get; } = 0.5f; //TODO: move in settings 
         public int MaxCount { get; } = 20; //TODO: move in settings
         
@@ -37,9 +36,9 @@ namespace Asteroids.SimulationLayer.Entities
         {
         }
         
-        public void InvokeSpawnedEvent(GameObject gameObject)
+        public void InvokeSpawnedEvent(GameObject gameObject, string assetId)
         {
-            OnSpawned?.Invoke(SpawnedAssetId, gameObject);
+            OnSpawned?.Invoke(assetId, gameObject);
         }
 
         public void HandleCollisionEnter(ICollidable other)
@@ -57,7 +56,6 @@ namespace Asteroids.SimulationLayer.Entities
             AngularSpeed = SettingsProvider.GetValue<float>(Player.AngularSpeed);
             Health = SettingsProvider.GetValue<int>(Player.Health);
             Damage = SettingsProvider.GetValue<int>(Player.Damage);
-            SpawnedAssetId = SettingsProvider.GetValue<string>(Player.ProjectileAssetId);
         }
     }
 }

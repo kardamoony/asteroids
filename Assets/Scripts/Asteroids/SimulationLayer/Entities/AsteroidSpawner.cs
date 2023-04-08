@@ -8,7 +8,6 @@ namespace Asteroids.SimulationLayer.Entities
     public class AsteroidSpawner : Entity, ISpawner
     {
         public event Action<string, GameObject> OnSpawned;
-        public string SpawnedAssetId { get; private set; }
         public float SpawnDelay { get; private set;}
         public int MaxCount { get; private set;}
         
@@ -16,16 +15,15 @@ namespace Asteroids.SimulationLayer.Entities
         {
         }
 
-        public void InvokeSpawnedEvent(GameObject gameObject)
+        public void InvokeSpawnedEvent(GameObject gameObject, string assetId)
         {
-            OnSpawned?.Invoke(SpawnedAssetId, gameObject);
+            OnSpawned?.Invoke(assetId, gameObject);
         }
 
         protected override void InitializeInternal()
         {
             SpawnDelay = SettingsProvider.GetValue<float>(Asteroid.SpawnDelay);
             MaxCount = SettingsProvider.GetValue<int>(Asteroid.MaxCount);
-            SpawnedAssetId = SettingsProvider.GetValue<string>(Asteroid.AsteroidAssetId);
         }
     }
 }

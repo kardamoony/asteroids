@@ -1,9 +1,6 @@
 using System.Collections.Generic;
 using Asteroids.CoreLayer.Factories;
 using Asteroids.SimulationLayer.Entities;
-using Asteroids.SimulationLayer.Initialization;
-using Asteroids.SimulationLayer.Settings;
-using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
@@ -13,10 +10,8 @@ namespace Asteroids.SimulationLayer.Strategies
         
         private float _timeUntilSpawn;
 
-        public AsteroidSpawnStrategy(string assetId, IObjectsFactory<GameObject> factory, IEntityInitializer initializer) : base(assetId, factory, initializer)
+        public AsteroidSpawnStrategy(string assetId, IObjectsFactory<IEntity> factory) : base(assetId, factory)
         {
-            //TODO: unsubscribe
-            initializer.OnEntityDenitialized += HandleEntityDeinitialized;
         }
 
         public override void Execute(ISpawner entity, float deltaTime)
@@ -25,13 +20,11 @@ namespace Asteroids.SimulationLayer.Strategies
             
             if (!CanSpawn(entity)) return;
             
-            Factory.Get<IEntityView>(AssetId, view =>
+            Factory.Get<AsteroidEntity>(AssetId, spawnedEntity =>
             {
-                //TODO: remove ioc
-                var asteroid = IoC.Locator.Instance.Resolver.Resolve<AsteroidEntity>();
-                Initializer.InitializeEntity(asteroid, view);
-                entity.InvokeSpawnedEvent(view.GameObject);
-                _spawnedEntities.Add(asteroid);
+                _spawnedEntities.Add(spawnedEntity);
+                spawnedEntity.OnDeinitialized += HandleEntityDeinitialized;
+                entity.InvokeSpawnedEvent(spawnedEntity.EntityView.GameObject, AssetId);
             });
 
             _timeUntilSpawn = entity.SpawnDelay;
@@ -53,8 +46,9 @@ namespace Asteroids.SimulationLayer.Strategies
             {
                 return;
             }
-
+            
             _spawnedEntities.Remove(entity);
+            entity.OnDeinitialized -= HandleEntityDeinitialized;
         }
     }
 }

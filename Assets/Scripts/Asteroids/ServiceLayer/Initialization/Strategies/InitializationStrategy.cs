@@ -5,6 +5,7 @@ using Asteroids.CoreLayer.Factories;
 using Asteroids.CoreLayer.Input;
 using Asteroids.CoreLayer.Services;
 using Asteroids.IoC;
+using Asteroids.ServiceLayer.Factories;
 using Asteroids.ServiceLayer.Initialization.Handlers;
 using Asteroids.ServiceLayer.Settings;
 using Asteroids.ServiceLayer.Settings.Converters;
@@ -66,8 +67,8 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             
             var addressableService = new AddressableService(_assetsMap);
             var gameObjectsFactory = new GameObjectsFactory(addressableService, _rootTransform);
-
             var initializer = CreateEntityInitializer(gameObjectsFactory);
+            var entityFactory = new EntityFactory(gameObjectsFactory, initializer);
             
             Locator.Instance.SetContainer(container).SetResolver(container);
             
@@ -78,6 +79,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             container.RegisterInstance(_assetsMap);
             container.RegisterInstance<IAddressableService>(addressableService);
             container.RegisterInstance<IObjectsFactory<GameObject>>(gameObjectsFactory);
+            container.RegisterInstance<IObjectsFactory<IEntity>>(entityFactory);
             
             //initialization
             container.RegisterInstance(initializer);
@@ -96,10 +98,10 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             container.RegisterInstance(new ThrustMovementSystem(acceleration, deceleration, brake));
             
             container.RegisterInstance(new RotationSystem(new Rotation()));
-            container.RegisterInstance(new ProjectileSpawnSystem(gameObjectsFactory, initializer));
-            container.RegisterInstance(new AsteroidSpawnSystem(gameObjectsFactory, initializer));
-            container.RegisterInstance(new EntityLifespanSystem(initializer));
-            container.RegisterInstance(new HealthSystem(initializer));
+            container.RegisterInstance(new ProjectileSpawnSystem(entityFactory));
+            container.RegisterInstance(new AsteroidSpawnSystem(entityFactory));
+            container.RegisterInstance(new EntityLifespanSystem(entityFactory));
+            container.RegisterInstance(new HealthSystem(entityFactory));
 
             //entities
             container.Register<IPlayer>(_ => new PlayerEntity(_settings, TimeSpan.Zero));
@@ -112,22 +114,13 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
         
         private void CreatePlayer()
         {
-            Locator.Instance.Resolver.Resolve<IObjectsFactory<GameObject>>().Get<IEntityView>(AssetId.Player.ToString(), o =>
-            {
-                var player =  Locator.Instance.Resolver.Resolve<IPlayer>();
-                Locator.Instance.Resolver.Resolve<IEntityInitializer>().InitializeEntity((IEntity)player, o);
-            });
+            Locator.Instance.Resolver.Resolve<IObjectsFactory<IEntity>>().Get<IPlayer>(AssetId.Player.ToString(), null);
         }
 
         private void CreateSpawners()
         {
-            Locator.Instance.Resolver.Resolve<IObjectsFactory<GameObject>>().Get<IEntityView>(
-                AssetId.AsteroidSpawner.ToString(),
-                o =>
-                {
-                    var spawner =  Locator.Instance.Resolver.Resolve<AsteroidSpawner>();
-                    Locator.Instance.Resolver.Resolve<IEntityInitializer>().InitializeEntity(spawner, o);
-                });
+            Locator.Instance.Resolver.Resolve<IObjectsFactory<IEntity>>()
+                .Get<AsteroidSpawner>(AssetId.AsteroidSpawner.ToString(), null);
         }
         
         private void CreateSceneDirector()

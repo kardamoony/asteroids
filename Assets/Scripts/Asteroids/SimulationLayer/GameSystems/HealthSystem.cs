@@ -1,15 +1,15 @@
-﻿using Asteroids.SimulationLayer.Entities;
-using Asteroids.SimulationLayer.Initialization;
+﻿using Asteroids.CoreLayer.Factories;
+using Asteroids.SimulationLayer.Entities;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
     public class HealthSystem : SimpleEntitySystem<IDestructable>, IUpdateSystem
     {
-        private readonly IEntityInitializer _initializer;
-        
-        public HealthSystem(IEntityInitializer initializer)
+        private readonly IObjectsFactory<IEntity> _factory;
+
+        public HealthSystem(IObjectsFactory<IEntity> factory)
         {
-            _initializer = initializer;
+            _factory = factory;
         }
         
         public void Update(float deltaTime)
@@ -20,7 +20,7 @@ namespace Asteroids.SimulationLayer.GameSystems
             {
                 if (e.Health <= 0)
                 {
-                    _initializer.DeinitializeEntity((IEntity)e);
+                    _factory.Release((IEntity)e);
                 }
             });
         }

@@ -6,6 +6,9 @@ namespace Asteroids.SimulationLayer.Entities
     public abstract class Entity : IEntity
     {
         protected readonly ISettingsProvider SettingsProvider;
+
+        public event Action<IEntity> OnInitialized;
+        public event Action<IEntity> OnDeinitialized;
         
         public IEntityView EntityView { get; private set; }
 
@@ -24,11 +27,13 @@ namespace Asteroids.SimulationLayer.Entities
         {
             InitializeInternal();
             EntityView = entityView;
+            OnInitialized?.Invoke(this);
         }
 
         public void Denitialize()
         {
             EntityView = null;
+            OnDeinitialized?.Invoke(this);
         }
 
         protected abstract void InitializeInternal();
