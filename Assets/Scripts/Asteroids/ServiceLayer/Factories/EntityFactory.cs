@@ -9,10 +9,10 @@ namespace Asteroids.ServiceLayer.Factories
 {
     public class EntityFactory : IObjectsFactory<IEntity>
     {
-        private readonly IEntityInitializer _initializer;
+        private readonly IInitializer<IEntity, IEntityView> _initializer;
         private readonly IObjectsFactory<GameObject> _factory;
 
-        public EntityFactory(IObjectsFactory<GameObject> factory, IEntityInitializer initializer)
+        public EntityFactory(IObjectsFactory<GameObject> factory, IInitializer<IEntity, IEntityView> initializer)
         {
             _factory = factory;
             _initializer = initializer;
@@ -24,14 +24,14 @@ namespace Asteroids.ServiceLayer.Factories
             {
                 var product = Locator.Instance.Resolver.Resolve<T>();
                 var entity = product as IEntity;
-                _initializer.InitializeEntity(entity, view);
+                _initializer.InitializeObject(entity, view);
                 callback?.Invoke(product);
             });
         }
 
-        public void Release(IEntity obj)
+        public void Release(IEntity obj, bool dispose)
         {
-            _initializer.DeinitializeEntity(obj);
+            _initializer.DeinitializeObject(obj);
             //TODO: entity pool
         }
     }

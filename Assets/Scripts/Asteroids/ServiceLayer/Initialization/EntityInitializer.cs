@@ -1,6 +1,5 @@
 ﻿using System;
 using Asteroids.CoreLayer.Factories;
-using Asteroids.ServiceLayer.Initialization.Handlers;
 using Asteroids.SimulationLayer.Entities;
 using Asteroids.SimulationLayer.GameSystems;
 using Asteroids.SimulationLayer.Initialization;
@@ -8,15 +7,15 @@ using UnityEngine;
 
 namespace Asteroids.ServiceLayer.Initialization
 {
-    public class EntityInitializer : IEntityInitializer
+    public class EntityInitializer : IInitializer<IEntity, IEntityView>
     {
-        public event Action<IEntity> OnEntityInitialized;
-        public event Action<IEntity> OnEntityDenitialized;
+        public event Action<IEntity> OnObjectInitialized;
+        public event Action<IEntity> OnObjectDenitialized;
         
-        private readonly IInitializationHandler _handler;
+        private readonly IInitializationHandler<IEntity, IEntityComponent> _handler;
         private readonly IObjectsFactory<GameObject> _factory;
 
-        public EntityInitializer(IInitializationHandler[] handlers, IObjectsFactory<GameObject> factory)
+        public EntityInitializer(IInitializationHandler<IEntity, IEntityComponent>[] handlers, IObjectsFactory<GameObject> factory)
         {
             _factory = factory;
             _handler = handlers[0];
@@ -27,7 +26,7 @@ namespace Asteroids.ServiceLayer.Initialization
             }
         }
 
-        public void InitializeEntity(IEntity entity, IEntityView entityView)
+        public void InitializeObject(IEntity entity, IEntityView entityView)
         {
             if (entity.Initialized)
             {
@@ -45,30 +44,30 @@ namespace Asteroids.ServiceLayer.Initialization
             entity.Initialize(entityView);
 
             IoC.Locator.Instance.Resolver.Resolve<EntityLifespanSystem>().Register(entity);
-            OnEntityInitialized?.Invoke(entity);
+            OnObjectInitialized?.Invoke(entity);
         }
 
-        public void DeinitializeEntity(IEntity entity)
+        public void DeinitializeObject(IEntity @object)
         {
-            if (!entity.Initialized)
+            if (!@object.Initialized)
             {
                 return;
             }
             
-            IoC.Locator.Instance.Resolver.Resolve<EntityLifespanSystem>().Unregister(entity);
+            IoC.Locator.Instance.Resolver.Resolve<EntityLifespanSystem>().Unregister(@object);
             
-            _handler.HandleDeinitialization(entity);
+            _handler.HandleDeinitialization(@object);
 
-            var viewComponents = entity.EntityView.GetComponents();
+            var viewComponents = @object.EntityView.GetComponents();
 
             foreach (var component in viewComponents)
             {
                 component.ClearContext();
             }
 
-            _factory.Release(entity.EntityView.GameObject);
-            entity.Denitialize();
-            OnEntityDenitialized?.Invoke(entity);
+            _factory.Release(@object.EntityView.GameObject, false);
+            @object.Denitialize();
+            OnObjectDenitialized?.Invoke(@object);
         }
     }
 }

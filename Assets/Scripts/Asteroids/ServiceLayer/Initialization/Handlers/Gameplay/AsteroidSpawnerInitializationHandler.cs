@@ -1,0 +1,34 @@
+﻿using Asteroids.PresentationLayer.Components;
+using Asteroids.SimulationLayer.Entities;
+using Asteroids.SimulationLayer.GameSystems;
+using Asteroids.SimulationLayer.Initialization;
+
+namespace Asteroids.ServiceLayer.Initialization.Handlers.Gameplay
+{
+    public class AsteroidSpawnerInitializationHandler : IInitializationHandler<IEntity, IEntityComponent>
+    {
+        public IInitializationHandler<IEntity, IEntityComponent> Next { get; set; }
+        
+        public void HandleInitialization(IEntity entity, IEntityComponent component)
+        {
+            if (entity is AsteroidSpawner spawner && component is SpawnerComponent spawnerComponent)
+            {
+                spawnerComponent.SetContext(spawner);
+                IoC.Locator.Instance.Resolver.Resolve<AsteroidSpawnSystem>().Register(spawner);
+                return;
+            }
+            
+            Next?.HandleInitialization(entity, component);
+        }
+
+        public void HandleDeinitialization(IEntity entity)
+        {
+            if (entity is AsteroidSpawner spawner)
+            {
+                IoC.Locator.Instance.Resolver.Resolve<AsteroidSpawnSystem>().Unregister(spawner);
+            }
+            
+            Next?.HandleDeinitialization(entity);
+        }
+    }
+}

@@ -46,7 +46,7 @@ namespace Asteroids.CoreLayer.Factories
             });
         }
 
-        public void Release(GameObject gameObject)
+        public void Release(GameObject gameObject, bool dispose)
         {
             if (!_inUse.TryGetValue(gameObject, out var id))
             {
@@ -54,6 +54,13 @@ namespace Asteroids.CoreLayer.Factories
             }
 
             _inUse.Remove(gameObject);
+
+            if (dispose)
+            {
+                _addressableService.ReleaseInstance(gameObject);
+                return;
+            }
+            
             gameObject.SetActive(false);
             gameObject.transform.SetParent(_poolParent);
             GetPoolStack(id).Push(gameObject);

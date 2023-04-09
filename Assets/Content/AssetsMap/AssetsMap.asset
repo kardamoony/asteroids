@@ -33,6 +33,12 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  - Id: PlayerSpawner
+    AssetReference:
+      m_AssetGUID: c03616a87ac347740ab7ce8fb4ac58a3
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   - Id: Projectile
     AssetReference:
       m_AssetGUID: 2dc469b98e7d84a4d998f335fa299889
@@ -42,6 +48,12 @@ MonoBehaviour:
   - Id: GameplaySettings
     AssetReference:
       m_AssetGUID: 6155cbf7257c872478b36405f584740c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Id: StartView
+    AssetReference:
+      m_AssetGUID: 9aaa3bbb734bdb9408370c1fdb7fc18d
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

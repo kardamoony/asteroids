@@ -10,7 +10,6 @@ namespace Asteroids.CoreLayer.Services
     public sealed class AddressableService : IAddressableService
     {
         private readonly Dictionary<string, AssetReference> _assetsMap;
-        //private readonly Dictionary<string, AsyncOperationHandle> _handles;
 
         public AddressableService(IAssetsMap assetsMap)
         {

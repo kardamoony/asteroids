@@ -20,7 +20,7 @@ namespace Asteroids.SimulationLayer.GameSystems
             {
                 if (e.Health <= 0)
                 {
-                    _factory.Release((IEntity)e);
+                    _factory.Release((IEntity)e, false);
                 }
             });
         }

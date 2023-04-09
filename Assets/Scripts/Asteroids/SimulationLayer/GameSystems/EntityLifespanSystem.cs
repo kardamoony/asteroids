@@ -28,7 +28,7 @@ namespace Asteroids.SimulationLayer.GameSystems
                 
                 if (lifespan > entity.LifeTimeSpan)
                 {
-                    _factory.Release(entity);
+                    _factory.Release(entity, false);
                 }
             });
         }
