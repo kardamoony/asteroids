@@ -13,11 +13,19 @@ namespace Asteroids.MetaLayer.MVVM
     public abstract class UIView<TViewModel, TModel> : UIView where TViewModel : UIViewModel<TModel>, new()
     {
         protected TViewModel ViewModel;
+        protected bool Initialized { get; private set; }
 
         public void Initialize(TModel model)
         {
             ViewModel = new TViewModel();
             ViewModel.Activate(model);
+            Initialized = true;
+        }
+
+        public void Deinitialize()
+        {
+            ViewModel = null;
+            Initialized = false;
         }
         
         public void Show()

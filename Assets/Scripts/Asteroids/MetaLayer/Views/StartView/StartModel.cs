@@ -1,9 +1,8 @@
-﻿using Asteroids.MetaLayer.MVVM;
-using Asteroids.SimulationLayer.Initialization;
+﻿using Asteroids.SimulationLayer.Initialization;
 
 namespace Asteroids.MetaLayer.Views.StartView
 {
-    public class StartModel : UIModel
+    public class StartModel
     {
         public readonly IInitializationStrategy Strategy;
         

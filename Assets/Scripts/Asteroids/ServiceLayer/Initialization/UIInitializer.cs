@@ -1,17 +1,18 @@
 ﻿using System;
+using Asteroids.MetaLayer.Initialization;
 using Asteroids.MetaLayer.MVVM;
 using Asteroids.SimulationLayer.Initialization;
 
 namespace Asteroids.ServiceLayer.Initialization
 {
-    public class UIInitializer : IInitializer<UIView, UIModel>
+    public class UIInitializer : IInitializer<UIView, UIContext>
     {
         public event Action<UIView> OnObjectInitialized;
         public event Action<UIView> OnObjectDenitialized;
         
-        private readonly IInitializationHandler<UIView, UIModel> _handler;
+        private readonly IInitializationHandler<UIView, UIContext> _handler;
 
-        public UIInitializer(IInitializationHandler<UIView, UIModel>[] handlers)
+        public UIInitializer(IInitializationHandler<UIView, UIContext>[] handlers)
         {
             _handler = handlers[0];
             
@@ -21,7 +22,7 @@ namespace Asteroids.ServiceLayer.Initialization
             }
         }
         
-        public void InitializeObject(UIView @object, UIModel context)
+        public void InitializeObject(UIView @object, UIContext context)
         {
             _handler.HandleInitialization(@object, context);
             OnObjectInitialized?.Invoke(@object);

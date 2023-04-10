@@ -31,7 +31,6 @@ namespace Asteroids.CoreLayer.Factories
 
                 var obj = gameObject.GetComponent<T>();
                 gameObject.transform.SetParent(null);
-                gameObject.SetActive(true);
                 callback.Invoke(obj);
                 return;
             }
@@ -41,7 +40,6 @@ namespace Asteroids.CoreLayer.Factories
                 var gameObject = Object.Instantiate(handle.Result);
                 _inUse.Add(gameObject, id);
                 var obj = gameObject.GetComponent<T>();
-                gameObject.SetActive(true);
                 callback.Invoke(obj);
             });
         }

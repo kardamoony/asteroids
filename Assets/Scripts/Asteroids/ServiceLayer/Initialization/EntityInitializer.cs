@@ -42,6 +42,7 @@ namespace Asteroids.ServiceLayer.Initialization
             
             entity.InitializationTime = DateTime.Now;
             entity.Initialize(entityView);
+            entityView.GameObject.SetActive(true);
 
             IoC.Locator.Instance.Resolver.Resolve<EntityLifespanSystem>().Register(entity);
             OnObjectInitialized?.Invoke(entity);

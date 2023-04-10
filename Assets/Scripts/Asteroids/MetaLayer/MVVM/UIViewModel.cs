@@ -9,6 +9,9 @@
         public void Activate(TModel model)
         {
             Model = model;
+            OnActivated();
         }
+
+        protected virtual void OnActivated(){}
     }
 }

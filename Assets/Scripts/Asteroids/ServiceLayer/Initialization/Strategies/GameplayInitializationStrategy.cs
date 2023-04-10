@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Asteroids.CoreLayer.AssetsManagement;
 using Asteroids.CoreLayer.Factories;
 using Asteroids.CoreLayer.Input;
 using Asteroids.CoreLayer.Services;
 using Asteroids.IoC;
 using Asteroids.ServiceLayer.Factories;
-using Asteroids.ServiceLayer.Initialization.Handlers;
 using Asteroids.ServiceLayer.Initialization.Handlers.Gameplay;
 using Asteroids.ServiceLayer.Settings;
 using Asteroids.ServiceLayer.Settings.Converters;
