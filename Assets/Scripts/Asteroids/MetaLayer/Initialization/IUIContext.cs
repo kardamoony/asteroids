@@ -2,8 +2,8 @@
 
 namespace Asteroids.MetaLayer.Initialization
 {
-    public class UIContext : IUIContext
+    public interface IUIContext
     {
-        public Transform Parent { get; }
+        Transform Parent { get; }
     }
 }

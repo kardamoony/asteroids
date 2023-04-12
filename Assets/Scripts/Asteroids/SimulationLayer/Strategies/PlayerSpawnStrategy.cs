@@ -3,26 +3,34 @@ using Asteroids.SimulationLayer.Entities;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
-    public class PlayerSpawnStrategy : SpawnStrategy
+    public class PlayerSpawnStrategy : SpawnStrategy, IPlayerAttemptsProvider
     {
         private bool _playerSpawned;
-        private int _triesCount;
+        private bool _initialSpawnOccured;
         
-        public PlayerSpawnStrategy(int triesCount, string assetId, IObjectsFactory<IEntity> factory) : base(assetId, factory)
+        public int Attempts { get; private set; }
+        
+        public PlayerSpawnStrategy(int attempts, string assetId, IObjectsFactory<IEntity> factory) : base(assetId, factory)
         {
-            _triesCount = triesCount + 1;
+            Attempts = attempts;
         }
 
         public override void Execute(ISpawner entity, float deltaTime)
         {
-            if (_playerSpawned || _triesCount < 1)
+            if (_playerSpawned || Attempts < 1)
             {
                 return;
             }
             
             _playerSpawned = true;
-            _triesCount -= 1;
-            
+
+            if (_initialSpawnOccured)
+            {
+                Attempts -= 1;
+            }
+
+            _initialSpawnOccured = true;
+     
             //TODO: add small respawn delay
             Factory.Get<IPlayer>(AssetId, player =>
             {

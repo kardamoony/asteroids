@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Asteroids.MetaLayer.Views.StartView
 {
-    public class StartContext : UIContext
+    public class StartContext : IUIContext
     {
         public Transform Parent { get; set; }
     }

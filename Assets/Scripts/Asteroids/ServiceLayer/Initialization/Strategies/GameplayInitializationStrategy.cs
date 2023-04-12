@@ -4,6 +4,8 @@ using Asteroids.CoreLayer.Factories;
 using Asteroids.CoreLayer.Input;
 using Asteroids.CoreLayer.Services;
 using Asteroids.IoC;
+using Asteroids.MetaLayer.MVVM;
+using Asteroids.MetaLayer.Views.AttemptsView;
 using Asteroids.ServiceLayer.Factories;
 using Asteroids.ServiceLayer.Initialization.Handlers.Gameplay;
 using Asteroids.ServiceLayer.Settings;
@@ -45,6 +47,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             RegisterDependencies();
             CreateSpawners();
             CreateSceneDirector();
+            CreateUI();
             
             Locator.Instance.Resolver.Resolve<IAddressableService>().Initialize();
         }
@@ -53,6 +56,8 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
         {
             //TODO: proper deinitialization and asset release
             Object.Destroy(_root);
+            
+            //TODO: close gameplay views
         }
 
         private void CreateRoot()
@@ -67,7 +72,6 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             var resolver = Locator.Instance.Resolver;
 
             var gameObjectsFactory = resolver.Resolve<IObjectsFactory<GameObject>>();
-            
             var initializer = CreateEntityInitializer(gameObjectsFactory);
             var entityFactory = new EntityFactory(gameObjectsFactory, initializer);
             
@@ -99,7 +103,9 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             container.RegisterInstance(new AsteroidSpawnSystem(entityFactory));
             container.RegisterInstance(new EntityLifespanSystem(entityFactory));
             container.RegisterInstance(new HealthSystem(entityFactory));
-            container.RegisterInstance(new PlayerSpawnSystem(triesCount, AssetId.Player.ToString(), entityFactory));
+
+            var playerSpawnStrategy = new PlayerSpawnStrategy(triesCount, AssetId.Player.ToString(), entityFactory);
+            container.RegisterInstance(new PlayerSpawnSystem(playerSpawnStrategy));
 
             //entities
             var projectileLifeTime = _settings.GetValue<TimeSpan>(Projectile.LifeTime);
@@ -112,6 +118,15 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             
             container.Register<AsteroidSpawner>(_ => new AsteroidSpawner(_settings, TimeSpan.Zero));
             container.Register<PlayerSpawner>(_ => new PlayerSpawner(_settings, TimeSpan.Zero));
+            
+            //UI
+            Locator.Instance.Container.RegisterInstance(new AttemptsModel(gameObjectsFactory, playerSpawnStrategy));
+        }
+
+        private void CreateUI()
+        {
+            var factory = Locator.Instance.Resolver.Resolve<IObjectsFactory<UIView>>();
+            factory.Get<AttemptsView>(AssetId.AttemptsView.ToString(), o => { o.Show(); });
         }
 
         private void CreateSpawners()

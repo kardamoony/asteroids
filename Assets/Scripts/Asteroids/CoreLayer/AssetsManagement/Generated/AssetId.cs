@@ -11,6 +11,8 @@ namespace Generated
         PlayerSpawner,
         Projectile,
         GameplaySettings,
+        AttemptsView,
         StartView,
+        PlayerAttemptWidget,
     }
 }

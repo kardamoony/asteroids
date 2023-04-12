@@ -11,10 +11,10 @@ namespace Asteroids.ServiceLayer.Factories
     public class UIFactory : IObjectsFactory<UIView>
     {
         private readonly IObjectsFactory<GameObject> _factory;
-        private readonly IInitializer<UIView, UIContext> _initializer;
+        private readonly IInitializer<UIView, IUIContext> _initializer;
         private readonly Transform _uiRoot;
 
-        public UIFactory(IObjectsFactory<GameObject> factory, IInitializer<UIView, UIContext> initializer, Transform uiRoot)
+        public UIFactory(IObjectsFactory<GameObject> factory, IInitializer<UIView, IUIContext> initializer, Transform uiRoot)
         {
             _factory = factory;
             _initializer = initializer;

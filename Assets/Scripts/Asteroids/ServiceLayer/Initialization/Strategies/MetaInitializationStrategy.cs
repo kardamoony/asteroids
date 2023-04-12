@@ -1,5 +1,6 @@
 ﻿using Asteroids.CoreLayer.Factories;
 using Asteroids.IoC;
+using Asteroids.MetaLayer.Initialization;
 using Asteroids.MetaLayer.MVVM;
 using Asteroids.MetaLayer.Views.StartView;
 using Asteroids.ServiceLayer.Factories;
@@ -35,9 +36,10 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             var gameObjectsFactory = Locator.Instance.Resolver.Resolve<IObjectsFactory<GameObject>>();
             var gameplayInitStrategy = Locator.Instance.Resolver.Resolve<GameplayInitializationStrategy>();
 
-            var uiInitializer = new UIInitializer(new[]
+            var uiInitializer = new UIInitializer(new IInitializationHandler<UIView, IUIContext>[]
             {
                 new StartViewInitializationHandler(),
+                new AttemptsViewInitializationHandler()
             });
 
             var uiFactory = new UIFactory(gameObjectsFactory, uiInitializer, _uiRoot);

@@ -1,22 +1,22 @@
 ﻿using Asteroids.IoC;
 using Asteroids.MetaLayer.Initialization;
 using Asteroids.MetaLayer.MVVM;
-using Asteroids.MetaLayer.Views.StartView;
+using Asteroids.MetaLayer.Views.AttemptsView;
 using Asteroids.SimulationLayer.Initialization;
 
 namespace Asteroids.ServiceLayer.Initialization.Handlers.Meta
 {
-    public class StartViewInitializationHandler : IInitializationHandler<UIView, IUIContext>
+    public class AttemptsViewInitializationHandler : IInitializationHandler<UIView, IUIContext>
     {
         public IInitializationHandler<UIView, IUIContext> Next { get; set; }
         
         public void HandleInitialization(UIView @object, IUIContext context)
         {
-            if (@object is StartView startView && context is StartContext startContext)
+            if (@object is AttemptsView attemptsView)
             {
-                var model = Locator.Instance.Resolver.Resolve<StartModel>();
-                startView.Initialize(model);
-                startView.SetParent(startContext.Parent);
+                var model = Locator.Instance.Resolver.Resolve<AttemptsModel>();
+                attemptsView.Initialize(model);
+                attemptsView.SetParent(context.Parent);
                 return;
             }
             
@@ -25,13 +25,13 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers.Meta
 
         public void HandleDeinitialization(UIView @object)
         {
-            if (@object is StartView startView)
+            if (@object is AttemptsView attemptsView)
             {
-                startView.Deinitialize();
+                attemptsView.Deinitialize();
                 return;
             }
             
-            Next?.HandleDeinitialization(@object);
+            Next.HandleDeinitialization(@object);
         }
     }
 }

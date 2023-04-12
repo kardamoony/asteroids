@@ -36,7 +36,6 @@ namespace Asteroids.SimulationLayer.Scene
             Locator.Instance.Container.RegisterInstance(gameplayInitStrategy);
             
             new MetaInitializationStrategy(_uiRoot).Initialize();
-            //new GameplayInitializationStrategy(_assetsMap, _gameplaySettings).Initialize();
         }
     }
 }

@@ -14,6 +14,8 @@ namespace Asteroids.MetaLayer.MVVM
     {
         protected TViewModel ViewModel;
         protected bool Initialized { get; private set; }
+        
+        protected bool IsShown { get; private set; }
 
         public void Initialize(TModel model)
         {
@@ -32,10 +34,12 @@ namespace Asteroids.MetaLayer.MVVM
         {
             gameObject.SetActive(true);
             OnShown();
+            IsShown = true;
         }
 
         public void Hide()
         {
+            IsShown = false;
             gameObject.SetActive(false);
             OnHidden();
         }

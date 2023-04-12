@@ -5,14 +5,14 @@ using Asteroids.SimulationLayer.Initialization;
 
 namespace Asteroids.ServiceLayer.Initialization
 {
-    public class UIInitializer : IInitializer<UIView, UIContext>
+    public class UIInitializer : IInitializer<UIView, IUIContext>
     {
         public event Action<UIView> OnObjectInitialized;
         public event Action<UIView> OnObjectDenitialized;
         
-        private readonly IInitializationHandler<UIView, UIContext> _handler;
+        private readonly IInitializationHandler<UIView, IUIContext> _handler;
 
-        public UIInitializer(IInitializationHandler<UIView, UIContext>[] handlers)
+        public UIInitializer(IInitializationHandler<UIView, IUIContext>[] handlers)
         {
             _handler = handlers[0];
             
@@ -22,7 +22,7 @@ namespace Asteroids.ServiceLayer.Initialization
             }
         }
         
-        public void InitializeObject(UIView @object, UIContext context)
+        public void InitializeObject(UIView @object, IUIContext context)
         {
             _handler.HandleInitialization(@object, context);
             OnObjectInitialized?.Invoke(@object);
