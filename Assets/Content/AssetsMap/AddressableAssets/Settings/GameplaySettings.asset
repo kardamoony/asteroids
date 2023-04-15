@@ -39,7 +39,7 @@ MonoBehaviour:
     - Id: SpawnDelay
       Value: 5
     - Id: MaxCount
-      Value: 5
+      Value: 10
     - Id: Health
       Value: 1
     - Id: Damage

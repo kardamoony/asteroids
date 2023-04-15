@@ -1,5 +1,6 @@
 ﻿using Asteroids.CoreLayer.Factories;
 using Asteroids.SimulationLayer.Entities;
+using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
@@ -17,20 +18,22 @@ namespace Asteroids.SimulationLayer.Strategies
 
         public override void Execute(ISpawner entity, float deltaTime)
         {
-            if (_playerSpawned || Attempts < 1)
+            if (_playerSpawned)
             {
                 return;
             }
             
-            _playerSpawned = true;
-
             if (_initialSpawnOccured)
             {
-                Attempts -= 1;
+                Attempts = Mathf.Max(0, Attempts - 1);
             }
 
             _initialSpawnOccured = true;
-     
+            
+            if (Attempts < 1) return;
+            
+            _playerSpawned = true;
+            
             //TODO: add small respawn delay
             Factory.Get<IPlayer>(AssetId, player =>
             {
