@@ -4,6 +4,6 @@ namespace Asteroids.MetaLayer.Initialization
 {
     public class UIContext : IUIContext
     {
-        public Transform Parent { get; }
+        public Transform Parent { get; set; }
     }
 }

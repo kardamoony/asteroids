@@ -6,6 +6,7 @@ using Asteroids.CoreLayer.Services;
 using Asteroids.IoC;
 using Asteroids.MetaLayer.MVVM;
 using Asteroids.MetaLayer.Views.AttemptsView;
+using Asteroids.MetaLayer.Views.ScoreView;
 using Asteroids.ServiceLayer.Factories;
 using Asteroids.ServiceLayer.Initialization.Handlers.Gameplay;
 using Asteroids.ServiceLayer.Settings;
@@ -22,13 +23,13 @@ using Object = UnityEngine.Object;
 
 namespace Asteroids.ServiceLayer.Initialization.Strategies
 {
-    public class GameplayInitializationStrategy : IInitializationStrategy
+    public class SinglePlayerInitializationStrategy : IInitializationStrategy
     {
         private readonly ISettingsProvider _settings;
         private GameObject _root;
         private IInputProvider _playerInput;
         
-        public GameplayInitializationStrategy(GameplaySettings gameplaySettings)
+        public SinglePlayerInitializationStrategy(GameplaySettings gameplaySettings)
         {
             _settings = new SettingsProvider(gameplaySettings, new ISettingsConverter[]
             {
@@ -37,7 +38,8 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
                 new BoolSettingsConverter(),
                 new IntSettingsConverter(),
                 new Vector2SettingsConverter(),
-                new TimeSpanSettingConverter()
+                new TimeSpanSettingConverter(),
+                new UintSettingsConverter()
             });
         }
         
@@ -70,6 +72,8 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
         {
             var container = Locator.Instance.Container;
             var resolver = Locator.Instance.Resolver;
+            
+            var playerId = 1U;
 
             var gameObjectsFactory = resolver.Resolve<IObjectsFactory<GameObject>>();
             var initializer = CreateEntityInitializer(gameObjectsFactory);
@@ -104,13 +108,16 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             container.RegisterInstance(new EntityLifespanSystem(entityFactory));
             container.RegisterInstance(new HealthSystem(entityFactory));
 
+            var scoreStrategy = new ScoreCountingStrategy(playerId);
+            container.RegisterInstance(new ScoreCountingSystem(scoreStrategy));
+
             var playerSpawnStrategy = new PlayerSpawnStrategy(triesCount, AssetId.Player.ToString(), entityFactory);
             container.RegisterInstance(new PlayerSpawnSystem(playerSpawnStrategy));
 
             //entities
             var projectileLifeTime = _settings.GetValue<TimeSpan>(Projectile.LifeTime);
-            
-            container.Register<IPlayer>(_ => new PlayerEntity(_settings, TimeSpan.Zero));
+
+            container.Register<IPlayer>(_ => new PlayerEntity(playerId, _settings, TimeSpan.Zero));
             container.Register<IProjectile>(_ => new ProjectileEntity(_settings, projectileLifeTime));
             
             //TODO: IAsteroid
@@ -121,12 +128,14 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             
             //UI
             Locator.Instance.Container.RegisterInstance(new AttemptsModel(gameObjectsFactory, playerSpawnStrategy));
+            Locator.Instance.Container.RegisterInstance(new ScoreModel(scoreStrategy));
         }
 
         private void CreateUI()
         {
             var factory = Locator.Instance.Resolver.Resolve<IObjectsFactory<UIView>>();
             factory.Get<AttemptsView>(AssetId.AttemptsView.ToString(), o => { o.Show(); });
+            factory.Get<ScoreView>(AssetId.ScoreView.ToString(), o => { o.Show(); });
         }
 
         private void CreateSpawners()
@@ -144,6 +153,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
 
             var updateSystems = new List<IUpdateSystem>()
             {
+                Locator.Instance.Resolver.Resolve<ScoreCountingSystem>(),
                 Locator.Instance.Resolver.Resolve<RotationSystem>(),
                 Locator.Instance.Resolver.Resolve<ProjectileSpawnSystem>(),
                 Locator.Instance.Resolver.Resolve<AsteroidSpawnSystem>(),
@@ -177,7 +187,8 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
                 new AsteroidMovementInitializationHandler(),
                 new AsteroidSpawnerInitializationHandler(),
                 
-                new DestructableInitializationHandler()
+                new DestructableInitializationHandler(),
+                new ScoreProducerInitializationHandler(),
             }, factory);
         }
     }

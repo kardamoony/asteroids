@@ -8,6 +8,6 @@ namespace Asteroids.SimulationLayer.Entities.Containers
         void Register(TEntity entity, TContext context);
         void Unregister(TEntity entity);
         void Foreach(Action<TEntity, TContext> action);
-        void Update();
+        void Update(Action<TEntity, TContext> action);
     }
 }

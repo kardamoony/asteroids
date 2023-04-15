@@ -12,11 +12,11 @@ namespace Asteroids.ServiceLayer.Initialization.Handlers.Meta
         
         public void HandleInitialization(UIView @object, IUIContext context)
         {
-            if (@object is StartView startView && context is StartContext startContext)
+            if (@object is StartView startView)
             {
                 var model = Locator.Instance.Resolver.Resolve<StartModel>();
                 startView.Initialize(model);
-                startView.SetParent(startContext.Parent);
+                startView.SetParent(context.Parent);
                 return;
             }
             

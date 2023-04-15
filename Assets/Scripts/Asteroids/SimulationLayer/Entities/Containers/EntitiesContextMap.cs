@@ -28,10 +28,12 @@ namespace Asteroids.SimulationLayer.Entities.Containers
             }
         }
 
-        public void Update()
+        public void Update(Action<TEntity, TContext> action)
         {
             AddPending();
             RemovePending();
+            
+            Foreach(action);
         }
 
         private void AddPending()

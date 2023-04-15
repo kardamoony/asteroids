@@ -14,8 +14,7 @@ namespace Asteroids.SimulationLayer.GameSystems
         
         public void Update(float deltaTime)
         {
-            Entities.Update();
-            Entities.Foreach(entity => _strategy.Execute(entity, deltaTime));
+            Entities.Update(entity => _strategy.Execute(entity, deltaTime));
         }
     }
 }

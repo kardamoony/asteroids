@@ -15,8 +15,7 @@ namespace Asteroids.SimulationLayer.GameSystems
 
         public void FixedUpdate(float fixedDeltaTime)
         {
-            EntitiesContextMap.Update();
-            EntitiesContextMap.Foreach((entity, input) => _strategy.Execute(entity, input, fixedDeltaTime));
+            EntitiesContextMap.Update((entity, input) => _strategy.Execute(entity, input, fixedDeltaTime));
         }
     }
 }

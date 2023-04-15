@@ -1,4 +1,4 @@
-﻿namespace Asteroids.SimulationLayer.Entities
+﻿namespace Asteroids.SimulationLayer.Providers
 {
     public interface IPlayerAttemptsProvider
     { 

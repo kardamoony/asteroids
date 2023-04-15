@@ -15,9 +15,7 @@ namespace Asteroids.SimulationLayer.GameSystems
         
         public void Update(float deltaTime)
         {
-            Entities.Update();
-            
-            Entities.Foreach(entity =>
+            Entities.Update(entity =>
             {
                 if (entity.LifeTimeSpan.Equals(default))
                 {

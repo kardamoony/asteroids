@@ -2,6 +2,7 @@
 {
     public interface IPlayer
     {
+        uint Id { get; }
         IMovable Movable { get; }
         IRotatable Rotatable { get; }
         ICollidable Collidable { get; }

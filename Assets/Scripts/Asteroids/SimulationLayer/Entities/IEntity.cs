@@ -8,6 +8,7 @@ namespace Asteroids.SimulationLayer.Entities
         event Action<IEntity> OnDeinitialized;
 
         IEntityView EntityView { get; }
+        IEntity Owner { get; set; }
         
         bool Initialized { get; }
         

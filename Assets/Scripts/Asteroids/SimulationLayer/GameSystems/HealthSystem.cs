@@ -14,9 +14,7 @@ namespace Asteroids.SimulationLayer.GameSystems
         
         public void Update(float deltaTime)
         {
-            Entities.Update();
-            
-            Entities.Foreach(e =>
+            Entities.Update(e =>
             {
                 if (e.Health <= 0)
                 {

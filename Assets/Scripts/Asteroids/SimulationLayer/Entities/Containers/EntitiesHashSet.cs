@@ -19,10 +19,12 @@ namespace Asteroids.SimulationLayer.Entities.Containers
             _entitiesToRemove.Remove(entity);
         }
 
-        public void Update()
+        public void Update(Action<TEntity> action)
         {
             AddPending();
             RemovePending();
+            
+            Foreach(action);
         }
         
         private void AddPending()

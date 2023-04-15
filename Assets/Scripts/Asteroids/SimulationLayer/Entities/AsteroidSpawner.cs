@@ -8,6 +8,7 @@ namespace Asteroids.SimulationLayer.Entities
     public class AsteroidSpawner : Entity, ISpawner
     {
         public event Action<string, GameObject> OnSpawned;
+        public IEntity SpawnOwner => null;
         public float SpawnDelay { get; private set;}
         public int MaxCount { get; private set;}
         

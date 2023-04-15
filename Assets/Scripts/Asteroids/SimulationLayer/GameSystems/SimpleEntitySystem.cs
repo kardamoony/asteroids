@@ -12,12 +12,12 @@ namespace Asteroids.SimulationLayer.GameSystems
             Entities = new EntitiesHashSet<TEntity>();
         }
 
-        public void Register(TEntity entity)
+        public virtual void Register(TEntity entity)
         {
             Entities.Register(entity);
         }
 
-        public void Unregister(TEntity entity)
+        public virtual void Unregister(TEntity entity)
         {
             Entities.Unregister(entity);
         }

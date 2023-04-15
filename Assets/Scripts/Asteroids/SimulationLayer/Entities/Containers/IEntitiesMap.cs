@@ -6,7 +6,7 @@ namespace Asteroids.SimulationLayer.Entities.Containers
     {
         void Register(TEntity entity);
         void Unregister(TEntity entity);
-        void Update();
+        void Update(Action<TEntity> action);
         void Foreach(Action<TEntity> action);
     }
 }

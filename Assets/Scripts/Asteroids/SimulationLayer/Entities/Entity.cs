@@ -11,6 +11,8 @@ namespace Asteroids.SimulationLayer.Entities
         public event Action<IEntity> OnDeinitialized;
         
         public IEntityView EntityView { get; private set; }
+        
+        public IEntity Owner { get; set; }
 
         public bool Initialized => EntityView != null;
         public DateTime InitializationTime { get; set; }
@@ -22,7 +24,7 @@ namespace Asteroids.SimulationLayer.Entities
             SettingsProvider = settingsProvider;
             LifeTimeSpan = lifeTimeSpan;
         }
-
+        
         public void Initialize(IEntityView entityView)
         {
             InitializeInternal();

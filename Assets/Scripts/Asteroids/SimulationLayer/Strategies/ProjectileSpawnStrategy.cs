@@ -21,6 +21,7 @@ namespace Asteroids.SimulationLayer.Strategies
             Factory.Get<IProjectile>(AssetId, spawnedEntity =>
             {
                 var e = (IEntity)spawnedEntity;
+                e.Owner = entity.SpawnOwner;
                 entity.InvokeSpawnedEvent(e.EntityView.GameObject, AssetId);
             });
 

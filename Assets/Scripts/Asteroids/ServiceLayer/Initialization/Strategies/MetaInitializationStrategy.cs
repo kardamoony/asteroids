@@ -34,12 +34,13 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
         private void RegisterDependencies()
         {
             var gameObjectsFactory = Locator.Instance.Resolver.Resolve<IObjectsFactory<GameObject>>();
-            var gameplayInitStrategy = Locator.Instance.Resolver.Resolve<GameplayInitializationStrategy>();
+            var gameplayInitStrategy = Locator.Instance.Resolver.Resolve<SinglePlayerInitializationStrategy>();
 
             var uiInitializer = new UIInitializer(new IInitializationHandler<UIView, IUIContext>[]
             {
                 new StartViewInitializationHandler(),
-                new AttemptsViewInitializationHandler()
+                new AttemptsViewInitializationHandler(), 
+                new ScoreViewInitializationHandler(),
             });
 
             var uiFactory = new UIFactory(gameObjectsFactory, uiInitializer, _uiRoot);

@@ -15,7 +15,7 @@ namespace Asteroids.SimulationLayer.Entities
         public ProjectileEntity(ISettingsProvider settingsProvider, TimeSpan lifeTime) : base(settingsProvider, lifeTime)
         {
         }
-
+        
         public void HandleCollisionEnter(ICollidable other)
         {
             Health = 0;

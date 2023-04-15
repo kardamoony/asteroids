@@ -29,7 +29,7 @@ namespace Asteroids.SimulationLayer.Scene
             
             var addressableService = new AddressableService(_assetsMap);
             var gameObjectsFactory = new GameObjectsFactory(addressableService, _poolParent);
-            var gameplayInitStrategy = new GameplayInitializationStrategy(_gameplaySettings);
+            var gameplayInitStrategy = new SinglePlayerInitializationStrategy(_gameplaySettings);
             
             Locator.Instance.Container.RegisterInstance<IAddressableService>(addressableService);
             Locator.Instance.Container.RegisterInstance<IObjectsFactory<GameObject>>(gameObjectsFactory);

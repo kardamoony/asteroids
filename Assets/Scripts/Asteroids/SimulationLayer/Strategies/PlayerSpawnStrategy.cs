@@ -1,5 +1,6 @@
 ﻿using Asteroids.CoreLayer.Factories;
 using Asteroids.SimulationLayer.Entities;
+using Asteroids.SimulationLayer.Providers;
 using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Strategies

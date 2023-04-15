@@ -48,6 +48,8 @@ MonoBehaviour:
       Value: 3 7
     - Id: AsteroidAssetId
       Value: Asteroid
+    - Id: Score
+      Value: 10
   - Id: Projectile
     Settings:
     - Id: SpawnDelay

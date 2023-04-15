@@ -21,11 +21,12 @@ namespace Asteroids.ServiceLayer.Factories
             _uiRoot = uiRoot;
         }
         
+        //TODO: fix this
         public void Get<T>(string id, Action<T> callback)
         {
             _factory.Get<T>(id, view =>
             {
-                _initializer.InitializeObject(view as UIView, new StartContext{ Parent = _uiRoot });
+                _initializer.InitializeObject(view as UIView, new UIContext{ Parent = _uiRoot });
                 callback?.Invoke(view);
             });
         }

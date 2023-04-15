@@ -10,5 +10,6 @@ namespace Generated
         Damage,
         SpeedRange,
         AsteroidAssetId,
+        Score,
     }
 }

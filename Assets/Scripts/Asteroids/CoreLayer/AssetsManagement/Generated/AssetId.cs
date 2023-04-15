@@ -12,6 +12,7 @@ namespace Generated
         Projectile,
         GameplaySettings,
         AttemptsView,
+        ScoreView,
         StartView,
         PlayerAttemptWidget,
     }

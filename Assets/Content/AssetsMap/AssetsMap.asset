@@ -57,6 +57,12 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  - Id: ScoreView
+    AssetReference:
+      m_AssetGUID: ea63c89771bc7624a82233324eccb5a5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   - Id: StartView
     AssetReference:
       m_AssetGUID: 9aaa3bbb734bdb9408370c1fdb7fc18d

@@ -15,8 +15,7 @@ namespace Asteroids.SimulationLayer.GameSystems
         
         public void Update(float deltaTime)
         {
-            EntitiesContextMap.Update();
-            EntitiesContextMap.Foreach((spawner, input) => _strategy.Execute(spawner, input, deltaTime));
+            EntitiesContextMap.Update((spawner, input) => _strategy.Execute(spawner, input, deltaTime));
         }
     }
 }
