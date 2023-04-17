@@ -12,7 +12,7 @@ namespace Asteroids.SimulationLayer.GameSystems
             _factory = factory;
         }
         
-        public void Update(float deltaTime)
+        protected override void OnUpdated(float deltaTime)
         {
             Entities.Update(e =>
             {

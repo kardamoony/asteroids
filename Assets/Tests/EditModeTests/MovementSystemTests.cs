@@ -18,7 +18,7 @@ public class MovementSystemTests
         
         movementSystem.Register(Mock.Of<IMovable>(), Mock.Of<IInputProvider>());
         
-        movementSystem.FixedUpdate(1f);
+        movementSystem.Update(1f);
         
         modelMock.Verify();
     }
@@ -32,7 +32,7 @@ public class MovementSystemTests
 
         var movementSystem = new MovementSystem(modelMock.Object);
 
-        movementSystem.FixedUpdate(1f);
+        movementSystem.Update(1f);
         
         modelMock.Verify(m => m.Execute(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>()), Times.Never);
     }
@@ -51,7 +51,7 @@ public class MovementSystemTests
         movementSystem.Register(movable, Mock.Of<IInputProvider>());
         movementSystem.Unregister(movable);
 
-        movementSystem.FixedUpdate(1f);
+        movementSystem.Update(1f);
         
         modelMock.Verify(m => m.Execute(It.IsAny<IMovable>(), It.IsAny<IInputProvider>(), It.IsAny<float>()), Times.Never);
     }

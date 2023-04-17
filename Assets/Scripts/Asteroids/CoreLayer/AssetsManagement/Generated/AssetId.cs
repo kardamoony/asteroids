@@ -10,10 +10,11 @@ namespace Generated
         Player,
         PlayerSpawner,
         Projectile,
-        GameplaySettings,
         AttemptsView,
+        GameoverView,
         ScoreView,
-        StartView,
         PlayerAttemptWidget,
+        StartView,
+        GameplaySettings,
     }
 }

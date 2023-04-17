@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Asteroids.CoreLayer.Factories;
 using Asteroids.SimulationLayer.Entities;
+using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Strategies
 {
@@ -44,7 +45,7 @@ namespace Asteroids.SimulationLayer.Strategies
             return _spawnedEntities.Count < entity.MaxCount;
         }
 
-        private void HandleEntityDeinitialized(IEntity entity)
+        private void HandleEntityDeinitialized(IEntity entity, GameObject gameObject)
         {
             if (!_spawnedEntities.Contains(entity))
             {

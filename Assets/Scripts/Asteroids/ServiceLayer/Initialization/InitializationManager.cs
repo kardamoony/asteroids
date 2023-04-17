@@ -29,13 +29,13 @@ namespace Asteroids.SimulationLayer.Scene
             
             var addressableService = new AddressableService(_assetsMap);
             var gameObjectsFactory = new GameObjectsFactory(addressableService, _poolParent);
-            var gameplayInitStrategy = new SinglePlayerInitializationStrategy(_gameplaySettings);
+            var gameplayInitStrategy = new SinglePlayerModeStrategy(_gameplaySettings, _poolParent.gameObject);
             
             Locator.Instance.Container.RegisterInstance<IAddressableService>(addressableService);
             Locator.Instance.Container.RegisterInstance<IObjectsFactory<GameObject>>(gameObjectsFactory);
             Locator.Instance.Container.RegisterInstance(gameplayInitStrategy);
             
-            new MetaInitializationStrategy(_uiRoot).Initialize();
+            new MetaModeStrategy(_uiRoot, _poolParent.gameObject).Initialize();
         }
     }
 }

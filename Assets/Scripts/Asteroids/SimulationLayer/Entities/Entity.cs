@@ -1,5 +1,6 @@
 ﻿using System;
 using Asteroids.SimulationLayer.Settings;
+using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Entities
 {
@@ -7,8 +8,8 @@ namespace Asteroids.SimulationLayer.Entities
     {
         protected readonly ISettingsProvider SettingsProvider;
 
-        public event Action<IEntity> OnInitialized;
-        public event Action<IEntity> OnDeinitialized;
+        public event Action<IEntity, GameObject> OnInitialized;
+        public event Action<IEntity, GameObject> OnDeinitialized;
         
         public IEntityView EntityView { get; private set; }
         
@@ -29,13 +30,13 @@ namespace Asteroids.SimulationLayer.Entities
         {
             InitializeInternal();
             EntityView = entityView;
-            OnInitialized?.Invoke(this);
+            OnInitialized?.Invoke(this, EntityView.GameObject);
         }
 
         public void Denitialize()
         {
+            OnDeinitialized?.Invoke(this, EntityView.GameObject);
             EntityView = null;
-            OnDeinitialized?.Invoke(this);
         }
 
         protected abstract void InitializeInternal();

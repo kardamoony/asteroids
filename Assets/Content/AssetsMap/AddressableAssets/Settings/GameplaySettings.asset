@@ -33,7 +33,7 @@ MonoBehaviour:
     - Id: ProjectileAssetId
       Value: Projectile
     - Id: Tries
-      Value: 5
+      Value: 1
   - Id: Asteroid
     Settings:
     - Id: SpawnDelay

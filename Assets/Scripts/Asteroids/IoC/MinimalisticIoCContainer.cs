@@ -32,6 +32,19 @@ namespace Asteroids.IoC
             _instances.Add(type, instance);
         }
 
+        public void Unregister(Type type)
+        {
+            if (_instances.ContainsKey(type))
+            {
+                _instances.Remove(type);
+            }
+
+            if (_constructors.ContainsKey(type))
+            {
+                _constructors.Remove(type);
+            }
+        }
+
         public T Resolve<T>(params object[] args)
         {
             var type = typeof(T);

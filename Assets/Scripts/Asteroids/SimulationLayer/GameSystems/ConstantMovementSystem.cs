@@ -6,7 +6,6 @@ namespace Asteroids.SimulationLayer.GameSystems
     {
         public ConstantMovementSystem() : base(new ConstantMovement())
         {
-            
         }
     }
 }

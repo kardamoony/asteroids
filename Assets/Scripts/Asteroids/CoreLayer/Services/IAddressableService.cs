@@ -8,7 +8,7 @@ namespace Asteroids.CoreLayer.Services
     {
         void Initialize();
         void LoadAsync<TObject>(string id, Action<AsyncOperationHandle<TObject>> callback);
-        void Release<TObject>(TObject asset);
+        void Release(string id);
         void ReleaseInstance(GameObject instance);
     }
 }

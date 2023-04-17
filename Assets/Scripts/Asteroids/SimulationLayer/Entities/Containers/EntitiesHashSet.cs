@@ -6,8 +6,8 @@ namespace Asteroids.SimulationLayer.Entities.Containers
     public class EntitiesHashSet<TEntity> : IEntitiesMap<TEntity>
     {
         private readonly HashSet<TEntity> _entities = new HashSet<TEntity>();
-        private readonly List<TEntity> _entitiesToAdd = new List<TEntity>();
-        private readonly List<TEntity> _entitiesToRemove= new List<TEntity>();
+        private readonly HashSet<TEntity> _entitiesToAdd = new HashSet<TEntity>();
+        private readonly HashSet<TEntity> _entitiesToRemove = new HashSet<TEntity>();
 
         public void Register(TEntity entity)
         {
@@ -16,7 +16,7 @@ namespace Asteroids.SimulationLayer.Entities.Containers
 
         public void Unregister(TEntity entity)
         {
-            _entitiesToRemove.Remove(entity);
+            _entitiesToRemove.Add(entity);
         }
 
         public void Update(Action<TEntity> action)

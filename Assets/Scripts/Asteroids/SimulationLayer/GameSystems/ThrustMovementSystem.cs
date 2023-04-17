@@ -1,5 +1,4 @@
 using Asteroids.SimulationLayer.Strategies;
-using Asteroids.SimulationLayer.Settings;
 
 namespace Asteroids.SimulationLayer.GameSystems
 {
@@ -7,7 +6,6 @@ namespace Asteroids.SimulationLayer.GameSystems
     {
         public ThrustMovementSystem(float acceleration, float deceleration, float brake) : base(new ThrustMovement(acceleration, deceleration, brake))
         {
-            
         }
     }
 }

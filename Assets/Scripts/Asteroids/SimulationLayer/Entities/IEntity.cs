@@ -1,11 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Entities
 {
     public interface IEntity
     {
-        event Action<IEntity> OnInitialized;
-        event Action<IEntity> OnDeinitialized;
+        event Action<IEntity, GameObject> OnInitialized;
+        event Action<IEntity, GameObject> OnDeinitialized;
 
         IEntityView EntityView { get; }
         IEntity Owner { get; set; }

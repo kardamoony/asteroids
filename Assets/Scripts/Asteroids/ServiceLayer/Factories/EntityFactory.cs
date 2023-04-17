@@ -18,11 +18,11 @@ namespace Asteroids.ServiceLayer.Factories
             _initializer = initializer;
         }
         
-        public void Get<T>(string id, Action<T> callback)
+        public void Get<T>(string id, Action<T> callback, params object[] args)
         {
             _factory.Get<IEntityView>(id, view =>
             {
-                var product = Locator.Instance.Resolver.Resolve<T>();
+                var product = Locator.Instance.Resolver.Resolve<T>(args);
                 var entity = product as IEntity;
                 _initializer.InitializeObject(entity, view);
                 callback?.Invoke(product);
@@ -31,8 +31,7 @@ namespace Asteroids.ServiceLayer.Factories
 
         public void Release(IEntity obj, bool dispose)
         {
-            _initializer.DeinitializeObject(obj);
-            //TODO: entity pool
+            _initializer.DeinitializeObject(obj, dispose);
         }
     }
 }

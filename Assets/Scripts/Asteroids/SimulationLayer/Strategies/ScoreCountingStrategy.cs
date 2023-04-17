@@ -6,7 +6,6 @@ namespace Asteroids.SimulationLayer.Strategies
     public class ScoreCountingStrategy : IEntityStrategy<IScoreProducer>, IPlayerScoreProvider
     {
         private readonly uint _playerId;
-        
         public uint Score { get; private set; }
 
         public ScoreCountingStrategy(uint playerId)

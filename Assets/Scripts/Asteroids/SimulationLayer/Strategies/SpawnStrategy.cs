@@ -6,7 +6,6 @@ namespace Asteroids.SimulationLayer.Strategies
     public abstract class SpawnStrategy : IEntityStrategy<ISpawner>
     {
         protected readonly IObjectsFactory<IEntity> Factory;
-
         protected readonly string AssetId;
 
         protected SpawnStrategy(string assetId, IObjectsFactory<IEntity> factory)

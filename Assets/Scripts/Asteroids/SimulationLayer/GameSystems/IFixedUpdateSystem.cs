@@ -2,6 +2,7 @@
 {
     public interface IFixedUpdateSystem
     {
-        void FixedUpdate(float fixedDeltaTime);
+        void Update(float fixedDeltaTime);
+        void Deinitialize();
     }
 }

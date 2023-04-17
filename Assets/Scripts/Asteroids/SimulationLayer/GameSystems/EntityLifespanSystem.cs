@@ -13,7 +13,7 @@ namespace Asteroids.SimulationLayer.GameSystems
             _factory = factory;
         }
         
-        public void Update(float deltaTime)
+        protected override void OnUpdated(float deltaTime)
         {
             Entities.Update(entity =>
             {
@@ -29,6 +29,11 @@ namespace Asteroids.SimulationLayer.GameSystems
                     _factory.Release(entity, false);
                 }
             });
+        }
+
+        protected override void OnDeinitialized()
+        {
+            Entities.Foreach(e => _factory.Release(e, true));
         }
     }
 }

@@ -20,6 +20,21 @@ namespace Asteroids.SimulationLayer.Scene
             _initialized = true;
         }
 
+        public void Deinitialize()
+        {
+            _initialized = false;
+
+            foreach (var system in _updateSystems)
+            {
+                system.Deinitialize();
+            }
+
+            foreach (var system in _fixedUpdateSystems)
+            {
+                system.Deinitialize();
+            }
+        }
+
         private void Update()
         {
             if (!_initialized) return;
@@ -36,7 +51,7 @@ namespace Asteroids.SimulationLayer.Scene
             
             foreach (var system in _fixedUpdateSystems)
             {
-                system.FixedUpdate(Time.fixedDeltaTime);
+                system.Update(Time.fixedDeltaTime);
             }
         }
     }

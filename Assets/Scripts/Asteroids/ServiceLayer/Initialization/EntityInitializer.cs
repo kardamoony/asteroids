@@ -9,9 +9,6 @@ namespace Asteroids.ServiceLayer.Initialization
 {
     public class EntityInitializer : IInitializer<IEntity, IEntityView>
     {
-        public event Action<IEntity> OnObjectInitialized;
-        public event Action<IEntity> OnObjectDenitialized;
-        
         private readonly IInitializationHandler<IEntity, IEntityComponent> _handler;
         private readonly IObjectsFactory<GameObject> _factory;
 
@@ -45,10 +42,9 @@ namespace Asteroids.ServiceLayer.Initialization
             entityView.GameObject.SetActive(true);
 
             IoC.Locator.Instance.Resolver.Resolve<EntityLifespanSystem>().Register(entity);
-            OnObjectInitialized?.Invoke(entity);
         }
 
-        public void DeinitializeObject(IEntity @object)
+        public void DeinitializeObject(IEntity @object, bool dispose)
         {
             if (!@object.Initialized)
             {
@@ -66,9 +62,8 @@ namespace Asteroids.ServiceLayer.Initialization
                 component.ClearContext();
             }
 
-            _factory.Release(@object.EntityView.GameObject, false);
+            _factory.Release(@object.EntityView.GameObject, dispose);
             @object.Denitialize();
-            OnObjectDenitialized?.Invoke(@object);
         }
     }
 }

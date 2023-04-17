@@ -30,9 +30,10 @@ namespace Asteroids.CoreLayer.Services
             handle.Completed += callback;
         }
         
-        public void Release<TObject>(TObject asset)
+        public void Release(string id)
         {
-            Addressables.Release(asset);
+            var reference = GetAssetReference(id);
+            reference.ReleaseAsset();
         }
 
         public void ReleaseInstance(GameObject instance)

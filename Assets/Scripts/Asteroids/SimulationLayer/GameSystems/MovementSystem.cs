@@ -13,7 +13,7 @@ namespace Asteroids.SimulationLayer.GameSystems
             _strategy = strategy;
         }
 
-        public void FixedUpdate(float fixedDeltaTime)
+        protected override void OnUpdated(float fixedDeltaTime)
         {
             EntitiesContextMap.Update((entity, input) => _strategy.Execute(entity, input, fixedDeltaTime));
         }

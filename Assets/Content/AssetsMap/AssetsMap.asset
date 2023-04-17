@@ -45,15 +45,15 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Id: GameplaySettings
-    AssetReference:
-      m_AssetGUID: 6155cbf7257c872478b36405f584740c
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
   - Id: AttemptsView
     AssetReference:
       m_AssetGUID: 80f73f54781ea094e92d47ecd4e6a4b8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Id: GameoverView
+    AssetReference:
+      m_AssetGUID: ce8000a064b53ba439d636fca297b1c1
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -63,15 +63,21 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  - Id: PlayerAttemptWidget
+    AssetReference:
+      m_AssetGUID: 12704ba034299b240b5d72d85f30540c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   - Id: StartView
     AssetReference:
       m_AssetGUID: 9aaa3bbb734bdb9408370c1fdb7fc18d
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Id: PlayerAttemptWidget
+  - Id: GameplaySettings
     AssetReference:
-      m_AssetGUID: 12704ba034299b240b5d72d85f30540c
+      m_AssetGUID: 6155cbf7257c872478b36405f584740c
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

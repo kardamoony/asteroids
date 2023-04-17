@@ -1,7 +1,7 @@
 ﻿using Asteroids.IoC;
-using Asteroids.MetaLayer.Initialization;
-using Asteroids.MetaLayer.MVVM;
-using Asteroids.MetaLayer.Views.ScoreView;
+using Asteroids.UILayer.Initialization;
+using Asteroids.UILayer.MVVM;
+using Asteroids.UILayer.Views.ScoreView;
 using Asteroids.SimulationLayer.Initialization;
 
 namespace Asteroids.ServiceLayer.Initialization.Handlers.Meta
