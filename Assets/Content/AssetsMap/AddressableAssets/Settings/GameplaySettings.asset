@@ -19,7 +19,7 @@ MonoBehaviour:
     - Id: Speed
       Value: 20
     - Id: AngularSpeed
-      Value: 200
+      Value: 250
     - Id: Acceleration
       Value: 10
     - Id: Deceleration
@@ -33,7 +33,7 @@ MonoBehaviour:
     - Id: ProjectileAssetId
       Value: Projectile
     - Id: Tries
-      Value: 1
+      Value: 10
   - Id: Asteroid
     Settings:
     - Id: SpawnDelay
