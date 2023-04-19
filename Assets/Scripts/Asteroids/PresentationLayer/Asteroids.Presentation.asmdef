@@ -2,7 +2,9 @@
     "name": "Asteroids.Presentation",
     "rootNamespace": "",
     "references": [
-        "GUID:adcf53bb11ae3d14cabbd6faefd92d01"
+        "GUID:adcf53bb11ae3d14cabbd6faefd92d01",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
