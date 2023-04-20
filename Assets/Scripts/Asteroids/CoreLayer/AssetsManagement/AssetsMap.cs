@@ -31,7 +31,8 @@ namespace Asteroids.CoreLayer.AssetsManagement
 
             return map;
         }
-        
+
+#if UNITY_EDITOR
         public void CollectAssets()
         {
             if (Application.isPlaying) return;
@@ -55,6 +56,7 @@ namespace Asteroids.CoreLayer.AssetsManagement
 
             EditorUtility.SetDirty(this);
         }
+#endif
 
     }
 }

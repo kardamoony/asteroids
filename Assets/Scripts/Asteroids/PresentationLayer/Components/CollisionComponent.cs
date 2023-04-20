@@ -9,6 +9,7 @@ namespace Asteroids.PresentationLayer.Components
         private void OnCollisionEnter(Collision collision)
         {
             if (!Initialized) return;
+            Context.Collision = collision;
             var other = collision.gameObject.GetComponent<CollisionComponent>();
             Context.HandleCollisionEnter(other.Context);
         }

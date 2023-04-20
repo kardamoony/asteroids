@@ -120,18 +120,23 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
             RegisterInstance(new AsteroidSpawnSystem(entityFactory));
             RegisterInstance(new EntityLifespanSystem(entityFactory));
             RegisterInstance(new HealthSystem(entityFactory));
+            RegisterInstance(new ExplosionSpawnSystem(entityFactory));
 
             var scoreStrategy = new ScoreCountingStrategy(playerId);
             RegisterInstance(new ScoreCountingSystem(scoreStrategy));
 
-            var playerSpawnStrategy = new PlayerSpawnStrategy(playerId, triesCount, AssetId.Player.ToString(), entityFactory);
+            var playerRepawnDelay = _settings.GetValue<float>(Player.RespawnDelay);
+
+            var playerSpawnStrategy = new PlayerSpawnStrategy(playerId, triesCount, playerRepawnDelay, AssetId.Player.ToString(), entityFactory);
             RegisterInstance(new PlayerSpawnSystem(playerSpawnStrategy));
 
             //entities
             var projectileLifeTime = _settings.GetValue<TimeSpan>(Projectile.LifeTime);
+            var explosionLifeTime = _settings.GetValue<TimeSpan>(Explosion.LifeTime);
 
             RegisterConstructor<IPlayer>(args => new PlayerEntity((uint)args[0], _settings, TimeSpan.Zero));
             RegisterConstructor<IProjectile>(_ => new ProjectileEntity(_settings, projectileLifeTime));
+            RegisterConstructor<ISpawnable>(_ => new ExplosionEntity(_settings, explosionLifeTime));
             
             //TODO: IAsteroid
             RegisterConstructor<AsteroidEntity>(_ => new AsteroidEntity(_settings, TimeSpan.Zero));
@@ -166,6 +171,7 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
 
             var updateSystems = new List<IUpdateSystem>()
             {
+                Locator.Instance.Resolver.Resolve<ExplosionSpawnSystem>(),
                 Locator.Instance.Resolver.Resolve<ScoreCountingSystem>(),
                 Locator.Instance.Resolver.Resolve<RotationSystem>(),
                 Locator.Instance.Resolver.Resolve<ProjectileSpawnSystem>(),
@@ -191,8 +197,10 @@ namespace Asteroids.ServiceLayer.Initialization.Strategies
                 new PlayerMovementInitializationHandler(),
                 new PlayerRotationInitializationHandler(),
                 new PlayerSpawnerInitializationHandler(),
+                new SpawnableInitializationHandler(),
                 
                 new CollisionInitializationHandler(),
+                new ExplodableInitializationHandler(),
                 
                 new ProjectileMovementInitializationHandler(),
                 new ProjectileSpawnerInitializationHandler(),

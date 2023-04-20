@@ -9,17 +9,21 @@ namespace Asteroids.SimulationLayer.Strategies
     public class PlayerSpawnStrategy : SpawnStrategy, IPlayerAttemptsProvider
     {
         private readonly uint _playerId;
+        private readonly float _delay;
         
         private bool _playerSpawned;
         private bool _firstSpawnOccured;
         private IEntity _player;
+        private float _timer;
 
         public event Action<uint> OnPlayerGameOver;
         public int Attempts { get; private set; }
 
-        public PlayerSpawnStrategy(uint playerId, int attempts, string assetId, IObjectsFactory<IEntity> factory) : base(assetId, factory)
+        public PlayerSpawnStrategy(uint playerId, int attempts, float delay, string assetId, IObjectsFactory<IEntity> factory) : base(assetId, factory)
         {
             _playerId = playerId;
+            _delay = delay;
+            _timer = delay;
             Attempts = attempts;
         }
 
@@ -29,9 +33,16 @@ namespace Asteroids.SimulationLayer.Strategies
             {
                 return;
             }
-            
+
             if (_firstSpawnOccured)
             {
+                if (_timer > float.Epsilon)
+                {
+                    _timer -= deltaTime;
+                    return;
+                }
+
+                _timer = _delay;
                 Attempts = Mathf.Max(0, Attempts - 1);
             }
 
@@ -42,10 +53,9 @@ namespace Asteroids.SimulationLayer.Strategies
                 OnPlayerGameOver?.Invoke(_playerId);
                 return;
             }
-            
+
             _playerSpawned = true;
             
-            //TODO: add small respawn delay
             Factory.Get<IPlayer>(AssetId, player =>
             {
                 _player= (IEntity)player;

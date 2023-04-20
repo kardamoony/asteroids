@@ -15,12 +15,12 @@ namespace Asteroids.SimulationLayer.GameSystems
             Initialized = true;
         }
 
-        public void Register(TEntity entity)
+        public virtual void Register(TEntity entity)
         {
             Entities.Register(entity);
         }
 
-        public void Unregister(TEntity entity)
+        public virtual void Unregister(TEntity entity)
         {
             Entities.Unregister(entity);
         }

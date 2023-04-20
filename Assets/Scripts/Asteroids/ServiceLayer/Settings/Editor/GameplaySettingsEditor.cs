@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+
+using UnityEditor;
 using UnityEngine;
 
 namespace Asteroids.ServiceLayer.Settings.Editor
@@ -28,3 +30,5 @@ namespace Asteroids.ServiceLayer.Settings.Editor
         }
     }
 }
+
+#endif

@@ -78,6 +78,7 @@ namespace Asteroids.UILayer.Views.AttemptsView
         {
             _attempts.Add(t);
             t.SetParent(_layoutTransform);
+            t.localScale = Vector3.one;
         }
 
         private void Update()

@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+
+using UnityEditor;
 using UnityEngine;
 
 namespace Asteroids.CoreLayer.AssetsManagement.Editor
@@ -74,3 +76,5 @@ namespace Asteroids.CoreLayer.AssetsManagement.Editor
         }
     }
 }
+
+#endif

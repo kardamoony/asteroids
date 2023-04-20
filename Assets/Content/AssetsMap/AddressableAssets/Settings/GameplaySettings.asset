@@ -34,6 +34,10 @@ MonoBehaviour:
       Value: Projectile
     - Id: Tries
       Value: 10
+    - Id: ExplosionAsset
+      Value: Explosion
+    - Id: RespawnDelay
+      Value: 0,8
   - Id: Asteroid
     Settings:
     - Id: SpawnDelay
@@ -50,6 +54,8 @@ MonoBehaviour:
       Value: Asteroid
     - Id: Score
       Value: 10
+    - Id: ExplosionAsset
+      Value: Explosion
   - Id: Projectile
     Settings:
     - Id: SpawnDelay
@@ -62,3 +68,7 @@ MonoBehaviour:
       Value: 20
     - Id: LifeTime
       Value: 00:00:10
+  - Id: Explosion
+    Settings:
+    - Id: LifeTime
+      Value: 00:00:02

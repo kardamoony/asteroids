@@ -27,6 +27,12 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  - Id: Explosion
+    AssetReference:
+      m_AssetGUID: 73db7cd29e1130440ba9f250a2442dad
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   - Id: Player
     AssetReference:
       m_AssetGUID: 7fa4419f91a0d0941b9c153ca8ffbfa4

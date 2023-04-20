@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5946358562303296844
 Transform:
   m_ObjectHideFlags: 0
@@ -147,7 +147,7 @@ GameObject:
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1324946789304720873
 Transform:
   m_ObjectHideFlags: 0
@@ -278,7 +278,7 @@ GameObject:
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1885542424157689643
 Transform:
   m_ObjectHideFlags: 0
@@ -408,6 +408,7 @@ GameObject:
   - component: {fileID: 9040556727398930957}
   - component: {fileID: 5895685285098313261}
   - component: {fileID: 4464714721295699324}
+  - component: {fileID: 7938767663438128911}
   - component: {fileID: 1561879621758540096}
   - component: {fileID: 2638592164658535010}
   - component: {fileID: 1370419299447924848}
@@ -453,6 +454,7 @@ MonoBehaviour:
   - {fileID: 9040556727398930957}
   - {fileID: 5895685285098313261}
   - {fileID: 4464714721295699324}
+  - {fileID: 7938767663438128911}
 --- !u!114 &4180511299050310344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,6 +535,18 @@ MonoBehaviour:
   _onDestruction:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7938767663438128911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180511299050310347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d49b934f4b45c18ab5f321ba0e5d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1561879621758540096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,7 +666,7 @@ GameObject:
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4047507471704021246
 Transform:
   m_ObjectHideFlags: 0

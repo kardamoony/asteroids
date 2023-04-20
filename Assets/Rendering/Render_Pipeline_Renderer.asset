@@ -48,7 +48,7 @@ MonoBehaviour:
     zFailOperation: 0
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
-  m_DepthPrimingMode: 0
+  m_DepthPrimingMode: 1
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_ClusteredRendering: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c95538de5a0b1e4186980f7406dc1bd, type: 3}
   m_Name: RenderWithMaterialFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
-  _renderPassEvent: 550
+  m_Active: 0
+  _renderPassEvent: 600
   _material: {fileID: 2100000, guid: ebaec986a725af34b88c79c1e278b319, type: 2}
   _textureId: _tmpTexture

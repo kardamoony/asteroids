@@ -13,5 +13,7 @@ namespace Generated
         Damage,
         ProjectileAssetId,
         Tries,
+        ExplosionAsset,
+        RespawnDelay,
     }
 }

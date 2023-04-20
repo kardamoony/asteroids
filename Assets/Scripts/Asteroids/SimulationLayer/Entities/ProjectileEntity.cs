@@ -1,6 +1,7 @@
 ﻿using System;
 using Asteroids.SimulationLayer.Settings;
 using Generated;
+using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Entities
 {
@@ -11,6 +12,7 @@ namespace Asteroids.SimulationLayer.Entities
         public float Velocity { get; set; }
         public int Health { get; private set; }
         public int Damage { get; private set; }
+        public Collision Collision { get; set; }
 
         public ProjectileEntity(ISettingsProvider settingsProvider, TimeSpan lifeTime) : base(settingsProvider, lifeTime)
         {

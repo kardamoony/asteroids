@@ -11,5 +11,6 @@ namespace Generated
         SpeedRange,
         AsteroidAssetId,
         Score,
+        ExplosionAsset,
     }
 }

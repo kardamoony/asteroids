@@ -26,6 +26,7 @@ namespace Asteroids.ServiceLayer.Settings
         
         public SettingsScope[] Settings;
 
+#if UNITY_EDITOR
         public void GenerateIds()
         {
             foreach (var scope in Settings)
@@ -43,5 +44,6 @@ namespace Asteroids.ServiceLayer.Settings
                 generator.ToString().SaveToFile(_settingsDescriptionFolder, enumName, "cs");
             }
         }
+ #endif
     }
 }

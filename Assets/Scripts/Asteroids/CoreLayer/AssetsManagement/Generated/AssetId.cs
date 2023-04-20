@@ -7,6 +7,7 @@ namespace Generated
         None,
         Asteroid,
         AsteroidSpawner,
+        Explosion,
         Player,
         PlayerSpawner,
         Projectile,

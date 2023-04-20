@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Asteroids.SimulationLayer.Entities
 {
-    public sealed class PlayerEntity : Entity, IPlayer, IMovable, IRotatable, ICollidable, IDestructable, ISpawner
+    public sealed class PlayerEntity : Entity, IPlayer, IMovable, IRotatable, ICollidable, IDestructable, ISpawner, IExplodable
     {
         public uint Id { get; }
         
@@ -29,10 +29,16 @@ namespace Asteroids.SimulationLayer.Entities
         //ICollidable
         public ICollidable Collidable => this;
         public int Damage { get; private set;}
+        public Collision Collision { get; set; }
 
         //IDestructable
         public IDestructable Destructable => this;
         public int Health { get; private set; }
+        
+        //IExplodable
+        public string ExplosionAssetId { get; private set; }
+        public Vector3 ExplosionPosition { get; private set; }
+        public bool Explode { get; set; }
         
         public PlayerEntity(uint id, ISettingsProvider settingsProvider, TimeSpan lifetime) : base(settingsProvider, lifetime)
         {
@@ -47,6 +53,12 @@ namespace Asteroids.SimulationLayer.Entities
         public void HandleCollisionEnter(ICollidable other)
         {
             Health -= other.Damage;
+            
+            if (Health < 1)
+            {
+                Explode = true;
+                ExplosionPosition = Collision.transform.position;
+            }
         }
 
         public void HandleCollisionExit(ICollidable other){}
@@ -59,6 +71,8 @@ namespace Asteroids.SimulationLayer.Entities
             AngularSpeed = SettingsProvider.GetValue<float>(Player.AngularSpeed);
             Health = SettingsProvider.GetValue<int>(Player.Health);
             Damage = SettingsProvider.GetValue<int>(Player.Damage);
+            ExplosionAssetId = SettingsProvider.GetValue<string>(Player.ExplosionAsset);
+            Explode = false;
         }
     }
 }

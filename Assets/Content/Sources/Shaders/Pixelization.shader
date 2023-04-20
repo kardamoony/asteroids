@@ -12,9 +12,7 @@ Shader "Kardamoony/Pixelization"
         Tags 
         {
             "Queue" = "Transparent"
-            "IgnoreProjector" = "True"
             "RenderType" = "Transparent"
-            "ForceNoShadowCasting" = "True"
             "RenderPipeline" = "UniversalPipeline"
         }
 
@@ -22,12 +20,11 @@ Shader "Kardamoony/Pixelization"
         {
             Blend SrcAlpha OneMinusSrcAlpha
             Fog { Mode Off }
-            ZWrite Off
+            ZWrite On
 
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma exclude_renderers nomrt
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 

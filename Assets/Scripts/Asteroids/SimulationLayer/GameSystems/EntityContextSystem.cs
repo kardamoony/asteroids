@@ -15,12 +15,12 @@ namespace Asteroids.SimulationLayer.GameSystems
             Initialized = true;
         }
  
-        public void Register(TEntity entity, TContext context)
+        public virtual void Register(TEntity entity, TContext context)
         {
             EntitiesContextMap.Register(entity, context);
         }
 
-        public void Unregister(TEntity entity)
+        public virtual void Unregister(TEntity entity)
         {
             EntitiesContextMap.Unregister(entity);
         }
