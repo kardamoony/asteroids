@@ -37,7 +37,7 @@ MonoBehaviour:
     - Id: ExplosionAsset
       Value: Explosion
     - Id: RespawnDelay
-      Value: 0,8
+      Value: 0
   - Id: Asteroid
     Settings:
     - Id: SpawnDelay
