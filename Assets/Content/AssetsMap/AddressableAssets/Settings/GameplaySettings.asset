@@ -33,7 +33,7 @@ MonoBehaviour:
     - Id: ProjectileAssetId
       Value: Projectile
     - Id: Tries
-      Value: 10
+      Value: 5
     - Id: ExplosionAsset
       Value: Explosion
     - Id: RespawnDelay

@@ -1,4 +1,5 @@
-﻿using Asteroids.UILayer.MVVM;
+﻿using System;
+using Asteroids.UILayer.MVVM;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,14 @@ namespace Asteroids.UILayer.Views.StartView
         {
             Hide();
             ViewModel.StartGameplay();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                OnStartClicked();
+            }
         }
     }
 }

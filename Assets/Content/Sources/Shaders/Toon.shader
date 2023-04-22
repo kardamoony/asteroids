@@ -14,6 +14,9 @@ Shader "Kardamoony/Toon"
 		_RimColor("Rim Color", Color) = (1,1,1,1)
 		_RimAmount("Rim Amount", Range(0, 1)) = 0.716
         _RimThreshold("Rim Threshold", Range(0, 1)) = 0.1
+    	
+    	[Space]
+        _Stencil("Stencil Ref", Integer) = 16
     }
 
     SubShader
@@ -22,6 +25,14 @@ Shader "Kardamoony/Toon"
         {
             "Queue" = "Geometry"
             "RenderPipeline" = "UniversalPipeline"
+        }
+    	
+    	Stencil 
+        {
+            Ref [_Stencil]
+            Comp Always
+            Pass Replace
+            ZFail Replace
         }
 
         Pass

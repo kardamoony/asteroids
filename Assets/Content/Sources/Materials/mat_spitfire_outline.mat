@@ -7,9 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_spitfire
-  m_Shader: {fileID: 4800000, guid: b9ffb881503cecb4fa973113b6044da3, type: 3}
-  m_ValidKeywords: []
+  m_Name: mat_spitfire_outline
+  m_Shader: {fileID: 4800000, guid: e69825d4015921d4ba85cdca688ac5b2, type: 3}
+  m_ValidKeywords:
+  - USE_PRECALCULATED_OUTLINE_NORMALS
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -82,10 +83,10 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _GlossMapScale: 1
     - _Glossiness: 2
     - _GlossinessSource: 0
@@ -94,6 +95,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _PrecalculateNormals: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _RimAmount: 0.4
@@ -104,14 +106,16 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _Surface: 0
+    - _Thickness: 0.002
     - _UVSec: 0
     - _ZWrite: 1
+    - _zTest: 4
     m_Colors:
     - _AmbientColor: {r: 0.14332502, g: 0.20591189, b: 0.5754717, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.95358497, g: 0.76792455, b: 1, a: 0.3764706}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0.31372547, g: 0.47793117, b: 1, a: 1}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

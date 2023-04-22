@@ -33,5 +33,13 @@ namespace Asteroids.UILayer.Views.GameoverView
             Hide();
             ViewModel.ExitToMenu();
         }
+        
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                HandleMenuButtonClicked();
+            }
+        }
     }
 }
